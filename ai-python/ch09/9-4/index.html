@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -4034,6 +4034,11 @@
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>dtype: float64
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>절편: 3.358
 </code></pre></div>
+<figure>
+  <img alt="선형회귀 계수 실행 화면" src="../../assets/img/ch09_colab_coef.png" />
+<br />
+<figcaption>그림 9-7 Colab에서 학습한 선형회귀 계수와 절편</figcaption>
+</figure>
 <h2 id="_3">계수의 해석<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4072,20 +4077,40 @@
 </tbody>
 </table>
 <p><code>temp_mean</code>의 계수가 음수인 결과는 "오늘이 따뜻할수록 내일이 춥다"는 의미가 아니다. 평균기온은 최고기온·최저기온과 거의 같은 정보를 담고 있으므로, 세 특징이 함께 입력되면 계수가 서로의 영향을 분담한다. 특징 사이의 상관이 높아 개별 계수를 독립적으로 해석할 수 없는 상태를 다중공선성(multicollinearity)이라고 한다. 세 기온 계수의 합(0.545 + 0.419 − 0.223 = 0.741)이 "오늘 기온 전체가 1℃ 높을 때의 증가량"에 가깝다.</p>
+<p>계수를 가로 막대그래프로 표시한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">coef</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"coefficient"</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="선형회귀 계수 막대그래프" src="../../assets/img/ch09_colab_coef_plot.png" />
+<br />
+<figcaption>그림 9-8 Colab에서 출력한 선형회귀 계수</figcaption>
+</figure>
+<p><code>doy_cos</code>의 막대가 가장 길지만, 이 결과만으로 가장 중요한 특징이라고 판단할 수는 없다. 계수의 크기는 특징의 단위에 좌우되기 때문이다. <code>doy_cos</code>는 −1~1 범위의 값이고 기온 특징은 −20~40 범위의 값이므로, 계수 크기는 단위가 같은 기온 특징끼리만 비교한다.</p>
 <h2 id="_4">예측<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>평가 데이터의 특징을 입력해 2025년의 다음 날 평균기온을 예측한다.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">features</span><span class="p">])</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"date"</span><span class="p">:</span> <span class="n">test</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="s2">"actual"</span><span class="p">:</span> <span class="n">test</span><span class="p">[</span><span class="s2">"target_temp"</span><span class="p">],</span> <span class="s2">"pred"</span><span class="p">:</span> <span class="n">pred</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)})</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">features</span><span class="p">])</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"date"</span><span class="p">:</span> <span class="n">test</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="s2">"actual"</span><span class="p">:</span> <span class="n">test</span><span class="p">[</span><span class="s2">"target_temp"</span><span class="p">],</span> <span class="s2">"pred"</span><span class="p">:</span> <span class="n">pred</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)})</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </code></pre></div>
 <p><strong>실행 결과</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>           date  actual  pred
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>1461 2025-01-01    -1.1   0.9
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1462 2025-01-02    -2.6  -0.1
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>1463 2025-01-03    -1.9  -2.3
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>1464 2025-01-04     0.5  -1.0
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>1465 2025-01-05    -1.6  -0.4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>           date  actual  pred
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>1461 2025-01-01    -1.1   0.9
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>1462 2025-01-02    -2.6  -0.1
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>1463 2025-01-03    -1.9  -2.3
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>1464 2025-01-04     0.5  -1.0
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>1465 2025-01-05    -1.6  -0.4
 </code></pre></div>
+<figure>
+  <img alt="예측 결과 실행 화면" src="../../assets/img/ch09_colab_pred.png" />
+<br />
+<figcaption>그림 9-9 Colab에서 실행한 2025년 다음 날 평균기온 예측</figcaption>
+</figure>
 <p>첫 행은 2025-01-01의 자료로 예측한 01-02의 평균기온이다. 실제값은 −1.1℃, 예측값은 0.9℃이므로 오차는 2.0℃다. 9.5절에서 364일 전체의 오차를 지표로 요약한다.</p>
 <h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>

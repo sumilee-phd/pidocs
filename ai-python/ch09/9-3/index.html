@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -3953,6 +3953,11 @@
 <p><strong>실행 결과</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1461 364
 </code></pre></div>
+<figure>
+  <img alt="시간 순서 분할 실행 화면" src="../../assets/img/ch09_colab_split.png" />
+<br />
+<figcaption>그림 9-5 Colab에서 실행한 학습·평가 데이터 분할</figcaption>
+</figure>
 <p>학습 데이터는 1,461일(2021~2024년, 윤년 포함), 평가 데이터는 364일이다. 2025년은 365일이지만 마지막 날은 레이블이 결측이므로 <code>dropna</code>로 제외되었다.</p>
 <table>
 <thead>
@@ -3979,6 +3984,22 @@
 </tbody>
 </table>
 <p><code>features</code> 리스트는 9.2절에서 정리한 특징 9개다. 레이블 열 <code>target_temp</code>와 날짜 열 <code>date</code>는 특징에 포함하지 않는다.</p>
+<p>학습 데이터와 평가 데이터를 서로 다른 색의 선으로 표시하면 분할 구조를 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"temp_mean"</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"train (2021-2024)"</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="s2">"temp_mean"</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"test (2025)"</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"temperature (C)"</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="학습·평가 데이터 분할 그래프" src="../../assets/img/ch09_colab_split_plot.png" />
+<br />
+<figcaption>그림 9-6 Colab에서 출력한 학습 데이터(2021~2024년)와 평가 데이터(2025년)</figcaption>
+</figure>
+<p>파란 선의 4년으로 계수를 결정하고, 주황 선의 1년으로 오차를 측정한다. 평가 구간은 학습 구간 이후에 위치하므로 모델은 평가 기간의 정보를 학습에 사용하지 않는다.</p>
 <h2 id="_2">확인 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ol>
 <li>평가 데이터를 2024년, 학습 데이터를 2021~2023년과 2025년으로 구성하면 어떤 문제가 발생하는지 설명하시오.</li>

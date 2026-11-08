@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -3984,7 +3984,7 @@
 
 <h1 id="92">9.2 날씨 자료의 특징과 레이블<a class="headerlink" href="#92" title="Permanent link">&para;</a></h1>
 <h2 id="_1">자료 불러오기<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>자료실의 <code>seoul_weather_2021_2025.csv</code>를 Colab에 업로드한 뒤 다음 코드를 실행한다.</p>
+<p>장 노트북의 첫 셀로 자료를 내려받거나 자료실의 <code>seoul_weather_2021_2025.csv</code>를 Colab에 업로드한 뒤 다음 코드를 실행한다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"seoul_weather_2021_2025.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">])</span>
@@ -4000,6 +4000,11 @@
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>[3 rows x 8 columns]
 </code></pre></div>
+<figure>
+  <img alt="자료 불러오기 실행 화면" src="../../assets/img/ch09_colab_load.png" />
+<br />
+<figcaption>그림 9-1 Colab에서 실행한 날씨 자료 불러오기</figcaption>
+</figure>
 <p>2021-01-01부터 2025-12-31까지 1,826일의 자료이며 열은 8개다. 열의 의미와 단위는 다음과 같다.</p>
 <table>
 <thead>
@@ -4067,6 +4072,11 @@
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1824 2025-12-30       -1.9         -6.1
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>1825 2025-12-31       -6.1          NaN
 </code></pre></div>
+<figure>
+  <img alt="레이블 생성 실행 화면" src="../../assets/img/ch09_colab_label.png" />
+<br />
+<figcaption>그림 9-2 Colab에서 생성한 다음 날 평균기온 레이블</figcaption>
+</figure>
 <p>2025-12-29 행의 <code>target_temp</code>는 다음 날인 12-30의 평균기온 −1.9℃다. 마지막 날은 다음 날 자료가 없으므로 <code>NaN</code>(결측)이며, 9.3절에서 제외한다.</p>
 <h2 id="_3">계절 위치 특징<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>기온은 계절에 따라 반복적으로 변동한다. 날짜를 1~366의 연중 일수로 입력하면 12월 31일(365)과 1월 1일(1)이 가장 먼 값이 되지만, 실제로는 하루 차이다. 이 문제를 해결하기 위해 연중 일수를 원 위의 각도로 환산하고 사인·코사인 값 두 개를 특징으로 사용한다.</p>
@@ -4084,7 +4094,30 @@
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>181 2021-07-01     0.01    -1.00
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>273 2021-10-01    -1.00     0.00
 </code></pre></div>
+<figure>
+  <img alt="계절 위치 특징 실행 화면" src="../../assets/img/ch09_colab_doy.png" />
+<br />
+<figcaption>그림 9-3 Colab에서 산출한 계절 위치 특징 doy_sin·doy_cos</figcaption>
+</figure>
 <p><code>doy_cos</code>는 1월 초에 1, 7월 초에 −1이므로 겨울과 여름을 구분한다. <code>doy_sin</code>은 4월 초에 1, 10월 초에 −1이므로 기온이 상승하는 봄과 하강하는 가을을 구분한다. 두 값을 함께 사용하면 1년의 모든 날짜가 원 위의 한 점으로 표현되고, 12월 31일과 1월 1일은 인접한 점이 된다.</p>
+<p>2021년 365일의 두 값을 산점도로 표시하고, 점의 색을 그날의 평균기온으로 지정해 원 위의 위치와 기온의 관계를 확인한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">one</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2021</span><span class="p">]</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">one</span><span class="p">[</span><span class="s2">"doy_cos"</span><span class="p">],</span> <span class="n">one</span><span class="p">[</span><span class="s2">"doy_sin"</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">one</span><span class="p">[</span><span class="s2">"temp_mean"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"coolwarm"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"temp_mean (C)"</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"doy_cos"</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"doy_sin"</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="계절 위치 특징 산점도" src="../../assets/img/ch09_colab_season_circle.png" />
+<br />
+<figcaption>그림 9-4 Colab에서 출력한 2021년 날짜별 계절 위치와 평균기온(색)</figcaption>
+</figure>
+<p>1월 1일은 원의 오른쪽 (1, 0)에 위치하고, 날짜가 진행할수록 점은 시계 반대 방향으로 이동한다. 원의 오른쪽에는 겨울의 파란 점이, 왼쪽에는 여름의 빨간 점이 모인다. 원 위의 위치가 연속적으로 변화하면 기온의 색도 연속적으로 변화하므로, 두 특징이 계절 정보를 담고 있음을 확인할 수 있다.</p>
 <h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ol>
 <li><code>shift(-1)</code> 대신 <code>shift(1)</code>을 적용하면 <code>target_temp</code>에 어떤 값이 저장되는지 설명하시오.</li>

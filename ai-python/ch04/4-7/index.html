@@ -1805,7 +1805,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -4037,6 +4037,8 @@
 </tbody>
 </table>
 <p>이 절의 예제는 LED 12개짜리 스트립을 S1 포트에 연결한 구성을 기준으로 한다. LED 개수가 다르면 코드의 <code>N</code> 값을 변경한다.</p>
+<!-- PHOTO: ch04_photo_strip_connect — 포켓쉴드 S1 포트에 LED 스트립 케이블을 연결한 부분 근접 사진, 전원 스위치 위치가 보이게 -->
+
 <h2 id="led_1">LED 스트립 제어 함수<a class="headerlink" href="#led_1" title="Permanent link">&para;</a></h2>
 <p><code>cyberpi.pocket</code> 모듈이 LED 스트립 제어 함수를 제공한다.</p>
 <table>
@@ -4131,6 +4133,8 @@
 <p class="admonition-title">밝기 설정</p>
 <p>LED 스트립은 최대 밝기에서 눈부심과 전력 소비가 크다. 실습실에서는 <code>led_set_bri</code>로 20~40% 범위를 사용한다.</p>
 </div>
+<!-- PHOTO: ch04_photo_strip_colors — 점등 실습 두 번째 단계(r o y g c b p w r o y g 12색) 점등 사진, 밝기 30% -->
+
 <h2 id="_2">조도 막대 표시기<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>조도 센서 측정값 <code>cyberpi.get_bri()</code>는 0~100 범위의 정수를 반환한다. 측정값을 LED 개수 비율로 환산하면 밝을수록 많은 LED가 점등되는 막대 표시기가 된다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
@@ -4155,6 +4159,8 @@
 <a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
 </code></pre></div>
 <p><code>colors</code>는 점등할 개수만큼 <code>"g"</code>를, 나머지는 <code>"k"</code>를 배치한 리스트다. <code>" ".join(colors)</code>는 리스트 요소를 공백으로 연결해 <code>led_show</code>가 요구하는 문자열 형식으로 변환한다. 손으로 센서를 가리거나 휴대폰 조명을 비추면서 점등 개수가 변화하는지 확인한다.</p>
+<!-- PHOTO: ch04_photo_bar_meter — 조도 막대 표시기 2장(손으로 센서를 가린 상태 / 휴대폰 조명을 비춘 상태), 사이버파이 화면 숫자가 보이게 -->
+
 <h2 id="_3">연습 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ol>
 <li>막대 표시기에서 점등 개수가 4개 이하이면 빨강, 5~8개이면 노랑, 9개 이상이면 초록으로 표시하도록 수정하시오.</li>

@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -4039,7 +4039,26 @@
 <a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>|   |   |--- precip_mm &gt;  11.2
 <a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>|   |   |   |--- class: 1
 </code></pre></div>
+<figure>
+  <img alt="결정트리 규칙 출력 실행 화면" src="../../assets/img/ch10_colab_rules.png" />
+<br />
+<figcaption>그림 10-2 Colab에서 출력한 깊이 3 결정트리의 분기 규칙</figcaption>
+</figure>
 <h2 id="_3">규칙의 해석<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><code>plot_tree</code>는 같은 트리를 그림으로 표시한다. <code>filled=True</code>는 각 상자를 다수 범주의 색으로 칠한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_tree</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">feats</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"0"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">],</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">impurity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="깊이 3 결정트리 그림" src="../../assets/img/ch10_colab_tree_plot.png" />
+<br />
+<figcaption>그림 10-3 Colab에서 출력한 깊이 3 결정트리</figcaption>
+</figure>
+<p>각 상자의 첫 줄은 분기 조건이다. <code>samples</code>는 그 영역에 속한 학습 자료 수, <code>value</code>는 [무강수, 강수] 건수, <code>class</code>는 그 영역에 배정된 범주다. 화살표의 왼쪽(True)은 조건을 만족하는 자료가, 오른쪽(False)은 만족하지 않는 자료가 이동하는 방향이다. 주황 상자는 0(무강수), 파란 상자는 1(강수)이 다수인 영역이며, 색이 진할수록 다수 범주의 비율이 높다. 기준값은 <code>export_text</code>의 소수점 1자리 표시(2.4)와 달리 정확한 값(2.35)으로 표시된다. 맨 아래 왼쪽 잎(samples 161, value [91, 70])은 강수일 비율이 43%로 왼쪽 가지의 잎 중 가장 높지만, 무강수일이 더 많으므로 0이 배정되었다.</p>
 <p>첫 분기는 오늘 강수량이 2.4 mm 이하인가를 판정한다. 학습 알고리즘이 7개 특징 중 오늘 강수량을 첫 기준으로 선택했으므로, 오늘의 강수 여부가 다음 날 강수 여부와 가장 밀접하다는 의미다.</p>
 <table>
 <thead>

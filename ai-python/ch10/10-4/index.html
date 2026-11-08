@@ -1699,7 +1699,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -4000,6 +4000,11 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>재현율 0.574
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>정밀도 0.463
 </code></pre></div>
+<figure>
+  <img alt="가중치 적용 결정트리 실행 화면" src="../../assets/img/ch10_colab_balanced.png" />
+<br />
+<figcaption>그림 10-6 Colab에서 산출한 가중치 적용 결정트리의 성능</figcaption>
+</figure>
 <table>
 <thead>
 <tr>
@@ -4031,26 +4036,64 @@
 </tbody>
 </table>
 <p>가중치를 적용하자 재현율이 0.287에서 0.574로 증가하고 미검출이 77건에서 46건으로 감소했다. 대신 오경보가 30건에서 72건으로 증가하고 정확도는 0.676으로 감소했다. 미검출과 오경보는 상충(trade-off) 관계이므로, 모델의 사용 목적에 따라 어느 쪽을 우선할지 결정한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">pb</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"no rain"</span><span class="p">,</span> <span class="s2">"rain"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="가중치 적용 결정트리의 혼동행렬" src="../../assets/img/ch10_colab_cm_balanced.png" />
+<br />
+<figcaption>그림 10-7 Colab에서 출력한 가중치 적용 결정트리의 혼동행렬</figcaption>
+</figure>
+<p>10.3절의 기본 결정트리 혼동행렬과 비교하면 왼쪽 아래 칸(미검출)이 77에서 46으로 감소하고, 오른쪽 위 칸(오경보)이 30에서 72로 증가했다.</p>
 <h2 id="_2">트리 깊이와 과대적합<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>트리 깊이를 증가시키면 분기가 많아져 학습 자료를 더 세밀하게 분할한다. 깊이별로 학습 정확도와 평가 정확도를 비교한다.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">c</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">c</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">])</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">tr</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">te</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">rc</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"깊이 </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2">  학습 정확도 </span><span class="si">{</span><span class="n">tr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  평가 정확도 </span><span class="si">{</span><span class="n">te</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  평가 재현율 </span><span class="si">{</span><span class="n">rc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">c</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">c</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">])</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">tr</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">te</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">rc</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feats</span><span class="p">]))</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"깊이 </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2">  학습 정확도 </span><span class="si">{</span><span class="n">tr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  평가 정확도 </span><span class="si">{</span><span class="n">te</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  평가 재현율 </span><span class="si">{</span><span class="n">rc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>실행 결과</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>깊이    1  학습 정확도 0.752  평가 정확도 0.701  평가 재현율 0.361
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>깊이    2  학습 정확도 0.639  평가 정확도 0.602  평가 재현율 0.741
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>깊이    3  학습 정확도 0.726  평가 정확도 0.676  평가 재현율 0.574
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>깊이    4  학습 정확도 0.691  평가 정확도 0.607  평가 재현율 0.648
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>깊이    6  학습 정확도 0.781  평가 정확도 0.646  평가 재현율 0.546
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>깊이   10  학습 정확도 0.910  평가 정확도 0.648  평가 재현율 0.481
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>깊이 None  학습 정확도 1.000  평가 정확도 0.651  평가 재현율 0.407
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>깊이    1  학습 정확도 0.752  평가 정확도 0.701  평가 재현율 0.361
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>깊이    2  학습 정확도 0.639  평가 정확도 0.602  평가 재현율 0.741
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>깊이    3  학습 정확도 0.726  평가 정확도 0.676  평가 재현율 0.574
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>깊이    4  학습 정확도 0.691  평가 정확도 0.607  평가 재현율 0.648
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>깊이    6  학습 정확도 0.781  평가 정확도 0.646  평가 재현율 0.546
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>깊이   10  학습 정확도 0.910  평가 정확도 0.648  평가 재현율 0.463
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>깊이 None  학습 정확도 1.000  평가 정확도 0.648  평가 재현율 0.426
 </code></pre></div>
-<p><code>None</code>은 깊이 제한이 없다는 의미다. 깊이 제한을 해제하면 학습 정확도는 1.000이 되어 학습 자료를 모두 맞히지만, 평가 정확도는 0.651, 재현율은 0.407에 그친다. 깊이 10에서도 학습 정확도 0.910과 평가 정확도 0.648의 차이가 크다. 학습 자료의 우연한 변동까지 규칙으로 학습한 과대적합(overfitting) 상태다. 깊이가 증가할수록 학습 정확도와 평가 정확도의 차이가 확대되는지 확인하는 것이 과대적합 판정의 기본 절차다.</p>
+<figure>
+  <img alt="트리 깊이별 정확도 실행 화면" src="../../assets/img/ch10_colab_depth.png" />
+<br />
+<figcaption>그림 10-8 Colab에서 실행한 트리 깊이별 정확도와 재현율</figcaption>
+</figure>
+<p><code>None</code>은 깊이 제한이 없다는 의미다. 위 수치는 Colab(2026-11-09)에서 실행한 결과다. 깊이 6 이하의 결과는 다른 PC 환경에서도 같았지만, 깊이 10 이상의 결과는 scikit-learn 버전에 따라 재현율이 0.02 정도 달랐다. 깊은 트리일수록 개선 효과가 같은 분기 후보가 많아지고, 그중 어느 분기를 선택하는지가 버전에 따라 달라질 수 있다. 깊이 제한을 해제하면 학습 정확도는 1.000이 되어 학습 자료를 모두 맞히지만, 평가 정확도는 0.648, 재현율은 0.426에 그친다. 깊이 10에서도 학습 정확도 0.910과 평가 정확도 0.648의 차이가 크다. 학습 자료의 우연한 변동까지 규칙으로 학습한 과대적합(overfitting) 상태다. 깊이가 증가할수록 학습 정확도와 평가 정확도의 차이가 확대되는지 확인하는 것이 과대적합 판정의 기본 절차다.</p>
+<p>깊이별 학습 정확도와 평가 정확도를 그래프로 비교한다. 깊이 제한 없음(<code>None</code>)은 그래프의 가로축에 표시할 수 없으므로 깊이 20까지 산출한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">depths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">tr_acc</span><span class="p">,</span> <span class="n">te_acc</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">depths</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">c</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">c</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">])</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">tr_acc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feats</span><span class="p">])))</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">te_acc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_rain"</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feats</span><span class="p">])))</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">depths</span><span class="p">,</span> <span class="n">tr_acc</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"train accuracy"</span><span class="p">)</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">depths</span><span class="p">,</span> <span class="n">te_acc</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"test accuracy"</span><span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.703</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"baseline (always 0)"</span><span class="p">)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"max_depth"</span><span class="p">)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"accuracy"</span><span class="p">)</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="트리 깊이별 정확도 그래프" src="../../assets/img/ch10_colab_depth_plot.png" />
+<br />
+<figcaption>그림 10-9 Colab에서 출력한 트리 깊이별 학습 정확도와 평가 정확도(회색 점선: 기준선)</figcaption>
+</figure>
+<p>깊이가 증가할수록 학습 정확도(파란 선)는 1.0에 접근하지만 평가 정확도(주황 선)는 0.65 부근에 머물고, 두 선의 간격이 확대된다. 깊이 20에서 학습 정확도가 1.000에 도달해 깊이 제한 없음(<code>None</code>)과 같은 결과가 산출된다. 평가 정확도는 어느 깊이에서도 기준선(회색 점선)을 넘지 못한다.</p>
 <p>깊이 2는 재현율이 0.741로 가장 높고, 깊이 3은 정확도와 재현율의 균형이 상대적으로 양호하다. 12장의 날씨 신호등에는 규칙이 짧아 기기 코드로 변환하기 쉬운 깊이 2~3의 트리를 사용한다.</p>
 <h2 id="_3">모델의 한계<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>가중치를 적용한 모델은 어느 깊이에서도 평가 정확도가 기준선 0.703을 넘지 못하고, 재현율을 높이면 오경보가 함께 증가한다. 다음 날의 강수는 상층 대기와 주변 지역의 기상 상태에 좌우되므로, 서울 한 지점의 하루치 자료 7개 특징으로는 예측에 한계가 있다. 기상청 예보는 위성·레이더·고층 관측 자료와 수치예보 모델을 사용한다. 12.1절에서는 이 장에서 학습한 모델의 판정과 공개 예보 서비스의 예보를 LED 스트립에 함께 표시해 비교한다.</p>

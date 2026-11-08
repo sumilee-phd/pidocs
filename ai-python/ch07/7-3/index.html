@@ -29,7 +29,7 @@
     
     
       
-        <title>7.3 오탐과 미탐 - AI 파이썬 피지컬컴퓨팅</title>
+        <title>7.3 오경보와 미검출 - AI 파이썬 피지컬컴퓨팅</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              7.3 오탐과 미탐
+              7.3 오경보와 미검출
             
           </span>
         </div>
@@ -1712,7 +1712,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -1730,7 +1730,7 @@
   <span class="md-ellipsis">
     
   
-    7.3 오탐과 미탐
+    7.3 오경보와 미검출
   
 
     
@@ -1759,7 +1759,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        습도 경보 규칙
       
     </span>
   </a>
@@ -1770,7 +1770,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        오경보와 미검출의 집계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        임계값 조정에 따른 상충
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3925,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        습도 경보 규칙
       
     </span>
   </a>
@@ -3914,7 +3936,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        오경보와 미검출의 집계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        임계값 조정에 따른 상충
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3938,22 +3982,157 @@
 
 
 
-<h1 id="73">7.3 오탐과 미탐<a class="headerlink" href="#73" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>판정 규칙의 오류 유형 구분</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>오경보와 미검출</li>
-<li>임계값 조정에 따른 상충</li>
-</ul>
+<h1 id="73">7.3 오경보와 미검출<a class="headerlink" href="#73" title="Permanent link">&para;</a></h1>
+<p>판정 규칙은 두 종류의 오류를 발생시킨다. 사건이 발생하지 않았는데 경보를 발생시키는 오경보(false alarm)와, 사건이 발생했는데 경보를 발생시키지 않는 미검출(miss)이다. 이 절에서는 정답이 확인된 자료에 판정 규칙을 적용해 두 오류를 집계하고, 임계값에 따라 두 오류가 어떻게 변화하는지 확인한다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>경보 발생</th>
+<th>경보 없음</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>사건 발생</strong></td>
+<td>정상 검출</td>
+<td>미검출</td>
+</tr>
+<tr>
+<td><strong>사건 없음</strong></td>
+<td>오경보</td>
+<td>정상 판정</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">습도 경보 규칙<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>습도 센서 하나로 「비가 오는 날」을 판정하는 경보 장치를 가정한다. 정답은 일강수량 1.0 mm 이상(6.2절의 강수일 기준)이다. 먼저 강수일과 무강수일의 습도 분포를 비교한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"precip_mm"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1.0</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">"일"</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"rain"</span><span class="p">)[</span><span class="s2">"humidity"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>553 일
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        count  mean   std   min   25%   50%   75%   max
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>rain                                                   
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>False  1273.0  67.2  13.2  21.0  58.0  69.0  77.0  94.0
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>True    553.0  81.5   9.9  41.0  78.0  84.0  88.0  96.0
+</code></pre></div>
+<figure>
+  <img alt="강수일과 무강수일 습도 분포 실행 화면" src="../../assets/img/ch07_colab_rain_humidity.png" />
+<br />
+<figcaption>그림 7-8 Colab에서 실행한 강수일(True)·무강수일(False)의 습도 기술통계</figcaption>
+</figure>
+<p>강수일 553일의 습도 중앙값은 84%, 무강수일의 중앙값은 69%다. 강수일의 습도가 전반적으로 높지만, 무강수일의 75% 분위수(77%)와 강수일의 25% 분위수(78%)가 거의 같다. 두 분포의 범위가 상당 부분 중첩되므로, 어떤 임계값을 정해도 두 종류의 오류가 함께 발생한다.</p>
+<h2 id="_2">오경보와 미검출의 집계<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>습도 80% 이상이면 경보를 발생시키는 규칙을 적용하고, 실제 강수 여부와의 교차표를 산출한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">alarm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"humidity"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">80</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">],</span> <span class="n">alarm</span><span class="p">,</span> <span class="n">rownames</span><span class="o">=</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">],</span> <span class="n">colnames</span><span class="o">=</span><span class="p">[</span><span class="s2">"alarm"</span><span class="p">])</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>alarm  False  True 
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rain               
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>False   1037    236
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>True     166    387
+</code></pre></div>
+<figure>
+  <img alt="습도 80% 규칙 교차표 실행 화면" src="../../assets/img/ch07_colab_crosstab.png" />
+<br />
+<figcaption>그림 7-9 Colab에서 산출한 습도 80% 경보 규칙과 실제 강수 여부의 교차표</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>경보 발생(True)</th>
+<th>경보 없음(False)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>강수(True)</strong></td>
+<td>387 (정상 검출)</td>
+<td>166 (미검출)</td>
+</tr>
+<tr>
+<td><strong>무강수(False)</strong></td>
+<td>236 (오경보)</td>
+<td>1,037 (정상 판정)</td>
+</tr>
+</tbody>
+</table>
+<p>습도 80% 규칙은 비가 오지 않은 236일에 경보를 발생시키고, 비가 온 166일에는 경보를 발생시키지 않았다. 10.3절의 혼동행렬에서는 오경보를 거짓양성(FP), 미검출을 거짓음성(FN)이라고 한다.</p>
+<h2 id="_3">임계값 조정에 따른 상충<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>임계값을 70%부터 90%까지 5% 간격으로 변경하면서 두 오류를 집계한다. <code>~</code>는 참과 거짓을 반전하고, <code>&amp;</code>는 두 조건이 모두 참인 경우에 참이다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">90</span><span class="p">]:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">alarm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"humidity"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">false_alarm</span> <span class="o">=</span> <span class="p">(</span><span class="n">alarm</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>   <span class="c1"># 오경보</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">miss</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">alarm</span> <span class="o">&amp;</span> <span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>          <span class="c1"># 미검출</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"threshold"</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span> <span class="s2">"false_alarm"</span><span class="p">:</span> <span class="n">false_alarm</span><span class="p">,</span> <span class="s2">"miss"</span><span class="p">:</span> <span class="n">miss</span><span class="p">})</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">res</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   threshold  false_alarm  miss
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>0         70          631    67
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>1         75          441   100
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>2         80          236   166
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>3         85           74   298
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>4         90            8   446
+</code></pre></div>
+<figure>
+  <img alt="임계값별 오경보와 미검출 실행 화면" src="../../assets/img/ch07_colab_tradeoff_table.png" />
+<br />
+<figcaption>그림 7-10 Colab에서 집계한 임계값별 오경보·미검출 일수</figcaption>
+</figure>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s2">"threshold"</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="s2">"false_alarm"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"false alarm"</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s2">"threshold"</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="s2">"miss"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"miss"</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"humidity threshold (%)"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"days"</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<figure>
+  <img alt="임계값에 따른 오경보와 미검출 그래프" src="../../assets/img/ch07_colab_tradeoff_plot.png" />
+<br />
+<figcaption>그림 7-11 Colab에서 출력한 습도 임계값에 따른 오경보·미검출 일수</figcaption>
+</figure>
+<p>임계값을 70%에서 90%로 높이면 오경보는 631일에서 8일로 감소하고, 미검출은 67일에서 446일로 증가한다. 한쪽 오류를 줄이면 다른 쪽 오류가 증가하는 관계를 상충(trade-off)이라고 한다. 임계값 조정만으로는 두 오류를 동시에 줄일 수 없다. 두 오류를 함께 줄이려면 일조시간처럼 강수와 관련된 다른 측정값을 추가해야 하며, 10장에서 여러 특징을 결합해 판정하는 분류 모델을 학습한다.</p>
+<table>
+<thead>
+<tr>
+<th>사용 목적</th>
+<th>더 줄여야 할 오류</th>
+<th>임계값 조정 방향</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>우산 지참 알림</td>
+<td>미검출(비를 맞는 손실)</td>
+<td>임계값을 낮춤</td>
+</tr>
+<tr>
+<td>실외 작업 중지 경보</td>
+<td>오경보(불필요한 작업 중지 손실)</td>
+<td>임계값을 높임</td>
+</tr>
+<tr>
+<td>작업장 소음 경고(7.4절)</td>
+<td>미검출(청력 보호 실패)</td>
+<td>임계값을 낮춤</td>
+</tr>
+</tbody>
+</table>
+<p>어느 오류를 우선해서 줄일지는 오류 1건의 손실을 비교해 결정한다. 이 판단은 자료가 아니라 규칙의 사용 목적에서 도출된다.</p>
+<h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>range(60, 96)</code>의 임계값 중 오경보와 미검출의 합이 최소가 되는 값을 찾으시오.</li>
+<li>일조시간 규칙(<code>df["sunshine_h"] &lt;= 4</code>이면 경보)의 오경보·미검출 일수를 산출하고, 습도 80% 규칙과 비교하시오.</li>
+<li>7.2절의 이동 z-점수 기준을 3에서 2로 낮추면 오경보와 미검출 중 어느 쪽이 증가할지 설명하시오.</li>
+</ol>
 
 
 
