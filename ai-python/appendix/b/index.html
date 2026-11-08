@@ -3699,6 +3699,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B. 사이버파이 API 요약
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -3715,6 +3733,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이벤트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        화면
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        본체 LED
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        센서와 단추
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        소리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        포켓쉴드 LED 스트립
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wi-fi-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wi-Fi와 UDP 전송
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기타
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3832,6 +3957,102 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이벤트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        화면
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        본체 LED
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        센서와 단추
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        소리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        포켓쉴드 LED 스트립
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wi-fi-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wi-Fi와 UDP 전송
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기타
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3848,15 +4069,317 @@
 
 
 <h1 id="b-api">B. 사이버파이 API 요약<a class="headerlink" href="#b-api" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 페이지는 목차 초안입니다.</p>
-</div>
+<p>이 책의 기기 코드에서 사용하는 함수를 정리한다. 「확인 근거」 열은 각 함수를 무엇으로 확인했는지 표시한다. 「실기기 확인 전」인 함수는 문서 기준으로 작성했으며, 실습 기기에서 동작을 확인한 뒤 확정한다.</p>
+<table>
+<thead>
+<tr>
+<th>확인 근거</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>블록 변환</td>
+<td>mBlock 웹 버전 Upload 모드에서 블록을 파이썬으로 변환해 함수 이름과 인자를 확인(4.4·4.6절)</td>
+</tr>
+<tr>
+<td>측정 노드</td>
+<td>2026-11-04 측정 노드 실습의 기기 프로그램(v4.6)에서 동작 확인(8.1·8.2절)</td>
+</tr>
+<tr>
+<td>문서 기준</td>
+<td>Makeblock mCode 공식 문서 기준, 실기기 확인 전</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">이벤트<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@event.start</code></td>
+<td>전원을 켜면 아래 함수를 실행</td>
+<td>4.4, 8.1</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>@event.is_press('a')</code></td>
+<td>A 단추를 누르면 아래 함수를 실행</td>
+<td>4.6, 8.1</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>@event.is_press('b')</code>, <code>@event.is_press('middle')</code></td>
+<td>B 단추, 조이스틱 가운데를 누르면 실행</td>
+<td>8.1</td>
+<td>문서 기준</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">화면<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.console.println(값)</code></td>
+<td>값을 출력하고 줄 바꿈</td>
+<td>4.5 이후</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.console.clear()</code></td>
+<td>화면 지우기</td>
+<td>4.5, 4.6, 8장, 12.2</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>cyberpi.console.print(값)</code></td>
+<td>값을 출력하고 줄을 바꾸지 않음</td>
+<td>4.5</td>
+<td>실기기 확인 전</td>
+</tr>
+<tr>
+<td><code>cyberpi.display.show_label(문자열, 크기, 위치)</code></td>
+<td>지정 위치에 문자열 표시</td>
+<td>4.7, 7.4</td>
+<td>문서 기준</td>
+</tr>
+<tr>
+<td><code>cyberpi.display.clear()</code></td>
+<td>표시 영역 지우기</td>
+<td>4.7, 7.4</td>
+<td>문서 기준</td>
+</tr>
+</tbody>
+</table>
+<h2 id="led">본체 LED<a class="headerlink" href="#led" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.led.on(r, g, b, "all")</code></td>
+<td>LED 5개를 RGB 색으로 점등</td>
+<td>4.4, 4.5</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.led.off("all")</code></td>
+<td>LED 5개 소등</td>
+<td>4.4, 4.5</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.led.on(r, g, b, 번호)</code></td>
+<td>1~5번 중 지정한 LED만 점등</td>
+<td>4.5</td>
+<td>실기기 확인 전</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">센서와 단추<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>반환값</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.get_bri()</code></td>
+<td>주변 조도(0~100)</td>
+<td>2.4, 4.6, 4.7, 8.1</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.get_loudness("maximum")</code></td>
+<td>짧은 시간 동안 측정한 소리 크기의 최댓값</td>
+<td>4.6, 4.7, 7.4</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.get_acc('x')</code></td>
+<td>지정 축(<code>'x'</code>·<code>'y'</code>·<code>'z'</code>)의 가속도</td>
+<td>4.6, 8.5, 12.2</td>
+<td>블록 변환</td>
+</tr>
+<tr>
+<td><code>cyberpi.controller.is_press("a")</code></td>
+<td>단추를 누르고 있으면 <code>True</code>(<code>"a"</code>·<code>"b"</code>·<code>"middle"</code>)</td>
+<td>4.5, 7.4, 8.1, 8.5, 12.2</td>
+<td>측정 노드</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">소리<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.audio.play_tone(주파수, 시간)</code></td>
+<td>지정한 주파수의 음을 지정 시간 동안 출력</td>
+<td>7.4(확인 문제)</td>
+<td>문서 기준</td>
+</tr>
+</tbody>
+</table>
+<h2 id="led_1">포켓쉴드 LED 스트립<a class="headerlink" href="#led_1" title="Permanent link">&para;</a></h2>
+<p><code>port</code>는 <code>"s1"</code>, <code>"s2"</code>, <code>"all"</code> 중 하나다. LED 위치 번호는 1부터 시작한다(4.7절).</p>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.pocket.led_on(r, g, b, id, port)</code></td>
+<td><code>id</code> 위치(1~36 또는 <code>"all"</code>)의 LED를 RGB 색으로 점등</td>
+<td>4.7</td>
+<td>문서 기준</td>
+</tr>
+<tr>
+<td><code>cyberpi.pocket.led_show(color, port)</code></td>
+<td>색 약어 문자열(<code>"r o y g …"</code>)로 전체 색 지정</td>
+<td>4.7, 7.4, 12.1</td>
+<td>문서 기준</td>
+</tr>
+<tr>
+<td><code>cyberpi.pocket.led_off(id, port)</code></td>
+<td><code>id</code> 위치의 LED 소등</td>
+<td>4.7, 7.4</td>
+<td>문서 기준</td>
+</tr>
+<tr>
+<td><code>cyberpi.pocket.led_set_bri(밝기, port)</code></td>
+<td>밝기 0~100(%) 지정</td>
+<td>4.7, 7.4, 12.1</td>
+<td>문서 기준</td>
+</tr>
+<tr>
+<td><code>cyberpi.pocket.led_move(step, cycle, port)</code></td>
+<td>색 배열을 <code>step</code>칸 이동</td>
+<td>4.7</td>
+<td>문서 기준</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wi-fi-udp">Wi-Fi와 UDP 전송<a class="headerlink" href="#wi-fi-udp" title="Permanent link">&para;</a></h2>
+<p>Upload 모드의 MicroPython 모듈이다(8.2절).</p>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>확인 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>network.WLAN(network.STA_IF)</code></td>
+<td>공유기에 접속하는 단말 모드의 Wi-Fi 객체 생성</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>wlan.active(True)</code></td>
+<td>Wi-Fi 기능 켜기</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>wlan.connect(이름, 비밀번호)</code></td>
+<td>공유기 접속 시작(완료를 기다리지 않음)</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>wlan.isconnected()</code></td>
+<td>접속 완료 여부</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>wlan.ifconfig()[0]</code></td>
+<td>기기에 배정된 IP 주소</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</code></td>
+<td>UDP 소켓 생성</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>s.settimeout(초)</code></td>
+<td>응답 대기 시간 제한</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>s.sendto(바이트, (IP, 포트))</code></td>
+<td>데이터그램 전송</td>
+<td>측정 노드</td>
+</tr>
+<tr>
+<td><code>s.recv(크기)</code></td>
+<td>응답 수신</td>
+<td>측정 노드</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">기타<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+<th>사용 절</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time.sleep(초)</code></td>
+<td>지정 시간 동안 대기</td>
+<td>4장 이후</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition abstract">
+<p class="admonition-title">참고 문서</p>
 <ul>
-<li>이 책에서 사용하는 cyberpi 함수 목록</li>
+<li><a href="https://www.yuque.com/makeblock-help-center-en/mcode/cyberpi-api">Makeblock mCode CyberPi API 문서</a></li>
+<li><a href="https://docs.micropython.org/en/latest/library/network.html">MicroPython network 모듈</a></li>
+<li><a href="https://docs.micropython.org/en/latest/library/socket.html">MicroPython socket 모듈</a></li>
 </ul>
+</div>
 
 
 

@@ -3569,7 +3569,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        등교일 진행 순서
       
     </span>
   </a>
@@ -3580,7 +3580,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        설치·연결 순서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시간 배분
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시연 진행 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        등교일 진행 순서
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        설치·연결 순서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시간 배분
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시연 진행 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +4005,158 @@
 
 
 <h1 id="161">16.1 시연 절차<a class="headerlink" href="#161" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>시연 당일에는 여러 팀이 같은 교실과 같은 Wi-Fi를 사용한다. 장비 설치와 연결을 정해진 순서로 진행하면 문제가 발생한 단계를 바로 확인할 수 있고, 시연 시간을 설치에 소비하지 않는다. 등교일의 세부 시간표는 수업 공지에 따른다.</p>
+<h2 id="_1">등교일 진행 순서<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>순서</th>
+<th>활동</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>장비 점검</td>
+<td>기기 충전 상태, 노트북 전원, 서버 코드와 대체 자료 확인</td>
+</tr>
+<tr>
+<td>2</td>
+<td>리허설</td>
+<td>팀별 설치·연결 후 15.3절 시나리오로 1회 연습</td>
+</tr>
+<tr>
+<td>3</td>
+<td>팀별 시연</td>
+<td>시연 순서표에 따라 진행</td>
+</tr>
+<tr>
+<td>4</td>
+<td>점검과 회고</td>
+<td>16.2절 점검표 작성, 16.3절 회고</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">설치·연결 순서<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>장비는 자료가 흐르는 방향의 역순, 즉 수신하는 쪽부터 준비한다. 서버가 먼저 실행되어 있어야 기기가 처음 전송한 측정값부터 기록된다.</p>
+<ol>
+<li>노트북을 전원에 연결하고 교내 Wi-Fi에 접속한다.</li>
+<li>명령 창에서 <code>ipconfig</code>를 실행해 노트북의 IPv4 주소를 확인한다.</li>
+<li>
+<p>팀 서버를 실행한다(15.1절).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uvicorn main:app --host 0.0.0.0 --port 8620
+</code></pre></div>
+</li>
+<li>
+<p>명령 창에 「UDP 수신 대기: 8611」이 출력되는지 확인하고, 브라우저에서 <code>http://127.0.0.1:8620/docs</code>를 열어 HTTP 수신을 확인한다.</p>
+</li>
+<li>기기 코드의 <code>SERVER_IP</code>를 2번에서 확인한 주소로 변경해 Upload 모드로 업로드한다(8.2절).</li>
+<li>USB 케이블을 분리하고 포켓쉴드 전원으로 기기를 실행한다. 기기 화면에 「WiFi OK」와 IP 주소가 표시되는지 확인한다.</li>
+<li>첫 측정값을 전송해 기기 화면의 「send OK」와 서버 명령 창의 「UDP …」 출력을 함께 확인한다.</li>
+<li>브라우저에서 <code>/summary</code>를 열어 기록이 증가하는지 확인한다.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>확인 표시</th>
+<th>실패 시 확인 항목</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서버 실행</td>
+<td>「UDP 수신 대기」, <code>/docs</code> 화면</td>
+<td>포트 사용 중 오류, 패키지 설치</td>
+</tr>
+<tr>
+<td>기기 접속</td>
+<td>「WiFi OK」, IP 주소</td>
+<td>Wi-Fi 이름·비밀번호, 기기 재시작(부록 C)</td>
+</tr>
+<tr>
+<td>전송</td>
+<td>「send OK」, 서버의 「UDP …」 출력</td>
+<td><code>SERVER_IP</code>, <code>UDP_PORT</code>, 노트북 방화벽(부록 C)</td>
+</tr>
+<tr>
+<td>기록</td>
+<td><code>/summary</code> 건수 증가</td>
+<td>서버 명령 창의 「UDP 거부」 출력과 원인</td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch16_photo_setup — 시연 자리 배치 예시(노트북에 서버 명령 창과 /summary 화면, 포켓쉴드에 결합한 사이버파이와 LED 스트립, 충전기), 위에서 내려다본 구도 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>팀별 시연 준비와 진행</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>설치·연결 순서</li>
-<li>발표 시간 배분</li>
-</ul>
+<h2 id="_3">시간 배분<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>팀당 시연 시간은 다음을 기준으로 한다. 실제 시간은 팀 수와 등교일 시간표에 따라 조정한다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>시간</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>설치·연결</td>
+<td>3분</td>
+<td>위 순서 5~8번(서버는 앞 팀 시연 중에 미리 실행)</td>
+</tr>
+<tr>
+<td>시연·발표</td>
+<td>10분</td>
+<td>15.3절 시연 흐름</td>
+</tr>
+<tr>
+<td>정리</td>
+<td>2분</td>
+<td>장비 철수, 다음 팀 설치</td>
+</tr>
+</tbody>
+</table>
+<p>설치·연결이 3분 안에 끝나지 않으면 15.3절의 장애 대비안으로 전환한다. 예를 들어 「send FAIL」이 계속 표시되면 원인을 찾는 데 시간을 소비하지 않고, USB를 연결한 Live 모드 시연과 미리 저장한 기록의 재생 시험(14.4절)으로 진행한다. 원인 확인은 시연이 끝난 뒤 회고에서 진행한다.</p>
+<h2 id="_4">시연 진행 원칙<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>원칙</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>시나리오 준수</td>
+<td>15.3절 시연 흐름과 조작 순서를 그대로 따른다</td>
+</tr>
+<tr>
+<td>화면 공유</td>
+<td>기기 표시와 서버 화면을 청중이 함께 볼 수 있게 배치한다</td>
+</tr>
+<tr>
+<td>수치 근거 제시</td>
+<td>판정 기준과 정확도는 수치로 설명한다(7·11장)</td>
+</tr>
+<tr>
+<td>한계 설명</td>
+<td>재현 측정의 조건, 예시 자료 사용 여부, 확인하지 못한 부분을 함께 설명한다</td>
+</tr>
+<tr>
+<td>비밀 값 비공개</td>
+<td>화면에 API 키, Wi-Fi 비밀번호가 표시되지 않도록 한다</td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch16_photo_demo — 시연 장면(기기 LED 표시와 노트북 서버 화면을 함께), 학생 얼굴·이름 제외, 손과 기기 위주 -->
+
+<h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>본인 팀의 설치·연결 순서를 위 8단계에 맞춰 작성하고, 각 단계에서 확인할 표시를 적으시오.</li>
+<li>설치·연결이 3분을 초과했을 때 전환할 대체 시연 방법을 15.3절 장애 대비안에서 고르시오.</li>
+<li>서버를 기기보다 먼저 실행해야 하는 이유를 설명하시오.</li>
+</ol>
 
 
 

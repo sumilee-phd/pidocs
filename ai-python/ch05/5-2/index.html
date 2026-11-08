@@ -1442,7 +1442,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        이상치 찾기
+        이상치 탐색
       
     </span>
   </a>
@@ -3980,7 +3980,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        이상치 찾기
+        이상치 탐색
       
     </span>
   </a>
@@ -4129,7 +4129,7 @@
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>S09  -57.0 -67.0 -62.0 -66.0
 </code></pre></div>
 <p>N7과 S09는 D1만 측정했지만, 대체 후에는 D2~D4에도 값이 있는 것처럼 표시된다. 전파 지도처럼 실제 측정 위치가 중요한 분석에서는 대체하지 않고 결측 상태를 유지한다.</p>
-<h2 id="_4">이상치 찾기<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">이상치 탐색<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>첫째, 물리적으로 불가능한 값을 확인한다. Wi-Fi 신호 세기는 0 dBm보다 클 수 없고, −100 dBm 아래는 측정 노드가 신호를 수신하지 못하는 수준이다. 둘째, 사분위수 범위(IQR, Interquartile Range) 규칙으로 지점별 분포에서 크게 떨어진 값을 찾는다. 1사분위수(Q1)에서 1.5×IQR을 뺀 값보다 작거나, 3사분위수(Q3)에 1.5×IQR을 더한 값보다 큰 값을 이상치 후보로 판정한다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">out_range</span> <span class="o">=</span> <span class="n">rssi</span><span class="p">[(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">)]</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"범위 밖 기록:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_range</span><span class="p">))</span>

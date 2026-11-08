@@ -3409,7 +3409,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        구성 요소와 연결 지점
       
     </span>
   </a>
@@ -3420,7 +3420,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        구성 요소별 점검 항목
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        통합 점검 코드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기기와 팀 서버의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        점검 기록
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3947,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        구성 요소와 연결 지점
       
     </span>
   </a>
@@ -3914,7 +3958,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        구성 요소별 점검 항목
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        통합 점검 코드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기기와 팀 서버의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        점검 기록
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,20 +4027,361 @@
 
 
 <h1 id="151">15.1 시스템 통합 점검표<a class="headerlink" href="#151" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p>팀 프로젝트는 여러 구성 요소가 차례로 자료를 넘기는 구조다. 각 구성 요소가 혼자서는 정상이어도, 연결 지점에서 형식이 맞지 않거나 한쪽이 응답하지 않으면 시스템 전체가 동작하지 않는다. 통합 점검은 자료가 흐르는 순서대로 연결 지점을 하나씩 확인하는 절차다.</p>
+<h2 id="_1">구성 요소와 연결 지점<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>순서</th>
+<th>구성 요소</th>
+<th>넘기는 자료</th>
+<th>다음 구성 요소</th>
+<th>관련 장</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>사이버파이 센서</td>
+<td>측정값</td>
+<td>기기 판정 함수</td>
+<td>4·7장</td>
+</tr>
+<tr>
+<td>2</td>
+<td>기기 판정·표시</td>
+<td>판정 결과, JSON 측정값</td>
+<td>Wi-Fi 전송</td>
+<td>7·8장</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Wi-Fi 전송</td>
+<td>UDP 데이터그램(JSON 측정값)</td>
+<td>수신 서버</td>
+<td>8·15장</td>
+</tr>
+<tr>
+<td>4</td>
+<td>수신 서버</td>
+<td>저장 기록, 판정 결과</td>
+<td>요약 통계</td>
+<td>14장</td>
+</tr>
+<tr>
+<td>5</td>
+<td>요약 통계</td>
+<td>요약값</td>
+<td>생성형 AI 보고</td>
+<td>13장</td>
+</tr>
+<tr>
+<td>6</td>
+<td>생성형 AI 보고</td>
+<td>보고 문장</td>
+<td>출력 검증</td>
+<td>13장</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">구성 요소별 점검 항목<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>구성 요소</th>
+<th>점검 항목</th>
+<th>확인 방법</th>
+<th>기대 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>센서</td>
+<td>측정값 범위</td>
+<td>기기 화면 출력(4.6절)</td>
+<td>조도·소리 0~100, 정지 시 가속도 값 거의 일정</td>
+</tr>
+<tr>
+<td>기기 판정</td>
+<td>경계값 판정</td>
+<td>2.4절 방식의 경계값 시험</td>
+<td>임계값 바로 위·아래에서 단계가 바뀜</td>
+</tr>
+<tr>
+<td>기기 표시</td>
+<td>LED 색과 화면</td>
+<td>단계별 조작(7.4절)</td>
+<td>단계와 색이 일치</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td>접속과 IP</td>
+<td>기기 화면 「WiFi OK」, IP 표시(8.2절)</td>
+<td>교내망 IP 배정</td>
+</tr>
+<tr>
+<td>전송</td>
+<td>서버 응답</td>
+<td>기기 화면 「send OK」</td>
+<td>서버 응답 수신</td>
+</tr>
+<tr>
+<td>서버 수신</td>
+<td>형식 검증</td>
+<td><code>/docs</code> 시험 전송(8.3·14.2절)</td>
+<td>정상 200, 잘못된 값 422</td>
+</tr>
+<tr>
+<td>서버 판정</td>
+<td>기록 재생</td>
+<td>14.4절 재생 시험</td>
+<td>판정 집계가 분석 결과와 일치</td>
+</tr>
+<tr>
+<td>요약</td>
+<td>요약 통계</td>
+<td>pandas 산출값과 대조</td>
+<td>일치</td>
+</tr>
+<tr>
+<td>AI 보고</td>
+<td>수치 검증</td>
+<td><code>check_report</code>(13.4절)</td>
+<td>요약값에 없는 수치 없음</td>
+</tr>
+<tr>
+<td>대체 보고</td>
+<td>AI 불통 시</td>
+<td>API 키를 지우고 실행</td>
+<td>요약 표로 보고</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">통합 점검 코드<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>서버 수신부터 보고까지의 연결은 기기 없이 Colab에서 한 번에 점검할 수 있다. 다음 코드는 14장의 수신 서버와 13.4절의 검증 함수를 간단히 다시 정의하고, 지점마다 기록 5건씩 모두 20건을 전송한 뒤 각 연결 지점의 결과를 PASS·FAIL로 출력한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">"fastapi"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pip"</span><span class="p">,</span> <span class="s2">"install"</span><span class="p">,</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="s2">"fastapi"</span><span class="p">,</span> <span class="s2">"httpx"</span><span class="p">])</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">median</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">class</span><span class="w"> </span><span class="nc">Measure</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">zone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s2">"^D[1-4]$"</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">rssi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/measure"</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">post_measure</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Measure</span><span class="p">):</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">model_dump</span><span class="p">())</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"ok"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/summary"</span><span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_summary</span><span class="p">():</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    <span class="n">zones</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">r</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">})</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="k">return</span> <span class="p">{</span><span class="n">z</span><span class="p">:</span> <span class="n">median</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">}</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="n">api</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="n">rssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"class_rssi_20261104.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/measure"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">rssi</span><span class="p">)})</span><span class="o">.</span><span class="n">status_code</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rssi</span><span class="o">.</span><span class="n">itertuples</span><span class="p">()]</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="n">results</span><span class="p">[</span><span class="s2">"1. 전송 20건 모두 200"</span><span class="p">]</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="n">results</span><span class="p">[</span><span class="s2">"2. 잘못된 값 422"</span><span class="p">]</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/measure"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"X"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D9"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">422</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="n">server</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/summary"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="n">local</span> <span class="o">=</span> <span class="n">rssi</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="n">results</span><span class="p">[</span><span class="s2">"3. 서버 요약 = pandas 요약"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">-</span> <span class="n">local</span><span class="p">[</span><span class="n">z</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">1e-9</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">local</span><span class="p">)</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="n">report</span> <span class="o">=</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2"> 중앙값 </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> dBm"</span> <span class="k">for</span> <span class="n">z</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">server</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>      <span class="c1"># AI 대신 요약 문장</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"-?\d+(?:\.\d+)?"</span><span class="p">,</span> <span class="n">report</span><span class="p">)]</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="n">allowed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">|</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">}</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="n">results</span><span class="p">[</span><span class="s2">"4. 보고 수치 검증"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">allowed</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">)</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"보고:"</span><span class="p">,</span> <span class="n">report</span><span class="p">)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"PASS"</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s2">"FAIL"</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>보고: D1 중앙값 -54 dBm; D2 중앙값 -46 dBm; D3 중앙값 -63 dBm; D4 중앙값 -51 dBm
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>PASS 1. 전송 20건 모두 200
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>PASS 2. 잘못된 값 422
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>PASS 3. 서버 요약 = pandas 요약
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>PASS 4. 보고 수치 검증
+</code></pre></div>
+<figure>
+  <img alt="통합 점검 실행 화면" src="../../assets/img/ch15_colab_integration.png" />
+<br />
+<figcaption>그림 15-1 Colab에서 실행한 서버-요약-보고 통합 점검</figcaption>
+</figure>
+<p>네 항목이 모두 PASS이면 서버 수신부터 보고까지의 연결이 정상이다. 이 코드에서는 API 키 없이 실행되도록 AI 보고 대신 요약 문장을 코드로 생성했다. 팀 프로젝트에서는 이 자리에 13.4절의 <code>safe_report</code>를 연결하고, 생성된 문장을 같은 방법으로 검증한다. 하나라도 FAIL이면 해당 번호의 연결 지점부터 확인한다.</p>
+<h2 id="_4">기기와 팀 서버의 연결<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>8.2절의 기기 프로그램은 측정값을 UDP로 전송한다. 14장에서 작성한 팀 서버는 HTTP 요청만 수신하므로, 기기의 측정값을 받으려면 UDP 수신부를 추가해야 한다. 수업 서버도 같은 구조로 UDP를 수신한다. 다음 코드를 14.3절까지 작성한 <code>main.py</code>의 끝에 추가한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># PC 전용: main.py 끝에 추가하는 사이버파이 UDP 수신부</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">UDP_PORT</span> <span class="o">=</span> <span class="mi">8611</span>                                   <span class="c1"># 8.2절 기기 코드의 UDP_PORT와 같은 값</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">udp_listener</span><span class="p">():</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s2">"0.0.0.0"</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">))</span>                 <span class="c1"># PC의 모든 네트워크 장치에서 수신</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"UDP 수신 대기:"</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">data</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>            <span class="n">m</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>       <span class="c1"># 14.2절 모델로 형식 검증</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            <span class="n">level</span> <span class="o">=</span> <span class="n">judge_rssi</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">rssi</span><span class="p">)</span>    <span class="c1"># 14.3절 판정 함수</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>            <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="o">**</span><span class="n">m</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="s2">"level"</span><span class="p">:</span> <span class="n">level</span><span class="p">})</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>            <span class="n">s</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="sa">b</span><span class="s2">"200 ok"</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>             <span class="c1"># 8.2절 send_udp가 b"200" 포함 여부를 확인</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"UDP"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">rssi</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="s2">"from"</span><span class="p">,</span> <span class="n">addr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>            <span class="n">s</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="sa">b</span><span class="s2">"err"</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"UDP 거부:"</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">udp_listener</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>코드</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>socket.SOCK_DGRAM</code></td>
+<td>UDP 소켓 생성(8.2절 기기 코드와 같은 방식)</td>
+</tr>
+<tr>
+<td><code>s.bind(("0.0.0.0", UDP_PORT))</code></td>
+<td>지정한 포트로 들어오는 데이터그램을 수신</td>
+</tr>
+<tr>
+<td><code>s.recvfrom(512)</code></td>
+<td>데이터그램 하나와 보낸 기기의 주소를 반환할 때까지 대기</td>
+</tr>
+<tr>
+<td><code>Measure(**json.loads(data))</code></td>
+<td>JSON 문자열을 딕셔너리로 변환한 뒤 14.2절 모델로 검증. 형식이 틀리면 예외 발생</td>
+</tr>
+<tr>
+<td><code>threading.Thread(…, daemon=True)</code></td>
+<td>UDP 수신을 별도 실행 흐름(스레드)으로 실행. HTTP 서버와 동시에 동작</td>
+</tr>
+</tbody>
+</table>
+<p><code>recvfrom</code>은 데이터그램이 도착할 때까지 대기하므로, 서버의 주 실행 흐름에서 호출하면 HTTP 요청을 처리하지 못한다. 그래서 별도 스레드에서 실행한다. 서버는 기기가 PC에 접속할 수 있도록 <code>--host 0.0.0.0</code>으로 실행한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uvicorn main:app --host 0.0.0.0 --port 8620
+</code></pre></div>
+<p>기기를 연결하기 전에 같은 PC에서 기기 대신 UDP 측정값을 전송해 수신부를 시험한다. 다음 <code>fake_node.py</code>는 8.2절 <code>send_udp</code>와 같은 구조로 정상 측정값 2건과 잘못된 측정값 2건을 전송하고, 서버의 응답을 출력한다. 서버를 실행한 명령 창은 그대로 두고, 다른 명령 창에서 <code>python fake_node.py</code>로 실행한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># PC 전용: fake_node.py — 기기 대신 UDP 측정값을 전송하는 시험 프로그램</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">SERVER_IP</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span>                         <span class="c1"># 같은 PC에서 시험</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">UDP_PORT</span> <span class="o">=</span> <span class="mi">8611</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">send_udp</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">s</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">s</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="p">(</span><span class="n">SERVER_IP</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">))</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>                        <span class="c1"># 응답 없음(시간 초과) 포함</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="n">tests</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"CP-01"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D1"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="o">-</span><span class="mi">52</span><span class="p">},</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>         <span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"CP-02"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="o">-</span><span class="mi">80</span><span class="p">},</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>         <span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"CP-03"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D9"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="o">-</span><span class="mi">60</span><span class="p">}]</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tests</span><span class="p">:</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">send_udp</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"not json -&gt;"</span><span class="p">,</span> <span class="n">send_udp</span><span class="p">(</span><span class="s2">"not json"</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>fake_node.py 실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{'node_id': 'CP-01', 'zone': 'D1', 'rssi': -52} -&gt; b'200 ok'
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>{'node_id': 'CP-02', 'zone': 'D2', 'rssi': -80} -&gt; b'200 ok'
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>{'node_id': 'CP-03', 'zone': 'D9', 'rssi': -60} -&gt; b'err'
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>not json -&gt; b'err'
+</code></pre></div>
+<p><strong>서버 명령 창 출력</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>UDP 수신 대기: 8611
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>INFO:     Started server process [9060]
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>INFO:     Waiting for application startup.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>INFO:     Application startup complete.
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>INFO:     Uvicorn running on http://0.0.0.0:8620 (Press CTRL+C to quit)
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>UDP CP-01 D1 -52 정상 from 127.0.0.1
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>UDP CP-02 D2 -80 경고 from 127.0.0.1
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>UDP 거부: ValidationError
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>UDP 거부: JSONDecodeError
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>INFO:     127.0.0.1:64696 - "GET /summary HTTP/1.1" 200 OK
+</code></pre></div>
+<figure>
+  <img alt="UDP 시험 후 서버 요약" src="../../assets/img/ch15_server_summary.png" />
+<br />
+<figcaption>그림 15-2 UDP로 수신한 측정값이 반영된 팀 서버의 /summary 응답</figcaption>
+</figure>
+<p>정상 측정값 2건은 <code>200 ok</code> 응답과 함께 저장·판정되었다. D2의 −80 dBm은 D2의 10% 분위수 −77 dBm보다 낮으므로 경고로 판정되었다. 지점이 <code>D9</code>인 측정값은 14.2절 모델의 검증에서 <code>ValidationError</code>로, JSON 형식이 아닌 문자열은 <code>JSONDecodeError</code>로 거부되고 <code>err</code>가 응답되었다. 8.2절의 <code>send_udp</code>는 응답에 <code>200</code>이 없으면 실패로 처리하므로, 기기 화면에는 「send FAIL」이 표시된다.</p>
+<div class="admonition warning">
+<p class="admonition-title">기기 연결 확인 범위</p>
+<p>UDP 수신부와 <code>fake_node.py</code>의 동작은 PC에서 확인했다. 실제 사이버파이에서 팀 서버로 전송하는 시험은 기기 대여 시 8.2절 코드의 <code>SERVER_IP</code>를 팀 서버 PC의 IP 주소로 변경해 진행한다. PC의 IP 주소는 Windows 명령 창의 <code>ipconfig</code>에서 「IPv4 주소」로 확인한다. Windows 방화벽이 Python의 네트워크 접근 허용을 물으면 허용해야 기기의 데이터그램이 수신된다(부록 C).</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>기기-서버-AI 연결 점검</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>구성 요소별 점검 항목</li>
-</ul>
+<h2 id="_5">점검 기록<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>통합 점검은 코드를 수정할 때마다 반복한다. 팀은 다음 표를 복사해 날짜별로 기록한다.</p>
+<table>
+<thead>
+<tr>
+<th>날짜</th>
+<th>점검 항목</th>
+<th>결과</th>
+<th>문제와 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>센서·기기 판정·표시</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Wi-Fi·전송</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>서버 수신·판정</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>요약·AI 보고·검증</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch15_photo_integration — 팀 통합 점검 장면 예시(기기 화면 send OK + 노트북의 서버 /docs 화면을 함께), 학생 얼굴 제외 -->
+
+<h2 id="_6">확인 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>본인 팀 프로젝트의 구성 요소와 연결 지점을 위 표 형식으로 작성하시오.</li>
+<li>통합 점검 코드에 「판정 결과가 정상·주의·경고 중 하나인가」를 점검하는 항목을 추가하시오(14.3절 <code>/judge</code> 사용).</li>
+<li>기기 쪽 연결 지점(센서~전송)을 기기 화면만으로 점검하는 순서를 작성하시오.</li>
+</ol>
 
 
 

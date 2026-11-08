@@ -34,3 +34,6 @@ body, .md-typeset { font-family: var(--md-text-font); }
 
 /* 수식 한 줄 표기 */
 .md-typeset .formula { text-align: center; font-size: 1.05rem; font-family: "Times New Roman", serif; font-style: italic; margin: 1em 0; }
+
+/* 용어집 참조 절 */
+.md-typeset .gref { font-size: 0.72rem; color: #7a8590; margin-left: 0.2em; white-space: nowrap; }

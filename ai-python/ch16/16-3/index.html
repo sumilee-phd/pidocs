@@ -3625,7 +3625,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        회고 양식
       
     </span>
   </a>
@@ -3636,7 +3636,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        점검 기록 집계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개선 과제 우선순위
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        현장 적용 과제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        회고 양식
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        점검 기록 집계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        개선 과제 우선순위
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        현장 적용 과제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +4005,147 @@
 
 
 <h1 id="163">16.3 회고와 개선 과제<a class="headerlink" href="#163" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>회고(retrospective)는 프로젝트가 끝난 뒤 진행 과정을 되짚어 유지할 점, 문제점, 다음에 시도할 개선 사항을 정리하는 활동이다. 시연에서 드러난 문제와 15.1절 통합 점검 기록을 근거로 개선 과제의 우선순위를 정하고, 재현 측정으로 만든 시스템을 실제 현장에 적용하려면 무엇이 필요한지 정리한다.</p>
+<h2 id="_1">회고 양식<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>이 과목에서는 KPT 방식으로 회고한다. KPT는 유지할 점(Keep), 문제점(Problem), 시도할 개선 사항(Try)의 머리글자다. 각 항목은 근거가 되는 기록이나 수치와 함께 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>질문</th>
+<th>작성 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keep</td>
+<td>잘 동작해서 유지할 것은 무엇인가</td>
+<td>서버 재생 시험으로 수정 후 동작을 매번 확인함(14.4절)</td>
+</tr>
+<tr>
+<td>Problem</td>
+<td>문제가 발생한 곳은 어디이며 근거는 무엇인가</td>
+<td>Wi-Fi·전송 단계 FAIL 2회(점검 기록)</td>
+</tr>
+<tr>
+<td>Try</td>
+<td>다음에 무엇을 바꿀 것인가</td>
+<td>실패한 측정값 보관 후 재전송(15.2절 확인 문제 2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">점검 기록 집계<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>15.1절의 점검 기록을 표로 정리하면 실패가 반복된 연결 지점을 확인할 수 있다. 다음은 통합 점검을 3회 진행한 팀의 기록 예시다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="s2">"회차"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">"항목"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"센서·기기"</span><span class="p">,</span> <span class="s2">"Wi-Fi·전송"</span><span class="p">,</span> <span class="s2">"서버"</span><span class="p">,</span> <span class="s2">"AI 보고"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">"결과"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"FAIL"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"FAIL"</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>             <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"FAIL"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>             <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">,</span> <span class="s2">"PASS"</span><span class="p">],</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">})</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"항목"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"회차"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"결과"</span><span class="p">))</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">fails</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">log</span><span class="p">[</span><span class="s2">"결과"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"FAIL"</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"항목"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">FAIL 횟수"</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">fails</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>회차           1     2     3
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>항목                        
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>AI 보고     FAIL  PASS  PASS
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Wi-Fi·전송  FAIL  FAIL  PASS
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>서버        PASS  PASS  PASS
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>센서·기기     PASS  PASS  PASS
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>FAIL 횟수
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>항목
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Wi-Fi·전송    2
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>AI 보고       1
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>dtype: int64
+</code></pre></div>
+<figure>
+  <img alt="점검 기록 집계 실행 화면" src="../../assets/img/ch16_colab_retro.png" />
+<br />
+<figcaption>그림 16-4 Colab에서 실행한 통합 점검 기록 집계(예시 기록)</figcaption>
+</figure>
+<p><code>pivot</code>은 긴 형식의 기록을 항목×회차 표로 재배치한다. 예시 기록에서는 Wi-Fi·전송 단계가 두 번 실패해 개선 과제의 1순위가 된다. 3회차에 모두 통과했더라도, 실패 원인과 조치를 기록해 두지 않으면 시연 당일 같은 문제가 다시 발생했을 때 대응할 수 없다.</p>
+<h2 id="_3">개선 과제 우선순위<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>개선 과제는 영향 범위와 발생 빈도로 우선순위를 정한다.</p>
+<table>
+<thead>
+<tr>
+<th>과제</th>
+<th>영향 범위</th>
+<th>발생 빈도</th>
+<th>우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>전송 실패 시 측정값 손실</td>
+<td>서버 기록·요약·보고 전체</td>
+<td>높음(FAIL 2회)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>AI 보고 수치 불일치</td>
+<td>보고 문장</td>
+<td>낮음(FAIL 1회)</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">현장 적용 과제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>프로젝트는 학교나 가정에서 현장 상황을 재현해 측정했다(12.4절). 실제 현장에서 사용하려면 다음 조건을 추가로 확인해야 한다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>확인 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>회사 승인</td>
+<td>기기 설치, 회사 망 연결, 측정 자료 보관에 대한 승인</td>
+</tr>
+<tr>
+<td>측정 기간</td>
+<td>재현 측정보다 긴 기간의 측정으로 시간대·요일별 변동 확인</td>
+</tr>
+<tr>
+<td>기준 재산출</td>
+<td>현장 측정 자료로 임계값 또는 모델을 다시 산출</td>
+</tr>
+<tr>
+<td>일반화 확인</td>
+<td>다른 위치·다른 사용자 자료로 교차 평가(12.3절)</td>
+</tr>
+<tr>
+<td>운영</td>
+<td>배터리 교체, 서버 상시 실행, 장애 시 대체 절차</td>
+</tr>
+<tr>
+<td>보안과 개인정보</td>
+<td>비밀 값 관리, 사람의 위치·행동이 기록되지 않는지 확인</td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch16_photo_retro — KPT 회고 결과 예시(화이트보드 또는 양식 작성 예), 학생 얼굴·이름 제외 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>프로젝트 결과 정리와 개선 과제 도출</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>회고 양식</li>
-<li>현장 적용 과제</li>
-</ul>
+<h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>본인 팀의 KPT 회고를 항목마다 근거와 함께 작성하시오.</li>
+<li>본인 팀의 점검 기록을 <code>log</code> 형식으로 정리하고 FAIL 횟수가 가장 많은 항목의 원인과 조치를 작성하시오.</li>
+<li>본인 팀 시스템을 실제 직무 현장에 적용할 때 가장 먼저 확인해야 할 항목 두 가지와 이유를 작성하시오.</li>
+</ol>
 
 
 
