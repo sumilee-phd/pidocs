@@ -2,7 +2,7 @@
 
 <span class="chip">13주차</span> <span class="chip on">온라인</span> <span class="chip">기기 불필요</span> <span class="chip">Gemini API 키 필요</span>
 
-측정 시스템의 마지막 단계는 결과를 사람이 읽을 수 있는 보고 문장으로 정리하는 일이다. 이 장에서는 파이썬에서 생성형 AI인 Gemini API를 호출하고, 목적·형식·제약을 명시한 프롬프트를 작성한다. 수치 계산은 코드로 하고 문장 작성만 AI에 맡기는 구조로 오류를 줄이며, 생성된 문장의 수치가 원자료와 일치하는지 코드로 자동 점검한다.
+측정 시스템의 마지막 단계는 결과를 사람이 읽을 수 있는 보고 문장으로 정리하는 일이다. 이 장에서는 파이썬에서 생성형 AI인 Gemini API를 호출하고, 목적·형식·제약을 명시한 프롬프트를 작성한다. 수치 계산은 코드로 하고 문장 작성만 AI에 위임하는 구조로 오류를 줄이며, 생성된 문장의 수치가 원자료와 일치하는지 코드로 자동 점검한다.
 
 [Colab에서 열기](https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch13.ipynb){ .md-button .md-button--primary }
 
