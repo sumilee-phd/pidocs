@@ -3852,6 +3852,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        준비물
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3870,9 +3881,9 @@
 
 
 <h1 id="13-ai-api">13장 생성형 AI API<a class="headerlink" href="#13-ai-api" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<p><span class="chip">13주차</span> <span class="chip on">온라인</span></p>
+<p><span class="chip">13주차</span> <span class="chip on">온라인</span> <span class="chip">기기 불필요</span> <span class="chip">Gemini API 키 필요</span></p>
+<p>측정 시스템의 마지막 단계는 결과를 사람이 읽을 수 있는 보고 문장으로 정리하는 일이다. 이 장에서는 파이썬에서 생성형 AI인 Gemini API를 호출하고, 목적·형식·제약을 명시한 프롬프트를 작성한다. 수치 계산은 코드로 하고 문장 작성만 AI에 위임하는 구조로 오류를 줄이며, 생성된 문장의 수치가 원자료와 일치하는지 코드로 자동 점검한다.</p>
+<p><a class="md-button md-button--primary" href="https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch13.ipynb">Colab에서 열기</a></p>
 <h2 id="_1">절 구성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="13-1/">13.1 Gemini API 호출</a></li>
@@ -3882,11 +3893,29 @@
 </ul>
 <h2 id="_2">학습 목표<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>파이썬에서 생성형 AI API 호출</li>
-<li>목적·형식·제약을 명시한 프롬프트 작성</li>
-<li>계산은 코드로, 서술은 AI로 분리하는 구조 구성</li>
-<li>생성 문장의 수치 일치 여부 자동 점검</li>
+<li>API 키를 발급·보관하고 파이썬에서 Gemini API를 호출한다.</li>
+<li>역할·입력·출력 형식·제약을 명시한 프롬프트를 작성한다.</li>
+<li>측정 요약 통계는 코드로 산출하고, 요약값만 AI에 입력하는 구조를 구성한다.</li>
+<li>생성된 문장의 수치를 정규식으로 추출해 원자료와 대조한다.</li>
 </ul>
+<h2 id="_3">준비물<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Google 계정과 Gemini API 키(13.1절)</li>
+<li><a href="../data/class_rssi_20261104.csv">11/4 수업 Wi-Fi 신호 세기 기록(CSV)</a></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">실행 결과 기입 상태</p>
+<p>이 장의 Gemini 호출 결과는 수업용 API 키를 확인한 뒤 실제 응답으로 기입한다. 키 없이 실행되는 부분(요약 통계, 프롬프트 구성, 출력 검증)의 실행 결과는 실제 출력이다. Colab 노트북은 키가 없어도 오류 없이 끝까지 실행되도록 작성했다.</p>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">참고 링크</p>
+<ul>
+<li><a href="https://ai.google.dev/gemini-api/docs/quickstart">Gemini API 빠른 시작</a></li>
+<li><a href="https://aistudio.google.com/apikey">Google AI Studio API 키</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/text-generation">Gemini API 텍스트 생성</a></li>
+<li><a href="https://docs.python.org/3/library/re.html">Python 정규식(re)</a></li>
+</ul>
+</div>
 
 
 

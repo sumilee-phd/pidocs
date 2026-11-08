@@ -3218,10 +3218,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP 메서드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        상태 코드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON 형식
       
     </span>
   </a>
@@ -3232,7 +3254,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3900,10 +3922,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP 메서드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        상태 코드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON 형식
       
     </span>
   </a>
@@ -3914,7 +3958,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +3983,161 @@
 
 
 <h1 id="141-api">14.1 웹 API의 구조<a class="headerlink" href="#141-api" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>요청·응답·엔드포인트 개념 이해</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>HTTP 메서드</li>
-<li>JSON 형식</li>
-</ul>
+<p>웹 API는 네트워크를 통해 프로그램끼리 자료를 주고받는 규칙이다. 자료를 요청하는 쪽을 클라이언트(client), 요청을 처리하고 응답하는 쪽을 서버(server)라고 한다. 8장의 사이버파이와 수업 서버, 13장의 파이썬 코드와 Gemini API가 모두 클라이언트와 서버의 관계다.</p>
+<table>
+<thead>
+<tr>
+<th>구성 요소</th>
+<th>의미</th>
+<th>8장 수업 서버의 예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>요청(request)</td>
+<td>클라이언트가 서버에 보내는 메시지</td>
+<td>사이버파이가 보낸 측정값</td>
+</tr>
+<tr>
+<td>응답(response)</td>
+<td>서버가 요청을 처리하고 돌려보내는 메시지</td>
+<td><code>{"ok": true}</code></td>
+</tr>
+<tr>
+<td>엔드포인트(endpoint)</td>
+<td>요청을 받는 주소의 경로</td>
+<td><code>/api/measure</code></td>
+</tr>
+<tr>
+<td>본문(body)</td>
+<td>요청·응답에 포함된 자료</td>
+<td>JSON 형식 측정값</td>
+</tr>
+</tbody>
+</table>
+<h2 id="http">HTTP 메서드<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<p>HTTP 요청은 무엇을 할지를 메서드로 지정한다.</p>
+<table>
+<thead>
+<tr>
+<th>메서드</th>
+<th>용도</th>
+<th>예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>자료 조회</td>
+<td><code>GET /summary</code> 지점별 요약 조회</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>자료 전송·생성</td>
+<td><code>POST /measure</code> 측정값 전송</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>자료 전체 수정</td>
+<td>설정값 변경</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>자료 삭제</td>
+<td>시험 기록 삭제</td>
+</tr>
+</tbody>
+</table>
+<p>브라우저 주소창에 주소를 입력하면 GET 요청이 전송된다. 측정값처럼 본문이 있는 자료는 POST로 전송한다.</p>
+<h2 id="_1">상태 코드<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>서버는 응답에 처리 결과를 세 자리 상태 코드로 표시한다.</p>
+<table>
+<thead>
+<tr>
+<th>상태 코드</th>
+<th>의미</th>
+<th>발생 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>성공</td>
+<td>정상 처리</td>
+</tr>
+<tr>
+<td>404</td>
+<td>찾을 수 없음</td>
+<td>없는 엔드포인트로 요청</td>
+</tr>
+<tr>
+<td>422</td>
+<td>처리할 수 없는 자료</td>
+<td>형식이 맞지 않는 본문(예: 신호 세기에 문자열)</td>
+</tr>
+<tr>
+<td>500</td>
+<td>서버 내부 오류</td>
+<td>서버 코드의 오류</td>
+</tr>
+</tbody>
+</table>
+<p>8.3절 그림 8-3의 시험 전송에서 응답 코드 200을 확인했다. 14.2절에서는 잘못된 측정값을 보내 422 응답을 확인한다.</p>
+<h2 id="json">JSON 형식<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
+<p>JSON은 웹 API에서 가장 널리 사용하는 자료 형식이다. 파이썬의 딕셔너리·리스트와 구조가 같아 쉽게 변환할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"S01"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D1"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="o">-</span><span class="mi">55</span><span class="p">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>                 <span class="c1"># 딕셔너리 → JSON 문자열</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">back</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>              <span class="c1"># JSON 문자열 → 딕셔너리</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">back</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">back</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{"node_id": "S01", "zone": "D1", "rssi": -55} &lt;class 'str'&gt;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-54 &lt;class 'dict'&gt;
+</code></pre></div>
+<figure>
+  <img alt="JSON 변환 실행 화면" src="../../assets/img/ch14_colab_json.png" />
+<br />
+<figcaption>그림 14-1 Colab에서 실행한 JSON 변환</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>파이썬</th>
+<th>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dict</code></td>
+<td>객체 <code>{…}</code></td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>배열 <code>[…]</code></td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>문자열 <code>"…"</code></td>
+</tr>
+<tr>
+<td><code>int</code>, <code>float</code></td>
+<td>숫자</td>
+</tr>
+<tr>
+<td><code>True</code>, <code>False</code>, <code>None</code></td>
+<td><code>true</code>, <code>false</code>, <code>null</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">확인 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>8.3절 그림 8-2의 수업 서버 문서에서 GET 메서드 엔드포인트를 세 개 찾아 쓰시오.</li>
+<li><code>json.dumps</code>의 결과와 원래 딕셔너리를 <code>print</code>로 출력했을 때 따옴표 모양이 어떻게 다른지 비교하시오.</li>
+<li>신호 세기 값을 문자열 <code>"-55"</code>로 보내면 서버에서 어떤 문제가 발생할 수 있는지 설명하시오.</li>
+</ol>
 
 
 

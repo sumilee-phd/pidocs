@@ -3852,6 +3852,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        준비물
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3870,9 +3881,9 @@
 
 
 <h1 id="14-fastapi">14장 FastAPI 수신 서버<a class="headerlink" href="#14-fastapi" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<p><span class="chip">14주차</span> <span class="chip on">온라인</span></p>
+<p><span class="chip">14주차</span> <span class="chip on">온라인</span> <span class="chip">기기 불필요</span></p>
+<p>8장에서는 교수자가 준비한 수업 서버로 측정값을 전송했다. 이 장에서는 같은 역할을 하는 수신 서버를 직접 작성한다. 웹 API의 기본 구조를 이해하고, FastAPI로 측정값 수신 엔드포인트를 작성한 뒤, 7장의 판정 함수를 서버에 연결한다. 기기 없이 11/4 수업 기록을 서버에 다시 전송하는 가상 노드로 서버의 동작을 시험한다.</p>
+<p><a class="md-button md-button--primary" href="https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch14.ipynb">Colab에서 열기</a></p>
 <h2 id="_1">절 구성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="14-1/">14.1 웹 API의 구조</a></li>
@@ -3882,11 +3893,24 @@
 </ul>
 <h2 id="_2">학습 목표<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>요청·응답·엔드포인트 개념 이해</li>
-<li>측정값 수신 엔드포인트 작성</li>
-<li>7장·10장 판정 함수를 서버에 연결</li>
-<li>기록 자료를 재생해 서버 동작 시험</li>
+<li>요청·응답·엔드포인트·HTTP 메서드·상태 코드의 의미를 설명한다.</li>
+<li>FastAPI와 pydantic으로 측정값 수신 엔드포인트와 자료 검증 모델을 작성한다.</li>
+<li>판정 함수를 별도 모듈로 분리하고 서버 응답에 판정 결과를 포함한다.</li>
+<li>기록 자료를 재생해 서버의 동작과 판정 결과를 검증한다.</li>
 </ul>
+<h2 id="_3">준비물<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../data/class_rssi_20261104.csv">11/4 수업 Wi-Fi 신호 세기 기록(CSV)</a></li>
+<li>PC에서 서버를 실행하는 경우: 파이썬, <code>pip install fastapi uvicorn</code></li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">참고 링크</p>
+<ul>
+<li><a href="https://fastapi.tiangolo.com/tutorial/">FastAPI 공식 자습서</a></li>
+<li><a href="https://fastapi.tiangolo.com/tutorial/testing/">FastAPI 테스트(TestClient)</a></li>
+<li><a href="https://docs.pydantic.dev/latest/concepts/fields/">pydantic 필드 제약</a></li>
+</ul>
+</div>
 
 
 

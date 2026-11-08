@@ -3059,7 +3059,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        프롬프트 구성 함수
       
     </span>
   </a>
@@ -3070,7 +3070,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        예시 제시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3914,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        프롬프트 구성 함수
       
     </span>
   </a>
@@ -3914,7 +3925,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        예시 제시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +3961,98 @@
 
 
 <h1 id="132">13.2 프롬프트 설계<a class="headerlink" href="#132" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
+<p>프롬프트(prompt)는 생성형 AI 모델에 보내는 입력 문장이다. 「요약해 줘」처럼 짧은 프롬프트는 응답의 길이·형식·관점이 매번 달라진다. 보고 문장처럼 정해진 용도로 사용할 응답을 얻으려면 프롬프트에 다음 네 가지를 명시한다.</p>
+<table>
+<thead>
+<tr>
+<th>요소</th>
+<th>내용</th>
+<th>예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>역할</td>
+<td>모델이 수행할 역할과 독자</td>
+<td>「정보통신학과 실습 보고서를 작성하는 조교」</td>
+</tr>
+<tr>
+<td>입력</td>
+<td>판단의 근거가 되는 자료</td>
+<td>지점별 측정 요약값</td>
+</tr>
+<tr>
+<td>출력 형식</td>
+<td>문장 수, 구성, 표기 방법</td>
+<td>「3문장, 수치는 dBm 단위로」</td>
+</tr>
+<tr>
+<td>제약</td>
+<td>하지 말아야 할 것</td>
+<td>「입력에 없는 수치를 쓰지 말 것」</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">프롬프트 구성 함수<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>프롬프트를 문자열 하나로 작성하지 않고 함수로 구성하면, 입력 자료만 바꿔 같은 형식의 프롬프트를 반복해서 생성할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_prompt</span><span class="p">(</span><span class="n">summary_text</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">role</span> <span class="o">=</span> <span class="s2">"당신은 정보통신학과 실습 보고서를 작성하는 조교입니다. 독자는 같은 수업의 학생입니다."</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">rules</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"- 3문장으로 작성합니다.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>             <span class="s2">"- 아래 [측정 요약]에 있는 수치만 사용하고, 새로운 수치를 계산하거나 추측하지 않습니다.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>             <span class="s2">"- 신호 세기는 dBm 단위를 붙여 씁니다.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>             <span class="s2">"- 가장 강한 지점과 가장 약한 지점을 반드시 언급합니다."</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">[작성 규칙]</span><span class="se">\n</span><span class="si">{</span><span class="n">rules</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">[측정 요약]</span><span class="se">\n</span><span class="si">{</span><span class="n">summary_text</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">make_prompt</span><span class="p">(</span><span class="s2">"D1: 중앙값 -52 dBm</span><span class="se">\n</span><span class="s2">D2: 중앙값 -66 dBm"</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>당신은 정보통신학과 실습 보고서를 작성하는 조교입니다. 독자는 같은 수업의 학생입니다.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[작성 규칙]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>- 3문장으로 작성합니다.
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>- 아래 [측정 요약]에 있는 수치만 사용하고, 새로운 수치를 계산하거나 추측하지 않습니다.
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>- 신호 세기는 dBm 단위를 붙여 씁니다.
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>- 가장 강한 지점과 가장 약한 지점을 반드시 언급합니다.
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>[측정 요약]
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>D1: 중앙값 -52 dBm
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>D2: 중앙값 -66 dBm
+</code></pre></div>
+<figure>
+  <img alt="프롬프트 구성 실행 화면" src="../../assets/img/ch13_colab_prompt.png" />
+<br />
+<figcaption>그림 13-1 Colab에서 실행한 프롬프트 구성 함수</figcaption>
+</figure>
+<p><code>f"…{변수}…"</code>는 문자열 안에 변수 값을 삽입하는 f-문자열이고, <code>\n</code>은 줄바꿈 문자다. 역할·규칙·자료를 대괄호 제목으로 구분하면 모델이 각 부분의 역할을 구별하기 쉽다.</p>
+<h2 id="_2">예시 제시<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>원하는 문장의 예시를 프롬프트에 포함하면 응답의 형식이 예시에 가까워진다. 예시를 하나 이상 제시하는 방법을 퓨샷(few-shot) 프롬프트라고 한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">EXAMPLE</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"[예시]</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>           <span class="s2">"조도 측정 결과 창가가 중앙값 82로 가장 밝고, 복도 쪽이 중앙값 35로 가장 어두웠습니다. "</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>           <span class="s2">"두 지점의 차이는 47입니다. 복도 쪽 자리는 조명 보강이 필요합니다.</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_prompt_fewshot</span><span class="p">(</span><span class="n">summary_text</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">return</span> <span class="n">make_prompt</span><span class="p">(</span><span class="n">summary_text</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">EXAMPLE</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">if</span> <span class="n">key</span><span class="p">:</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">make_prompt_fewshot</span><span class="p">(</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="s2">"D1: 중앙값 -52 dBm</span><span class="se">\n</span><span class="s2">D2: 중앙값 -66 dBm</span><span class="se">\n</span><span class="s2">D3: 중앙값 -62 dBm</span><span class="se">\n</span><span class="s2">D4: 중앙값 -65.5 dBm"</span><span class="p">))</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"API 키가 없어 호출을 건너뜁니다."</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p class="admonition-title">실행 결과</p>
+<p>수업용 API 키를 확인한 뒤 예시를 제시하지 않은 프롬프트와 제시한 프롬프트의 응답을 비교해 기입한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>목적·형식·제약을 명시한 프롬프트 작성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>역할·입력·출력 형식 지정</li>
-<li>예시 제시</li>
-</ul>
+<!-- DATA: ch13_run_fewshot — make_prompt와 make_prompt_fewshot 응답 각 1회, 형식 차이 비교용 -->
+
+<p>예시의 수치(82, 35, 47)는 형식을 보여 주기 위한 가상의 값이다. 모델이 예시의 수치를 응답에 옮겨 쓰지 않는지 13.4절의 검증으로 확인한다.</p>
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>make_prompt</code>의 규칙에서 「3문장」을 「표 형식」으로 바꾸고 응답 형식이 어떻게 달라지는지 확인하시오.</li>
+<li>제약 「새로운 수치를 계산하거나 추측하지 않습니다」를 삭제하고 응답을 비교하시오. 입력에 없는 수치가 나타나는지 확인한다.</li>
+<li>본인의 프로젝트 주제(12.4절)에 맞게 역할과 규칙을 바꾼 프롬프트 함수를 작성하시오.</li>
+</ol>
 
 
 

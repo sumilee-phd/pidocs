@@ -3277,7 +3277,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        모듈 분리
       
     </span>
   </a>
@@ -3288,7 +3288,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        판정 결과 반환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기준값을 바꾸는 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3925,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        모듈 분리
       
     </span>
   </a>
@@ -3914,7 +3936,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        판정 결과 반환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기준값을 바꾸는 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +3983,105 @@
 
 
 <h1 id="143">14.3 판정 모듈 연결<a class="headerlink" href="#143" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>7장·10장 판정 함수를 서버에 연결</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>모듈 분리</li>
-<li>판정 결과 반환</li>
-</ul>
+<p>7.1절에서 작성한 지점별 3단계 판정 함수를 서버에 연결한다. 서버는 측정값을 저장하는 동시에 판정 결과를 응답에 포함한다. 기기는 응답의 판정 결과를 받아 LED 색으로 표시할 수 있다.</p>
+<h2 id="_1">모듈 분리<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>판정 함수를 서버 코드와 같은 파일에 작성하면 서버 코드가 길어지고, 판정 기준을 바꿀 때 서버 코드 전체를 수정해야 한다. 판정 함수는 별도 파일(모듈)로 분리한다.</p>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>judge.py</code></td>
+<td>판정 기준값과 판정 함수</td>
+</tr>
+<tr>
+<td><code>main.py</code></td>
+<td>FastAPI 앱, 엔드포인트, <code>from judge import judge_rssi</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>judge.py</code>의 내용은 다음과 같다. 기준값은 7.1절에서 11/4 수업 기록으로 산출한 지점별 10%·25% 분위수다. Colab 노트북에서는 같은 셀에 정의해 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># judge.py: 7.1절 지점별 분위수 기준(11/4 수업 기록)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">THRESH</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"D1"</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">62.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">56.0</span><span class="p">),</span> <span class="s2">"D2"</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">77.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.0</span><span class="p">),</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>          <span class="s2">"D3"</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">68.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">66.0</span><span class="p">),</span> <span class="s2">"D4"</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">73.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.0</span><span class="p">)}</span>   <span class="c1"># (10% 분위수, 25% 분위수)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">judge_rssi</span><span class="p">(</span><span class="n">zone</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="sd">"""지점별 분위수 기준으로 신호 세기를 3단계 판정한다."""</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">q10</span><span class="p">,</span> <span class="n">q25</span> <span class="o">=</span> <span class="n">THRESH</span><span class="p">[</span><span class="n">zone</span><span class="p">]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">q10</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="k">return</span> <span class="s2">"경고"</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">q25</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">return</span> <span class="s2">"주의"</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">return</span> <span class="s2">"정상"</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">judge_rssi</span><span class="p">(</span><span class="s2">"D1"</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">),</span> <span class="n">judge_rssi</span><span class="p">(</span><span class="s2">"D2"</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>경고 정상
+</code></pre></div>
+<p>7.1절과 같은 결과다. 같은 −65 dBm이 D1에서는 「경고」, D2에서는 「정상」으로 판정된다.</p>
+<h2 id="_2">판정 결과 반환<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>판정 결과를 응답에 포함하는 엔드포인트 <code>/judge</code>를 추가한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/judge"</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">post_judge</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Measure</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">level</span> <span class="o">=</span> <span class="n">judge_rssi</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">rssi</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="o">**</span><span class="n">m</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span> <span class="s2">"level"</span><span class="p">:</span> <span class="n">level</span><span class="p">})</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"ok"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"level"</span><span class="p">:</span> <span class="n">level</span><span class="p">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">r</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/judge"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"node_id"</span><span class="p">:</span> <span class="s2">"S02"</span><span class="p">,</span> <span class="s2">"zone"</span><span class="p">:</span> <span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">:</span> <span class="o">-</span><span class="mi">80</span><span class="p">})</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>200 {'ok': True, 'level': '경고'}
+</code></pre></div>
+<figure>
+  <img alt="판정 엔드포인트 실행 화면" src="../../assets/img/ch14_colab_judge.png" />
+<br />
+<figcaption>그림 14-5 Colab에서 실행한 판정 함수와 /judge 엔드포인트</figcaption>
+</figure>
+<p><code>{**m.model_dump(), "level": level}</code>은 측정값 딕셔너리의 항목을 모두 펼치고 <code>level</code> 항목을 추가한 새 딕셔너리를 만든다. D2의 −80 dBm은 D2의 10% 분위수(−77 dBm)보다 약하므로 「경고」로 판정된다.</p>
+<h2 id="_3">기준값을 바꾸는 방법<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>판정 기준을 4주차에 수집한 새 자료로 다시 산출하면 <code>judge.py</code>의 <code>THRESH</code>만 수정한다. 서버 코드(<code>main.py</code>)는 수정하지 않는다. 10장의 강수 판정 모델이나 11장의 동작 분류 모델도 같은 방법으로 별도 모듈에 두고 엔드포인트에서 호출한다.</p>
+<table>
+<thead>
+<tr>
+<th>판정 모듈</th>
+<th>입력</th>
+<th>출력</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>judge_rssi</code></td>
+<td>지점, 신호 세기</td>
+<td>정상·주의·경고</td>
+<td>7.1절 분위수</td>
+</tr>
+<tr>
+<td><code>my_model</code></td>
+<td>오늘 강수량, 계절 위치</td>
+<td>다음 날 강수 여부</td>
+<td>12.1절 조건문 변환</td>
+</tr>
+<tr>
+<td><code>classify</code></td>
+<td>가속도 특징</td>
+<td>동작 이름</td>
+<td>11.3절 조건문 변환</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>judge.py</code>에 12.1절의 <code>my_model</code> 함수를 추가하고, 오늘 강수량과 날짜를 받아 다음 날 강수 여부를 반환하는 엔드포인트를 작성하시오.</li>
+<li><code>THRESH</code>에 없는 지점(예: <code>D5</code>)으로 판정을 요청하면 어떤 오류가 발생하는지 확인하고, <code>Measure</code> 모델의 <code>pattern</code> 제약이 이 오류를 어떻게 예방하는지 설명하시오.</li>
+<li>응답에 판정 기준값(<code>q10</code>, <code>q25</code>)도 포함하도록 수정하시오.</li>
+</ol>
 
 
 

@@ -3028,10 +3028,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 키 발급과 보관
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-genai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        google-genai 라이브러리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        요청과 응답 구조
       
     </span>
   </a>
@@ -3042,7 +3064,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3900,10 +3922,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 키 발급과 보관
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-genai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        google-genai 라이브러리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        요청과 응답 구조
       
     </span>
   </a>
@@ -3914,7 +3958,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3983,110 @@
 
 
 <h1 id="131-gemini-api">13.1 Gemini API 호출<a class="headerlink" href="#131-gemini-api" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>API(Application Programming Interface)는 프로그램이 다른 프로그램의 기능을 사용할 수 있도록 정한 호출 규칙이다. Gemini API를 사용하면 파이썬 코드에서 Google의 생성형 AI 모델에 문장을 보내고 생성된 응답을 받을 수 있다. 8장에서 사이버파이가 수업 서버에 측정값을 보내고 응답을 받은 것과 같은 요청·응답 구조다.</p>
+<h2 id="api">API 키 발급과 보관<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<p>API 키는 API를 호출하는 사용자를 식별하는 문자열이다. 키가 있으면 누구나 그 사용자의 이름으로 API를 호출할 수 있으므로 비밀번호처럼 관리한다.</p>
+<ol>
+<li><a href="https://aistudio.google.com/apikey">Google AI Studio의 API 키 페이지</a>에 Google 계정으로 접속한다.</li>
+<li>API 키 만들기를 선택하고, 생성된 키를 복사한다.</li>
+<li>Colab 왼쪽 메뉴의 열쇠 모양 아이콘(보안 비밀)을 선택하고, 이름을 <code>GEMINI_API_KEY</code>로 정해 키를 값 칸에 입력한다. 「노트북 액세스」를 켠다.</li>
+</ol>
+<!-- PHOTO: ch13_cap_aistudio_key — Google AI Studio API 키 페이지(키 만들기 단추), 키 문자열은 가리고 캡처. 교수 계정으로 촬영 -->
+<!-- PHOTO: ch13_cap_colab_secret — Colab 보안 비밀 창에 GEMINI_API_KEY 이름이 추가되고 노트북 액세스가 켜진 화면, 값은 가림 -->
 
+<table>
+<thead>
+<tr>
+<th>보관 원칙</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>코드에 키를 직접 쓰지 않는다</td>
+<td>노트북을 공유하거나 화면을 캡처하면 키가 함께 노출된다</td>
+</tr>
+<tr>
+<td>Colab 보안 비밀이나 환경변수에 보관한다</td>
+<td>코드에는 키의 이름만 남는다</td>
+</tr>
+<tr>
+<td>노출되었다고 판단되면 즉시 삭제하고 새로 발급한다</td>
+<td>AI Studio에서 키를 삭제하면 그 키로 하는 호출이 모두 거부된다</td>
+</tr>
+</tbody>
+</table>
+<h2 id="google-genai">google-genai 라이브러리<a class="headerlink" href="#google-genai" title="Permanent link">&para;</a></h2>
+<p>Gemini API는 <code>google-genai</code> 라이브러리로 호출한다. Colab에서는 다음 명령으로 설치한다(이미 설치되어 있으면 건너뛴다).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>!pip install -q google-genai
+</code></pre></div>
+<p>다음 코드는 Colab 보안 비밀에서 키를 읽는다. 키가 없거나 Colab이 아닌 환경에서는 <code>key</code>가 <code>None</code>이 되며, 이후 코드는 호출을 건너뛰고 끝까지 실행된다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">key</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"GEMINI_API_KEY"</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"GEMINI_API_KEY"</span><span class="p">)</span>     <span class="c1"># PC에서는 환경변수 사용</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"gemini-2.5-flash"</span>                      <span class="c1"># 사용 가능한 모델 이름은 공식 문서에서 확인</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"API 키 준비:"</span><span class="p">,</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_1">요청과 응답 구조<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">if</span> <span class="n">key</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">google</span><span class="w"> </span><span class="kn">import</span> <span class="n">genai</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">client</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">contents</span><span class="o">=</span><span class="s2">"Wi-Fi 신호 세기 단위 dBm의 의미를 고등학생에게 두 문장으로 설명하시오."</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">usage_metadata</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"API 키가 없어 호출을 건너뜁니다."</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p class="admonition-title">실행 결과</p>
+<p>수업용 API 키를 확인한 뒤 실제 응답과 Colab 실행 화면을 기입한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>파이썬에서 생성형 AI API 호출</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>API 키 발급과 보관</li>
-<li>google-genai 라이브러리</li>
-<li>요청과 응답 구조</li>
-</ul>
+<!-- DATA: ch13_run_basic — 유효한 API 키로 위 코드를 실행한 응답 텍스트·usage_metadata와 Colab 캡처 -->
+
+<table>
+<thead>
+<tr>
+<th>구성 요소</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>genai.Client(api_key=key)</code></td>
+<td>API 키로 인증한 클라이언트 생성</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>호출할 모델 이름</td>
+</tr>
+<tr>
+<td><code>contents</code></td>
+<td>모델에 보내는 입력(프롬프트)</td>
+</tr>
+<tr>
+<td><code>response.text</code></td>
+<td>생성된 응답 문장</td>
+</tr>
+<tr>
+<td><code>response.usage_metadata</code></td>
+<td>입력·출력 토큰 수. 토큰은 모델이 문장을 처리하는 단위이며 사용량 계산의 기준</td>
+</tr>
+</tbody>
+</table>
+<p>같은 프롬프트를 여러 번 보내면 응답 문장이 매번 조금씩 다르다. 생성형 AI는 다음에 올 토큰을 확률에 따라 선택하기 때문이다. 이 성질 때문에 13.4절에서 응답을 코드로 검증하는 절차가 필요하다.</p>
+<h2 id="_2">확인 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>API 키를 코드에 직접 쓴 노트북을 공유하면 어떤 일이 발생할 수 있는지 설명하시오.</li>
+<li>같은 질문을 세 번 호출하고, 응답 문장에서 같은 부분과 다른 부분을 비교하시오.</li>
+<li><code>usage_metadata</code>에서 입력 토큰 수와 출력 토큰 수를 찾아 기록하시오.</li>
+</ol>
 
 
 

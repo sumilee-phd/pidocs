@@ -3087,7 +3087,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        측정 요약 통계 산출
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        요약값만 AI에 입력
       
     </span>
   </a>
@@ -3098,7 +3109,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3914,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        측정 요약 통계 산출
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        요약값만 AI에 입력
       
     </span>
   </a>
@@ -3914,7 +3936,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +3961,128 @@
 
 
 <h1 id="133">13.3 수치 계산과 문장 생성의 분리<a class="headerlink" href="#133" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
+<p>생성형 AI 모델은 문장을 자연스럽게 작성하지만, 많은 수의 측정값에서 중앙값이나 비율을 정확히 계산하는 일에는 적합하지 않다. 모델은 계산하지 않고 그럴듯한 다음 토큰을 선택해 문장을 생성하기 때문이다. 따라서 수치 계산은 코드로 하고, 계산 결과인 요약값만 모델에 입력해 문장 작성을 위임한다.</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>담당</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 요약 통계 산출</td>
+<td>파이썬 코드(pandas)</td>
+<td>원자료 492건에서 지점별 중앙값·기록 수·약한 신호 비율 산출</td>
+</tr>
+<tr>
+<td>2. 요약값 문자열 구성</td>
+<td>파이썬 코드</td>
+<td>요약 표를 프롬프트에 넣을 문자열로 변환</td>
+</tr>
+<tr>
+<td>3. 문장 생성</td>
+<td>생성형 AI</td>
+<td>요약값을 근거로 보고 문장 작성</td>
+</tr>
+<tr>
+<td>4. 검증</td>
+<td>파이썬 코드</td>
+<td>문장의 수치가 요약값과 일치하는지 점검(13.4절)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">측정 요약 통계 산출<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>11/4 수업 신호 세기 기록에서 지점별 요약 통계를 산출한다. 약한 신호 비율은 −75 dBm 이하인 기록의 비율이다. −75 dBm은 수업에서 사용한 장비의 음영 기준이다(8.3절).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"class_rssi_20261104.csv"</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">g</span> <span class="o">=</span> <span class="n">rssi</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">"count"</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">"median"</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s2">"weak_pct"</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">round</span><span class="p">((</span><span class="n">v</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">75</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">})</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">summary</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      count  median  weak_pct
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>zone                         
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>D1      180   -52.0       2.8
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>D2      121   -66.0      21.5
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>D3      103   -62.0       1.0
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>D4       88   -65.5       4.5
+</code></pre></div>
+<figure>
+  <img alt="지점별 요약 통계 실행 화면" src="../../assets/img/ch13_colab_summary.png" />
+<br />
+<figcaption>그림 13-2 Colab에서 산출한 지점별 요약 통계</figcaption>
+</figure>
+<h2 id="ai">요약값만 AI에 입력<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>요약 표를 프롬프트에 넣을 문자열로 변환한다. 원자료 492건이 아니라 요약값 12개만 모델에 전달된다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">summary_to_text</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">for</span> <span class="n">zone</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">zone</span><span class="si">}</span><span class="s2">: 기록 </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'count'</span><span class="p">])</span><span class="si">}</span><span class="s2">건, 중앙값 </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'median'</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> dBm, "</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                     <span class="sa">f</span><span class="s2">"-75 dBm 이하 비율 </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'weak_pct'</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">summary_text</span> <span class="o">=</span> <span class="n">summary_to_text</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">summary_text</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>D1: 기록 180건, 중앙값 -52 dBm, -75 dBm 이하 비율 2.8%
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>D2: 기록 121건, 중앙값 -66 dBm, -75 dBm 이하 비율 21.5%
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>D3: 기록 103건, 중앙값 -62 dBm, -75 dBm 이하 비율 1%
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>D4: 기록 88건, 중앙값 -65.5 dBm, -75 dBm 이하 비율 4.5%
+</code></pre></div>
+<figure>
+  <img alt="요약 문자열 실행 화면" src="../../assets/img/ch13_colab_summary_text.png" />
+<br />
+<figcaption>그림 13-3 프롬프트에 입력할 요약 문자열</figcaption>
+</figure>
+<p><code>iterrows()</code>는 DataFrame의 행을 (인덱스, 행) 순서로 하나씩 반환한다. <code>{값:g}</code>는 불필요한 소수점 0을 표시하지 않는 서식이다(−52.0 → −52, −65.5 → −65.5).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span> <span class="n">key</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">make_prompt</span><span class="p">(</span><span class="n">summary_text</span><span class="p">))</span><span class="o">.</span><span class="n">text</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">report</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"API 키가 없어 호출을 건너뜁니다."</span><span class="p">)</span>
+</code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p class="admonition-title">실행 결과</p>
+<p>수업용 API 키를 확인한 뒤 실제 보고 문장을 기입한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>계산은 코드로, 서술은 AI로 분리하는 구조 구성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>측정 요약 통계 산출</li>
-<li>요약값만 AI에 입력</li>
-</ul>
+<!-- DATA: ch13_run_report — summary_text로 생성한 보고 문장(13.4절 검증 입력으로도 사용) -->
+
+<table>
+<thead>
+<tr>
+<th>방식</th>
+<th>모델에 입력하는 자료</th>
+<th>위험</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>원자료 전체 입력</td>
+<td>492건의 측정값</td>
+<td>계산 오류, 입력 길이와 사용량 증가</td>
+</tr>
+<tr>
+<td>요약값만 입력(이 절)</td>
+<td>코드로 산출한 12개 값</td>
+<td>문장 작성 단계의 수치 옮겨 쓰기 오류만 남음 → 13.4절에서 점검</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">확인 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>summary</code>에 지점별 10% 분위수 열을 추가하고 <code>summary_to_text</code>가 이 값도 출력하도록 수정하시오.</li>
+<li>원자료 일부(예: 30행)를 그대로 프롬프트에 넣고 「지점별 중앙값을 계산하라」고 요청한 뒤, 응답의 값을 <code>summary</code>와 비교하시오.</li>
+<li>본인 프로젝트의 측정 자료로 요약 통계 표와 요약 문자열을 작성하시오.</li>
+</ol>
 
 
 
