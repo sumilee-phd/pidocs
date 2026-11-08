@@ -1,6 +1,6 @@
 # AI 파이썬 피지컬컴퓨팅 (웹 전자책 원본)
 
-2027 P-TECH 토요일 과정 AI 파이썬 융합과목의 주교재. MkDocs Material로 위키독스형 사이트를 생성한다. 게시 예정 위치는 aifusionlab.org(주소·게시 방식 미정).
+2027 P-TECH 토요일 과정 AI 파이썬 융합과목의 주교재. MkDocs Material로 위키독스형 사이트를 생성한다. 게시 주소는 <https://pidocs.aifusionlab.org/ai-python/>(허브 <https://pidocs.aifusionlab.org/>), 저장소 <https://github.com/sumilee-phd/pidocs>.
 
 ## 구조
 
@@ -20,7 +20,18 @@
 python scripts/make_site.py
 python -m mkdocs serve -a 127.0.0.1:8770
 python -m mkdocs build --strict
+python scripts/publish.py --push   # _site 조립 후 gh-pages 가지로 공개 게시
 ```
+
+## 게시 구조
+
+| 항목 | 값 |
+|---|---|
+| 저장소 | `sumilee-phd/pidocs`(공개), 원고는 `main`, 게시본은 `gh-pages` |
+| 게시본 구성 | `/` = `hub/index.html`(piDocs 허브), `/ai-python/` = 이 책 |
+| 사용자 도메인 | `pidocs.aifusionlab.org`(GitHub Pages, `CNAME` 파일은 publish.py가 생성) |
+| DNS | Cloudflare에 CNAME `pidocs` → `sumilee-phd.github.io`, 프록시 끔(DNS only) |
+| 푸시 계정 | 푸시 전 `gh auth switch --user sumilee-phd` |
 
 목차를 바꿀 때는 `outline.py`를 수정하고 `make_site.py`를 다시 실행한다. 절을 집필하면 페이지 첫머리의 `<!-- STUB ... -->` 줄을 지운다.
 
