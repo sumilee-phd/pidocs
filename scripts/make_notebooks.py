@@ -19,10 +19,10 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 DOCS = os.path.join(ROOT, 'docs')
 OUT = os.path.join(ROOT, 'notebooks')
 SITE = 'https://pidocs.aifusionlab.org/ai-python/'
+RAW = 'https://raw.githubusercontent.com/sumilee-phd/pidocs/main/docs/'  # 자료 내려받기는 저장소 원본에서
+W, R = 'data/seoul_weather_2021_2025.csv', 'data/class_rssi_20261104.csv'
 DATA = {  # 장 → 내려받을 자료
-    'ch03': ['data/seoul_weather_2021_2025.csv'], 'ch05': ['data/seoul_weather_2021_2025.csv'],
-    'ch06': ['data/seoul_weather_2021_2025.csv'], 'ch09': ['data/seoul_weather_2021_2025.csv'],
-    'ch10': ['data/seoul_weather_2021_2025.csv'],
+    'ch03': [W, R], 'ch05': [W, R], 'ch06': [W, R], 'ch07': [W, R], 'ch09': [W], 'ch10': [W],
 }
 CODE = re.compile(r'```python\n(.*?)```', re.S)
 
@@ -40,7 +40,7 @@ def build(cid, ctitle, sections):
     cells = [md_cell(f'# {ctitle}\n\n이 노트북은 웹 교재 [{ctitle}]({SITE}{cid}/)의 본문 코드를 절 순서대로 담고 있습니다. '
                      '위에서부터 차례로 실행하면서 본문의 실행 결과와 비교합니다.')]
     if cid in DATA:
-        cmds = '\n'.join(f'!wget -q -nc {SITE}{p}' for p in DATA[cid])
+        cmds = '\n'.join(f'!wget -q -nc {RAW}{p}' for p in DATA[cid])
         cells.append(md_cell('## 실습 자료 내려받기'))
         cells.append(code_cell(cmds + '\n!ls *.csv'))
     n = 0
