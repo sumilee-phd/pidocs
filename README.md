@@ -15,6 +15,8 @@
 | `scripts/fill_outputs.py` | 장별 python 블록을 순서대로 실행해 내용이 `OUT`인 ```text 블록에 실제 출력 기입(`python scripts/fill_outputs.py ch03 ch05`) |
 | `scripts/make_notebooks.py` | 본문 ```python 블록으로 장별 Colab 노트북(`notebooks/chNN.ipynb`) 생성 |
 | `scripts/crop_shots.py` | 브라우저 캡처에서 필요한 영역을 잘라 그림으로 저장 |
+| `scripts/stitch_shots.py` | 한 화면에 들어가지 않는 셀을 위·아래 캡처에서 잘라 세로로 이어 붙임(`이름.png 원본.jpg:x0,y0,x1,y1 …`) |
+| `scripts/number_figures.py` | 장 안의 그림 캡션 번호(`그림 N-?` 포함)를 절 순서대로 다시 매김 |
 | `scripts/diagrams.py` | 캡처로 대체할 수 없는 구조도만 SVG로 생성 |
 | `docs/` | 페이지 원고(md), 자료, 그림, CSS |
 
@@ -41,7 +43,9 @@ python scripts/publish.py --push   # _site 조립 후 gh-pages 가지로 공개 
 
 ## 집필 현황(2026-11-09)
 
-집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 3장·5장·6장 전체(11/9, Colab 실행 화면 캡처 12장), 4.7, 9장, 10장, 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 3장·5장·6장 전체(11/9, Colab 캡처 12장), 7장 전체(11/9, Colab 캡처 13장), 4.7, 9장·10장(11/9 그래프 코드 7개 추가, Colab 캡처 23장), 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+
+실물 사진이 필요한 자리는 본문에 `<!-- PHOTO: 이름 — 장면 -->` 표식으로 남긴다(`grep -rn "PHOTO:" docs`). 촬영 목록은 업무 저장소의 `ICT폴리텍_piDocs_실물사진촬영목록_20261109.md`, 사진은 `_raw/photos/`에 둔다.
 
 그림 원칙(사용자 지시): 직접 그리지 않고 실제 실행 화면을 캡처한다. 캡처 원본은 `_raw/`(git 제외), 자르기는 `scripts/crop_shots.py`(계정 사진 자동 가림). 노트북은 `scripts/make_notebooks.py`가 본문 코드로 생성한다.
 
