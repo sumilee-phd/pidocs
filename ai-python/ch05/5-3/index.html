@@ -1437,7 +1437,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        연·월 열 추가
       
     </span>
   </a>
@@ -1448,7 +1448,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        월별 평년값
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        월별 강수일수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        연도·월 교차표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        연·월 열 추가
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        월별 평년값
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        월별 강수일수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        연도·월 교차표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +4005,112 @@
 
 
 <h1 id="53">5.3 날짜 열과 월별 집계<a class="headerlink" href="#53" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>날짜 자료형 변환과 기간별 집계</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>to_datetime과 dt 접근자</li>
-<li>groupby·resample</li>
-<li>월별 평균기온·강수량 표</li>
-</ul>
+<p>날씨 자료는 날짜를 기준으로 연·월·계절 단위로 묶어 분석한다. pandas의 날짜 자료형은 <code>dt</code> 접근자로 연·월·요일 등을 추출할 수 있다.</p>
+<h2 id="_1">연·월 열 추가<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">df</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df</span><span class="p">[[</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="s2">"temp_mean"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>        date  year  month  temp_mean
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>0 2021-01-01  2021      1       -5.9
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>1 2021-01-02  2021      1       -5.9
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>2 2021-01-03  2021      1       -6.3
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>표기</th>
+<th>추출 값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dt.year</code></td>
+<td>연도</td>
+</tr>
+<tr>
+<td><code>dt.month</code></td>
+<td>월(1~12)</td>
+</tr>
+<tr>
+<td><code>dt.day_of_year</code></td>
+<td>연중 일수(1~366), 9.2절에서 사용</td>
+</tr>
+<tr>
+<td><code>dt.dayofweek</code></td>
+<td>요일(월요일 0 ~ 일요일 6)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">월별 평년값<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>5년 자료를 월별로 묶어 평균기온과 월강수량을 산출한다. <code>agg</code>에 <code>새 열 이름=(원래 열, 통계)</code> 형식으로 지정하면 결과 열의 이름을 함께 정할 수 있다. 강수량은 5년 합계를 5로 나누어 연평균 월강수량으로 환산한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">monthly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">temp</span><span class="o">=</span><span class="p">(</span><span class="s2">"temp_mean"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span> <span class="n">precip</span><span class="o">=</span><span class="p">(</span><span class="s2">"precip_mm"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">monthly</span><span class="p">[</span><span class="s2">"precip"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"precip"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">5</span>      <span class="c1"># 5년 합계를 연평균으로 환산</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">monthly</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>       temp  precip
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>month              
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1      -3.1    19.0
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>2      -0.6    17.3
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>3       5.9    58.0
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>4      12.2    73.5
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>5      16.5   126.0
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>6      22.1   168.7
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>7      26.1   305.1
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>8      25.8   289.2
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>9      21.8   215.1
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>10     14.0   104.5
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>11      6.7    56.3
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>12     -1.6    30.4
+</code></pre></div>
+<figure>
+  <img alt="월별 집계 실행 화면" src="../../assets/img/ch05_colab_monthly.png" />
+<br />
+<figcaption>그림 5-3 Colab에서 실행한 월별 평균기온·월강수량</figcaption>
+</figure>
+<p>평균기온은 1월이 −3.1℃로 가장 낮고 7월이 26.1℃로 가장 높다. 월강수량은 7월(305.1 mm)과 8월(289.2 mm)이 가장 많고, 6~9월 4개월의 합계 978.1 mm가 연강수량(약 1,463 mm)의 약 67%를 차지한다. 여름철에 비가 집중되는 이 특성은 10장의 강수 분류 모델이 계절 위치를 분기 기준으로 사용하는 근거가 된다(10.2절).</p>
+<h2 id="_3">월별 강수일수<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">df</span><span class="p">[</span><span class="s2">"rain"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"precip_mm"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1.0</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">)[</span><span class="s2">"rain"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>month
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>1      4.4
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>2      4.2
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>3      7.2
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>4      6.8
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>5      9.0
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>6     12.6
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>7     18.2
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>8     18.2
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>9     10.8
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>10     8.8
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>11     5.8
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>12     4.6
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>Name: rain, dtype: float64
+</code></pre></div>
+<p>논리값 열의 합계는 <code>True</code>의 개수다. 5년 합계를 5로 나눈 값은 그 달의 연평균 강수일수다.</p>
+<h2 id="_4">연도·월 교차표<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"year"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"temp_mean"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>month   1    2    3     4     5     6     7     8     9     10   11   12
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>year                                                                    
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>2021  -3.9  0.5  6.7  11.9  15.2  21.1  26.4  24.7  21.1  14.0  6.2 -1.3
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>2022  -3.5 -2.6  5.2  12.0  17.0  21.9  25.6  24.0  20.4  12.3  7.8 -4.6
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>2023  -3.5  0.1  7.2  11.9  17.3  21.4  25.1  25.6  22.0  13.7  4.9 -0.4
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>2024  -2.3  1.8  4.7  13.8  16.6  22.9  25.3  27.3  23.5  14.6  7.5 -1.1
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>2025  -2.1 -2.6  5.8  11.5  16.6  23.2  27.8  27.1  22.3  15.5  7.3 -0.7
+</code></pre></div>
+<p>같은 달이라도 연도에 따라 월평균기온이 다르다. 이 표는 6장에서 그래프로 시각화하고, 9장에서 계절 위치를 특징으로 사용하는 근거가 된다.</p>
+<h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>월별 최고기온의 평균(<code>temp_max</code>)과 최저기온의 평균(<code>temp_min</code>)을 함께 산출하시오.</li>
+<li>요일별 평균 강수량을 산출하고, 요일과 강수량 사이에 관계가 있다고 판단할 수 있는지 설명하시오.</li>
+<li>연도별 7·8월 강수량 합계를 산출하시오.</li>
+</ol>
 
 
 

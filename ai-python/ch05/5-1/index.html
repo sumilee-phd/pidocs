@@ -1381,7 +1381,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        자료 불러오기
       
     </span>
   </a>
@@ -1392,7 +1392,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        구조 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기술통계 요약
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        열 선택과 행 필터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3947,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        자료 불러오기
       
     </span>
   </a>
@@ -3914,7 +3958,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        구조 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기술통계 요약
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        열 선택과 행 필터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +4027,109 @@
 
 
 <h1 id="51-dataframe">5.1 DataFrame 기초<a class="headerlink" href="#51-dataframe" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>CSV를 DataFrame으로 불러와 구조 확인</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>read_csv</li>
-<li>head·info·describe</li>
-<li>열 선택과 행 필터</li>
-</ul>
+<p>pandas는 표 형식 자료를 다루는 파이썬 라이브러리다. 3장에서 <code>csv</code> 모듈과 딕셔너리로 10줄 이상 작성한 집계를 pandas에서는 한두 줄로 작성할 수 있다. pandas의 기본 자료구조는 행과 열로 구성된 표인 DataFrame과, DataFrame의 열 하나에 해당하는 Series다.</p>
+<h2 id="_1">자료 불러오기<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>pd.read_csv</code>는 CSV 파일을 DataFrame으로 불러온다. <code>parse_dates=["date"]</code>를 지정하면 <code>date</code> 열을 문자열이 아닌 날짜 자료형으로 변환한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"seoul_weather_2021_2025.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">])</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>        date  temp_mean  temp_max  temp_min  precip_mm  humidity  wind_max  sunshine_h
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>0 2021-01-01       -5.9      -0.7     -10.6        0.0        63      14.8         7.6
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>1 2021-01-02       -5.9      -2.8      -8.8        0.0        34      19.0         9.0
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>2 2021-01-03       -6.3      -2.1      -8.6        0.0        41      17.2         9.0
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>3 2021-01-04       -4.1       0.5      -7.8        0.2        41       8.6         7.0
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>4 2021-01-05       -6.0      -3.0     -10.2        0.0        45      21.4         9.0
+</code></pre></div>
+<figure>
+  <img alt="DataFrame head 실행 화면" src="../../assets/img/ch05_colab_head.png" />
+<br />
+<figcaption>그림 5-1 Colab에서 표 형식으로 표시된 df.head() 결과</figcaption>
+</figure>
+<p><code>head()</code>는 처음 5행을 반환한다. Colab에서는 셀의 마지막 줄에 DataFrame을 쓰면 그림 5-1처럼 표 형식으로 표시된다. 왼쪽의 0, 1, 2…는 각 행의 이름인 색인(index)이다.</p>
+<h2 id="_2">구조 확인<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&lt;class 'pandas.DataFrame'&gt;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>RangeIndex: 1826 entries, 0 to 1825
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Data columns (total 8 columns):
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a> #   Column      Non-Null Count  Dtype         
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>---  ------      --------------  -----         
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a> 0   date        1826 non-null   datetime64[us]
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a> 1   temp_mean   1826 non-null   float64       
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a> 2   temp_max    1826 non-null   float64       
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a> 3   temp_min    1826 non-null   float64       
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a> 4   precip_mm   1826 non-null   float64       
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a> 5   humidity    1826 non-null   int64         
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a> 6   wind_max    1826 non-null   float64       
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a> 7   sunshine_h  1826 non-null   float64       
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>dtypes: datetime64[us](1), float64(6), int64(1)
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>memory usage: 114.3 KB
+</code></pre></div>
+<p><code>info()</code>는 행 수, 열 이름, 열별 결측이 아닌 값의 개수(Non-Null Count), 자료형(Dtype)을 출력한다. <code>date</code> 열이 <code>datetime64</code> 자료형으로 변환되었고, 모든 열의 값 개수가 행 수와 같으므로 결측치가 없다. pandas 버전에 따라 첫 줄의 클래스 이름과 날짜 자료형의 단위 표기(<code>[us]</code>, <code>[ns]</code>)는 다르게 출력될 수 있다.</p>
+<h2 id="_3">기술통계 요약<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>                      date  temp_mean  temp_max  temp_min  precip_mm  humidity  wind_max  \
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>count                 1826     1826.0    1826.0    1826.0     1826.0    1826.0    1826.0   
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>mean   2023-07-02 12:00:00       12.2      17.2       8.0        4.0      71.5      15.7   
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>min    2021-01-01 00:00:00      -15.6     -12.1     -18.8        0.0      21.0       3.8   
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>25%    2022-04-02 06:00:00        2.9       8.3      -1.9        0.0      63.0      11.2   
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>50%    2023-07-02 12:00:00       13.0      18.4       8.2        0.0      74.0      14.8   
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>75%    2024-09-30 18:00:00       21.9      26.1      18.2        1.7      82.0      19.2   
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>max    2025-12-31 00:00:00       32.8      38.5      28.1      107.7      96.0      41.3   
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>std                    NaN       10.7      10.6      11.1       11.0      13.9       5.8   
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>       sunshine_h  
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>count      1826.0  
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>mean          8.3  
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>min           0.0  
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>25%           6.4  
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>50%           9.2  
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>75%          11.0  
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>max          13.3  
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>std           3.8  
+</code></pre></div>
+<p><code>describe()</code>는 수치 열마다 개수(count), 평균(mean), 최솟값(min), 사분위수(25%·50%·75%), 최댓값(max), 표준편차(std)를 한 번에 산출한다. 각 값의 의미는 6.2절에서 다룬다.</p>
+<h2 id="_4">열 선택과 행 필터<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><code>df["temp_max"]</code>처럼 열 이름 하나를 대괄호에 쓰면 Series를, <code>df[["date", "temp_max"]]</code>처럼 열 이름 리스트를 쓰면 DataFrame을 반환한다. 대괄호 안에 조건식을 쓰면 조건을 만족하는 행만 추출한다. 일최고기온이 33℃ 이상인 날을 폭염일로 정의하고 연도별로 집계한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">hot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"temp_max"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">33</span><span class="p">]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hot</span><span class="p">))</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">hot</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>42
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>date
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>2021     8
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>2022     2
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>2023     4
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>2024     6
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>2025    22
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Name: count, dtype: int64
+</code></pre></div>
+<p>5년 동안 폭염일은 42일이며, 그중 22일이 2025년이다. 아래 정렬 결과에서도 일최고기온 상위 5일 중 4일이 2025-07-26~30에 집중되어 있다. <code>df["temp_max"] &gt;= 33</code>은 행마다 <code>True</code>·<code>False</code>를 저장한 Series이고, 이 Series로 DataFrame을 필터링하면 <code>True</code>인 행만 남는다. <code>dt.year</code>는 날짜에서 연도를 추출하고, <code>value_counts()</code>는 값별 개수를 집계한다.</p>
+<h2 id="_5">정렬<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"temp_max"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"temp_max"</span><span class="p">,</span> <span class="s2">"temp_mean"</span><span class="p">]]</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>           date  temp_max  temp_mean
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>1670 2025-07-29      38.5       32.5
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>1668 2025-07-27      38.4       32.8
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>1671 2025-07-30      38.0       32.2
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>1667 2025-07-26      37.8       32.1
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>1653 2025-07-12      37.0       30.3
+</code></pre></div>
+<p><code>sort_values</code>는 지정한 열을 기준으로 행을 정렬한다. <code>ascending=False</code>는 내림차순(큰 값부터)이다.</p>
+<h2 id="_6">확인 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>일최저기온(<code>temp_min</code>)이 −10℃ 이하인 날의 수를 연도별로 집계하시오.</li>
+<li>일강수량이 가장 많은 5일을 출력하시오.</li>
+<li>3.3절에서 <code>csv</code> 모듈로 산출한 연도별 평균기온을 <code>df.groupby(df["date"].dt.year)["temp_mean"].mean()</code>으로 산출해 결과를 비교하시오.</li>
+</ol>
 
 
 

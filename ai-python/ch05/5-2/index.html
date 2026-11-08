@@ -1409,7 +1409,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        지점별 요약
       
     </span>
   </a>
@@ -1420,7 +1420,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        피벗 표의 결측치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결측치 처리 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 찾기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 처리 판단
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3947,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        지점별 요약
       
     </span>
   </a>
@@ -3914,7 +3958,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        피벗 표의 결측치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        결측치 처리 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 찾기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이상치 처리 판단
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +4027,147 @@
 
 
 <h1 id="52">5.2 결측치·이상치 처리<a class="headerlink" href="#52" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>측정 자료의 결측치·이상치 처리</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>isna와 결측 비율</li>
-<li>제거·대체 기준</li>
-<li>물리적 범위 밖 값 판정</li>
-</ul>
+<p>실제 측정 자료에는 값이 없는 칸(결측치, missing value)과 다른 값들과 크게 떨어진 값(이상치, outlier)이 섞여 있다. 이 절에서는 3.2절의 11/4 수업 신호 세기 기록으로 두 가지를 찾아내고 처리 방법을 결정한다. 처리 방법은 분석 목적에 따라 달라지므로, 먼저 찾아낸 뒤 원인을 확인하고 결정한다.</p>
+<h2 id="_1">지점별 요약<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">rssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"class_rssi_20261104.csv"</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">rssi</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">rssi</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rssi</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>(492, 5)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>id      0
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>node    0
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>zone    0
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>rssi    0
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>time    0
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>dtype: int64
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      count  mean  median
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>zone                     
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>D1      180 -53.0   -52.0
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>D2      121 -62.9   -66.0
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>D3      103 -59.4   -62.0
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>D4       88 -61.5   -65.5
+</code></pre></div>
+<p><code>isna().sum()</code>은 열별 결측치 개수다. 원자료에는 결측치가 없다. <code>groupby("zone")</code>은 지점별로 행을 묶고, <code>agg</code>는 묶음마다 여러 통계를 산출한다. 3.2절에서 딕셔너리 2개로 산출한 건수·평균과 같은 결과를 한 줄로 얻는다.</p>
+<h2 id="_2">피벗 표의 결측치<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>노드별·지점별 중앙값을 표로 정리하면 결측치가 나타난다. <code>pivot_table</code>은 행 색인(<code>index</code>)과 열(<code>columns</code>)의 조합마다 값을 집계한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pv</span> <span class="o">=</span> <span class="n">rssi</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"node"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"zone"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"rssi"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">pv</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>zone    D1    D2    D3    D4
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>node                        
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>N5   -46.0 -70.0 -62.0   NaN
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>N6   -51.5 -51.0 -55.0 -55.0
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>N7   -43.0   NaN   NaN   NaN
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>N8   -53.0 -71.0 -67.0 -51.5
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>S01  -48.0 -69.0 -60.0 -68.0
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>S02  -55.0 -68.0 -64.0 -67.5
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>S03  -59.0 -75.0 -66.0 -66.0
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>S04  -51.0 -77.0 -65.0 -70.0
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>S05  -49.0 -66.0 -64.0 -66.0
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>S06  -52.0 -52.0 -60.0 -68.0
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>S07  -41.5 -50.0 -40.0 -60.0
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>S08  -49.0 -52.0 -48.0 -45.0
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>S09  -57.0   NaN   NaN   NaN
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>S10  -60.0 -56.5   NaN   NaN
+</code></pre></div>
+<figure>
+  <img alt="피벗 표 실행 화면" src="../../assets/img/ch05_colab_pivot.png" />
+<br />
+<figcaption>그림 5-2 노드별·지점별 중앙값 피벗 표(NaN은 결측치)</figcaption>
+</figure>
+<p><code>NaN</code>(Not a Number)은 결측치를 표시한다. 수업 시간 안에 일부 지점을 측정하지 못한 노드의 칸이 결측치가 되었다. 결측치는 측정값이 없다는 사실 자체가 정보이므로, 원인을 확인하지 않고 임의의 값으로 대체하지 않도록 한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"4개 지점을 모두 측정한 노드:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">dropna</span><span class="p">()))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>zone
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>D1    0
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>D2    2
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>D3    3
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>D4    4
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>dtype: int64
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>4개 지점을 모두 측정한 노드: 10
+</code></pre></div>
+<h2 id="_3">결측치 처리 방법<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>코드</th>
+<th>적합한 경우</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>행 제거</td>
+<td><code>pv.dropna()</code></td>
+<td>4개 지점을 모두 측정한 노드끼리만 비교할 때</td>
+</tr>
+<tr>
+<td>대표값으로 대체</td>
+<td><code>pv.fillna(pv.median())</code></td>
+<td>결측 비율이 낮고, 대체값이 결론을 바꾸지 않을 때</td>
+</tr>
+<tr>
+<td>그대로 유지</td>
+<td>처리하지 않음</td>
+<td>지도·표에 「측정 없음」을 표시해야 할 때</td>
+</tr>
+</tbody>
+</table>
+<p>대체값을 사용하면 측정하지 않은 칸이 측정한 칸과 구별되지 않는다. 다음은 중앙값으로 대체한 결과의 예다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">filled</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">filled</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"N7"</span><span class="p">,</span> <span class="s2">"S09"</span><span class="p">]]</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>zone    D1    D2    D3    D4
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>node                        
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>N7   -43.0 -67.0 -62.0 -66.0
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>S09  -57.0 -67.0 -62.0 -66.0
+</code></pre></div>
+<p>N7과 S09는 D1만 측정했지만, 대체 후에는 D2~D4에도 값이 있는 것처럼 표시된다. 전파 지도처럼 실제 측정 위치가 중요한 분석에서는 대체하지 않고 결측 상태를 유지한다.</p>
+<h2 id="_4">이상치 찾기<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>첫째, 물리적으로 불가능한 값을 확인한다. Wi-Fi 신호 세기는 0 dBm보다 클 수 없고, −100 dBm 아래는 측정 노드가 신호를 수신하지 못하는 수준이다. 둘째, 사분위수 범위(IQR, Interquartile Range) 규칙으로 지점별 분포에서 크게 떨어진 값을 찾는다. 1사분위수(Q1)에서 1.5×IQR을 뺀 값보다 작거나, 3사분위수(Q3)에 1.5×IQR을 더한 값보다 큰 값을 이상치 후보로 판정한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">out_range</span> <span class="o">=</span> <span class="n">rssi</span><span class="p">[(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">)]</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"범위 밖 기록:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_range</span><span class="p">))</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">q1</span> <span class="o">=</span> <span class="n">rssi</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">q3</span> <span class="o">=</span> <span class="n">rssi</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">low</span> <span class="o">=</span> <span class="n">rssi</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span><span class="p">)</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">high</span> <span class="o">=</span> <span class="n">rssi</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="n">outliers</span> <span class="o">=</span> <span class="n">rssi</span><span class="p">[(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">high</span><span class="p">)]</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"IQR 기준 이상치 후보:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">))</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">outliers</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"zone"</span><span class="p">)[</span><span class="s2">"rssi"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"min"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">])</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>범위 밖 기록: 0
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>IQR 기준 이상치 후보: 13
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>      count  min  max
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>zone                 
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>D1       13  -84  -35
+</code></pre></div>
+<p><code>map</code>은 각 행의 지점 이름을 그 지점의 경계값으로 변환해, 행마다 자기 지점의 기준과 비교할 수 있게 한다. 범위 밖 기록은 없고, IQR 기준 이상치 후보 13건은 모두 D1에서 나왔다. D1은 Q1 −56, Q3 −49 dBm으로 IQR이 7 dB에 불과해 경계가 −66.5~−38.5 dBm으로 좁다. 그 결과 −84 dBm 같은 약한 값과 −35 dBm 같은 강한 값이 모두 후보로 판정되었다. 다른 지점은 IQR이 14~22 dB로 넓어 후보가 없다.</p>
+<h2 id="_5">이상치 처리 판단<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>IQR 규칙으로 찾은 값은 이상치 「후보」다. 11/4 수업 자료를 분석한 결과, 같은 노드가 같은 자리에서 5초 간격으로 측정한 값의 표준편차는 약 3.4 dB였고, 같은 지점 안에서도 측정한 자리에 따라 8~12 dB 차이가 났다. 따라서 이상치 후보의 상당수는 기기 오류가 아니라 지점 안의 다른 자리에서 측정한 정상값일 수 있다. 이상치 후보는 삭제하지 않고 표시만 해 두고, 측정 기록(노드·시각)을 확인한 뒤 제외 여부를 결정한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">rssi</span><span class="p">[</span><span class="s2">"outlier"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">rssi</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">high</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">rssi</span><span class="p">[</span><span class="s2">"outlier"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>outlier
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>False    479
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>True      13
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Name: count, dtype: int64
+</code></pre></div>
+<h2 id="_6">확인 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>pv</code>에서 결측치가 가장 많은 노드를 찾으시오(<code>pv.isna().sum(axis=1)</code> 사용).</li>
+<li>IQR 규칙의 배수를 1.5에서 3.0으로 변경하면 이상치 후보가 몇 건으로 변화하는지 확인하시오.</li>
+<li>이상치 후보를 제외하기 전과 후의 지점별 중앙값을 비교하시오. 평균과 중앙값 중 이상치의 영향을 더 크게 받는 통계는 무엇인지 설명하시오.</li>
+</ol>
 
 
 

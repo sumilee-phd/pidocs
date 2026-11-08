@@ -905,7 +905,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        실습 자료
       
     </span>
   </a>
@@ -916,7 +916,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        파일 쓰기와 읽기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvdictreader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        csv.DictReader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3925,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        실습 자료
       
     </span>
   </a>
@@ -3914,7 +3936,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        파일 쓰기와 읽기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvdictreader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        csv.DictReader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3983,82 @@
 
 
 <h1 id="32-csv">3.2 파일 입출력과 CSV<a class="headerlink" href="#32-csv" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>CSV 파일 읽기·쓰기</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>open과 with 구문</li>
-<li>csv 모듈</li>
-<li>문자 인코딩(UTF-8)</li>
-</ul>
+<p>프로그램이 종료되면 변수의 값은 사라진다. 측정 자료를 보존하고 다른 프로그램과 주고받으려면 파일로 저장한다. CSV(Comma-Separated Values)는 한 행에 한 건의 기록을, 쉼표로 구분한 열에 항목을 저장하는 텍스트 파일 형식이며, 엑셀과 pandas 등 대부분의 도구가 읽고 쓸 수 있다.</p>
+<h2 id="_1">실습 자료<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>이 절과 5·6장에서는 2026-11-04 정보통신학과 수업에서 측정 노드 14대가 교내 4개 지점의 Wi-Fi 신호 세기를 측정한 실제 기록을 사용한다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>파일</td>
+<td><a href="../../data/class_rssi_20261104.csv">class_rssi_20261104.csv</a> (492행)</td>
+</tr>
+<tr>
+<td>열</td>
+<td><code>id</code> 기록 번호, <code>node</code> 측정 노드, <code>zone</code> 측정 지점(D1~D4), <code>rssi</code> 신호 세기(dBm), <code>time</code> 측정 시각</td>
+</tr>
+</tbody>
+</table>
+<p>장 첫머리의 「Colab에서 열기」로 노트북을 열면 첫 셀이 자료 파일을 자동으로 내려받는다. 직접 실습할 때는 파일을 내려받아 1.3절의 방법으로 업로드한다.</p>
+<h2 id="_2">파일 쓰기와 읽기<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>open</code> 함수로 파일을 열고, <code>with</code> 구문을 사용하면 블록이 끝날 때 파일이 자동으로 닫힌다. 두 번째 인자 <code>"w"</code>는 쓰기, <code>"r"</code>(생략 가능)은 읽기 모드다. 한글을 포함한 파일은 <code>encoding="utf-8"</code>을 지정한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">"zone"</span><span class="p">,</span> <span class="s2">"node"</span><span class="p">,</span> <span class="s2">"rssi"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"D1"</span><span class="p">,</span> <span class="s2">"S02"</span><span class="p">,</span> <span class="o">-</span><span class="mi">63</span><span class="p">],</span> <span class="p">[</span><span class="s2">"D3"</span><span class="p">,</span> <span class="s2">"S03"</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">],</span> <span class="p">[</span><span class="s2">"D4"</span><span class="p">,</span> <span class="s2">"N6"</span><span class="p">,</span> <span class="o">-</span><span class="mi">51</span><span class="p">]]</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.csv"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>zone,node,rssi
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>D1,S02,-63
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>D3,S03,-65
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>D4,N6,-51
+</code></pre></div>
+<p><code>csv.writer</code>의 <code>writerows</code>는 리스트의 각 원소를 한 행으로 기록한다. <code>newline=""</code>은 윈도우에서 행 사이에 빈 줄이 추가되는 현상을 방지한다. 파일 전체를 문자열로 읽으면 쉼표로 구분된 텍스트가 그대로 출력된다.</p>
+<h2 id="csvdictreader">csv.DictReader<a class="headerlink" href="#csvdictreader" title="Permanent link">&para;</a></h2>
+<p><code>csv.DictReader</code>는 첫 행을 열 이름으로 사용하고, 각 행을 열 이름이 키인 딕셔너리로 반환한다. 3.1절의 「리스트 안의 딕셔너리」와 같은 구조로 파일을 읽을 수 있다. CSV에서 읽은 값은 모두 문자열이므로 계산 전에 <code>int</code>로 형 변환한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">zone_sum</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">zone_cnt</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"class_rssi_20261104.csv"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">z</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">"zone"</span><span class="p">]</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="n">zone_sum</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">zone_sum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"rssi"</span><span class="p">])</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">zone_cnt</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">zone_cnt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"지점  건수  평균(dBm)"</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">zone_cnt</span><span class="p">):</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">zone_cnt</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">zone_sum</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">zone_cnt</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="si">:</span><span class="s2">9.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>지점  건수  평균(dBm)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>D1   180     -53.0
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>D2   121     -62.9
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>D3   103     -59.4
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>D4    88     -61.5
+</code></pre></div>
+<figure>
+  <img alt="CSV 지점별 집계 실행 화면" src="../../assets/img/ch03_colab_csv.png" />
+<br />
+<figcaption>그림 3-2 Colab에서 실행한 지점별 건수·평균 집계</figcaption>
+</figure>
+<p>지점별 건수와 평균을 딕셔너리 2개로 누적했다. 같은 집계를 5장에서는 pandas로 한 줄에 작성한다.</p>
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>노드별 기록 건수를 딕셔너리로 집계하고, 건수가 가장 많은 노드를 출력하시오.</li>
+<li>신호 세기가 −70 dBm 이하인 기록만 <code>weak.csv</code> 파일로 저장하시오.</li>
+<li>위 코드에서 <code>int(row["rssi"])</code> 대신 <code>row["rssi"]</code>를 더하면 어떤 오류가 발생하는지 확인하고 원인을 설명하시오.</li>
+</ol>
 
 
 

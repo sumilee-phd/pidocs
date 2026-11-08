@@ -3852,6 +3852,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        준비물
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3870,9 +3881,9 @@
 
 
 <h1 id="6">6장 시각화와 기술통계<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<p><span class="chip">6주차</span> <span class="chip on">온라인</span></p>
+<p><span class="chip">6주차</span> <span class="chip on">온라인</span> <span class="chip">기기 불필요</span></p>
+<p>5장에서 정리한 날씨 자료와 수업 측정 자료를 그래프로 시각화하고, 평균·중앙값·표준편차·사분위수로 분포를 요약한다. 그룹별 분포를 비교한 결과는 7장에서 판정 기준을 정하는 근거로 사용한다.</p>
+<p><a class="md-button md-button--primary" href="https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch06.ipynb">Colab에서 열기</a></p>
 <h2 id="_1">절 구성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="6-1/">6.1 matplotlib 그래프</a></li>
@@ -3881,10 +3892,24 @@
 </ul>
 <h2 id="_2">학습 목표<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>선·막대·히스토그램 작성</li>
-<li>평균·중앙값·표준편차·분위수 해석</li>
-<li>기상 자료와 4장 측정 자료의 분포 비교</li>
+<li>선 그래프·막대 그래프·히스토그램을 용도에 맞게 작성한다.</li>
+<li>평균과 중앙값의 차이로 분포의 치우침을 판단한다.</li>
+<li>상자그림으로 사분위수와 이상치 후보를 해석한다.</li>
+<li>그룹별 분포를 비교해 판정 기준 후보를 도출한다.</li>
 </ul>
+<h2 id="_3">준비물<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../data/seoul_weather_2021_2025.csv">서울 일별 날씨 자료 2021~2025(CSV)</a></li>
+<li><a href="../data/class_rssi_20261104.csv">11/4 수업 Wi-Fi 신호 세기 기록(CSV)</a></li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">참고 링크</p>
+<ul>
+<li><a href="https://matplotlib.org/stable/tutorials/index.html">matplotlib 공식 자습서</a></li>
+<li><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.boxplot.html">matplotlib boxplot</a></li>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html">pandas describe</a></li>
+</ul>
+</div>
 
 
 

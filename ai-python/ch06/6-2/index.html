@@ -1569,7 +1569,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        평균과 중앙값
       
     </span>
   </a>
@@ -1580,7 +1580,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        상자그림
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3914,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        평균과 중앙값
       
     </span>
   </a>
@@ -3914,7 +3925,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        상자그림
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3961,85 @@
 
 
 <h1 id="62">6.2 기술통계와 분포<a class="headerlink" href="#62" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>평균·중앙값·표준편차·분위수 해석</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>대표값과 산포도</li>
-<li>사분위수와 상자그림</li>
-<li>왜도가 큰 자료(강수량)의 해석</li>
-</ul>
+<p>기술통계(descriptive statistics)는 자료의 특성을 몇 개의 숫자로 요약한다. 자료의 중심을 나타내는 대표값과, 값이 흩어진 정도를 나타내는 산포도로 구분한다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>통계</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>대표값</td>
+<td>평균(mean)</td>
+<td>모든 값의 합 ÷ 개수</td>
+</tr>
+<tr>
+<td>대표값</td>
+<td>중앙값(median)</td>
+<td>크기 순으로 정렬했을 때 가운데 값</td>
+</tr>
+<tr>
+<td>산포도</td>
+<td>표준편차(std)</td>
+<td>값이 평균에서 떨어진 정도</td>
+</tr>
+<tr>
+<td>산포도</td>
+<td>사분위수(quartile)</td>
+<td>정렬한 값을 4등분하는 위치의 값(25%·50%·75%)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">평균과 중앙값<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"temp_mean"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"precip_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df</span><span class="p">[</span><span class="s2">"precip_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">])</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mean      12.22
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>median    12.95
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>std       10.74
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Name: temp_mean, dtype: float64
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>mean       4.01
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>median     0.00
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>std       11.00
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Name: precip_mm, dtype: float64
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>0.25     0.000
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>0.50     0.000
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>0.75     1.700
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>0.90    11.500
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>0.99    58.175
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Name: precip_mm, dtype: float64
+</code></pre></div>
+<p>일평균기온은 평균(12.22℃)과 중앙값(12.95℃)의 차이가 1℃ 미만이다. 반면 일강수량은 평균이 4.01 mm인데 중앙값은 0 mm다. 1826일 중 절반 이상이 강수량 0 mm이고, 75% 위치의 값도 1.7 mm에 불과하다. 그러나 상위 10%는 11.5 mm 이상, 상위 1%는 58.2 mm 이상이다. 비가 많이 온 소수의 날이 평균을 끌어올렸다.</p>
+<p>이처럼 한쪽으로 긴 꼬리를 가진 분포를 치우친(skewed) 분포라고 한다. 치우친 분포에서는 평균이 「보통의 날」을 대표하지 못하므로 중앙값과 사분위수를 함께 보고한다. 5.2절에서 이상치 후보를 판정할 때 평균이 아닌 사분위수를 사용한 이유도 같다.</p>
+<h2 id="_2">상자그림<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>상자그림(box plot)은 사분위수로 분포를 요약한다. 상자의 아래쪽·위쪽 경계가 1사분위수(Q1)·3사분위수(Q3), 상자 안의 선이 중앙값이다. 수염은 상자에서 1.5×IQR 이내의 가장 먼 값까지 그리고, 그 밖의 값은 점으로 표시한다. 5.2절의 IQR 이상치 규칙과 같은 기준이다. 강수일(1.0 mm 이상)의 일강수량 분포를 상자그림으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">rain</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"precip_mm"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">][</span><span class="s2">"precip_mm"</span><span class="p">]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rain</span><span class="p">),</span> <span class="n">rain</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">rain</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">))</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">rain</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"daily precipitation on rain days (mm)"</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>553 5.9 17.7
+</code></pre></div>
+<figure>
+  <img alt="강수일 일강수량 상자그림" src="../../assets/img/ch06_colab_box.png" />
+<br />
+<figcaption>그림 6-4 Colab에서 출력한 강수일 일강수량 상자그림</figcaption>
+</figure>
+<p>강수일은 553일이고, 강수일의 일강수량 중앙값은 5.9 mm, 3사분위수는 17.7 mm다. 상자는 그래프 왼쪽에 좁게 위치하고, 오른쪽 수염 바깥에 큰 값의 점이 여러 개 표시된다. 비가 오는 날만 보아도 대부분은 적은 양이고, 소수의 날에 많은 비가 집중된다는 뜻이다. 3.3절에서 강수일수가 가장 적은 2022년의 연강수량이 가장 많았던 결과도 이런 분포 때문이다.</p>
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>df["temp_max"]</code>의 평균과 중앙값을 산출하고, 두 값의 차이가 작은 이유를 히스토그램과 연결해 설명하시오.</li>
+<li>강수일만 추출한 <code>rain</code>의 평균과 중앙값을 산출하고, 어느 쪽이 「보통의 비 오는 날」을 더 잘 대표하는지 판단하시오.</li>
+<li>3.2절의 신호 세기 자료에서 지점별 표준편차를 산출하고, 측정값의 흩어짐이 가장 큰 지점을 찾으시오.</li>
+</ol>
 
 
 
