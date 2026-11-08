@@ -9,6 +9,7 @@
 | `scripts/outline.py` | 목차 원본(부·장·절, 주차, 수업 방식, 절별 학습 목표) |
 | `scripts/make_site.py` | 목차로 `mkdocs.yml` nav와 미집필 절 초안 생성. `STUB` 표식이 없는 페이지는 덮어쓰지 않음 |
 | `scripts/make_gesture_example.py` | 11·12장 제스처 예시 자료(`docs/data/gesture_example.csv`, 가상 수강생 4명) 생성. 실측 자료 수집 후 교체 |
+| `scripts/ch14_server.py` | 14.2·14.3절 측정 서버 코드 모음(`uvicorn ch14_server:app --port 8620`) |
 | `scripts/make_dataset.py` | Open-Meteo 재분석 자료로 `docs/data/seoul_weather_2021_2025.csv` 생성 |
 | `scripts/capture_ch09_ch10.py` | 9·10장 코드 블록을 실행해 본문 실행 결과의 근거 출력 |
 | `scripts/verify_ch09_ch10.py` | 9장 그림(`ch09_pred_vs_actual.png`) 생성과 수치 검증 |
@@ -44,7 +45,7 @@ python scripts/publish.py --push   # _site 조립 후 gh-pages 가지로 공개 
 
 ## 집필 현황(2026-11-09)
 
-집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 3장·5장·6장 전체(11/9, Colab 캡처 12장), 7장 전체(11/9, Colab 캡처 13장), 4장 전체(11/9, mBlock 웹 캡처 11장), 8장 전체(11/9, 수업 서버 화면 5장·mBlock 1장), 9장·10장(11/9 그래프 코드 7개 추가, Colab 캡처 23장), 11장 전체·12장 전체(11/9, Colab 캡처 15장), 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 3장·5장·6장 전체(11/9, Colab 캡처 12장), 7장 전체(11/9, Colab 캡처 13장), 4장 전체(11/9, mBlock 웹 캡처 11장), 8장 전체(11/9, 수업 서버 화면 5장·mBlock 1장), 9장·10장(11/9 그래프 코드 7개 추가, Colab 캡처 23장), 11장 전체·12장 전체(11/9, Colab 캡처 15장), 13장·14장 전체(11/9, Colab·로컬 서버 캡처 13장, 13장 Gemini 응답은 키 확인 후 기입), 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
 
 실물 사진이 필요한 자리는 본문에 `<!-- PHOTO: 이름 — 장면 -->`, 실측 자료가 필요한 자리는 `<!-- DATA: … -->` 표식으로 남긴다(`grep -rn "PHOTO:\|DATA:" docs`). 4장 함수 이름은 mBlock 웹의 블록→파이썬 미리보기로, 8장 Wi-Fi·UDP 구조는 2026-11-04 측정 노드 펌웨어(v4.6)로 검증했다. 촬영 목록은 업무 저장소의 `ICT폴리텍_piDocs_실물사진촬영목록_20261109.md`, 사진은 `_raw/photos/`에 둔다.
 
