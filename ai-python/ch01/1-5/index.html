@@ -583,7 +583,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        활용 순서
       
     </span>
   </a>
@@ -594,7 +594,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        오류 메시지 읽기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        질문 작성 형식
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출처 표기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        금지 사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3947,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        활용 순서
       
     </span>
   </a>
@@ -3914,7 +3958,51 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        오류 메시지 읽기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        질문 작성 형식
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        출처 표기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        금지 사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +4027,92 @@
 
 
 <h1 id="15-ai">1.5 생성형 AI 활용 원칙<a class="headerlink" href="#15-ai" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>생성형 AI는 코드 작성과 오류 분석에 유용한 학습 보조 도구다. 다만 AI가 작성한 코드를 그대로 제출하면 프로그램의 동작 원리를 학습하지 못하고, AI가 제시한 오류 있는 코드를 검증 없이 사용하게 된다. 이 과목에서는 Colab에 내장된 Gemini를 표준 도구로 사용하고, 다음 순서를 지킨다.</p>
+<h2 id="_1">활용 순서<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>순서</th>
+<th>내용</th>
+<th>확인 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>문제와 요구 조건 확인</td>
+<td>입력·출력·조건을 문장으로 정리</td>
+</tr>
+<tr>
+<td>2</td>
+<td>직접 코드 작성·실행</td>
+<td>본문 예제를 참고해 먼저 작성</td>
+</tr>
+<tr>
+<td>3</td>
+<td>오류·결과 확인</td>
+<td>오류 메시지의 마지막 줄 확인</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AI에 질문</td>
+<td>코드, 오류 메시지, 기대한 결과를 함께 입력</td>
+</tr>
+<tr>
+<td>5</td>
+<td>답변 실행·대조</td>
+<td>AI가 제시한 코드를 직접 실행해 결과 검증</td>
+</tr>
+<tr>
+<td>6</td>
+<td>제출·출처 표기</td>
+<td>AI 도움을 받은 부분에 주석으로 표기</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">오류 메시지 읽기<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>1.4절의 입력 예제에서 형 변환을 생략하면 다음 오류가 발생한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">text</span> <span class="o">=</span> <span class="s2">"45"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TypeError: can only concatenate str (not "int") to str
+</code></pre></div>
+<p>오류 메시지의 마지막 줄은 오류의 종류(<code>TypeError</code>, 자료형 오류)와 원인(문자열에는 정수가 아닌 문자열만 연결할 수 있음)을 표시한다. 오류 메시지를 먼저 읽고 원인을 추정한 뒤 AI에 질문한다.</p>
+<figure>
+  <img alt="Colab 오류 화면과 Gemini 오류 설명 단추" src="../../assets/img/ch01_colab_error.png" />
+<br />
+<figcaption>그림 1-12 Colab의 오류 출력과 「오류 설명」 단추</figcaption>
+</figure>
+<p>Colab은 오류가 발생한 셀 아래에 「다음 단계: 오류 설명」 단추를 표시한다. 단추를 누르면 Colab에 내장된 Gemini가 원인과 수정 코드를 제시한다. 제시된 코드는 반드시 직접 실행해 결과를 확인한다.</p>
+<h2 id="_3">질문 작성 형식<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>AI에 질문할 때는 다음 세 가지를 함께 입력하면 정확한 답변을 얻을 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[코드]
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>text = "45"
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>print(text + 10)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>[오류 메시지]
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>TypeError: can only concatenate str (not "int") to str
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>[기대한 결과]
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>55가 출력되기를 기대했다. 원인과 수정 방법을 설명해 주세요.
+</code></pre></div>
+<h2 id="_4">출처 표기<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>AI의 도움을 받아 작성하거나 수정한 코드에는 주석으로 출처를 표기한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">text</span> <span class="o">=</span> <span class="s2">"45"</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>   <span class="c1"># 참고: Gemini 오류 설명(2027-03-06) 기반으로 int 형 변환 추가</span>
+</code></pre></div>
+<h2 id="_5">금지 사항<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
-<li>생성형 AI를 학습 보조 도구로 활용하는 절차 숙지</li>
+<li>회사 내부 자료, 고객 정보, 동료의 개인정보를 AI에 입력하지 않는다.</li>
+<li>실습 과제의 문제 문장 전체를 입력해 답안 코드를 요청하지 않는다. 막힌 부분의 코드와 오류만 질문한다.</li>
+<li>AI가 제시한 수치나 설명을 확인 없이 보고서에 옮기지 않는다. 13장에서 생성형 AI 출력을 자동으로 검증하는 방법을 다룬다.</li>
 </ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>자기 풀이 후 AI 대조 순서</li>
-<li>오류 메시지 질문 방법</li>
-<li>제출물의 출처 표기</li>
-</ul>
+<h2 id="_6">확인 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>int("4.5")</code>를 실행하면 어떤 오류가 발생하는지 확인하고, 오류 메시지의 마지막 줄을 해석하시오.</li>
+<li>확인 문제 1의 오류를 위 질문 작성 형식에 맞춰 Gemini에 질문하고, 답변의 수정 코드를 실행해 결과를 기록하시오.</li>
+</ol>
 
 
 

@@ -773,7 +773,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        요구 조건
       
     </span>
   </a>
@@ -784,7 +784,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        함수 작성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        경계값 시험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        측정 기록 판정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        요구 조건
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        함수 작성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        경계값 시험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        측정 기록 판정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3939,21 +4005,102 @@
 
 
 <h1 id="24">2.4 실습: 조도값 판정 함수<a class="headerlink" href="#24" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>측정값을 구간별로 판정하는 함수 작성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>조도 0~100 구간 설계</li>
-<li>판정 함수 작성과 시험값 대조</li>
-</ul>
+<p>사이버파이의 조도 센서 함수 <code>cyberpi.get_bri()</code>는 0~100 범위의 정수를 반환한다(<a href="https://www.yuque.com/makeblock-help-center-en/mcode/cyberpi-api">Makeblock mCode 문서</a>). 이 절에서는 측정값을 판정하는 함수를 요구 조건에 맞게 작성하고, 경계값 시험으로 정확성을 확인한다. 완성한 함수는 4.6절에서 실제 센서 측정값에 적용한다.</p>
+<h2 id="_1">요구 조건<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>조도값</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0~29</td>
+<td>어두움</td>
+</tr>
+<tr>
+<td>30~69</td>
+<td>보통</td>
+</tr>
+<tr>
+<td>70~100</td>
+<td>밝음</td>
+</tr>
+<tr>
+<td>0 미만, 100 초과</td>
+<td>측정 오류</td>
+</tr>
+</tbody>
+</table>
+<p>센서 값은 정상이라면 0~100 범위에 있지만, 통신 오류나 프로그램 오류로 범위 밖의 값이 입력될 수 있다. 판정 함수는 이런 값을 정상 단계로 판정하지 않도록 먼저 걸러 낸다.</p>
+<h2 id="_2">함수 작성<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">judge_light</span><span class="p">(</span><span class="n">bri</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">"""조도값을 판정한다. 0~100 범위 밖이면 "측정 오류"를 반환한다."""</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bri</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="k">return</span> <span class="s2">"측정 오류"</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="k">return</span> <span class="s2">"어두움"</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">70</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">return</span> <span class="s2">"보통"</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">return</span> <span class="s2">"밝음"</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">]:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">judge_light</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-1 측정 오류
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>0 어두움
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>29 어두움
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>30 보통
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>69 보통
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>70 밝음
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>100 밝음
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>101 측정 오류
+</code></pre></div>
+<h2 id="_3">경계값 시험<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>시험값은 구간의 경계(29·30, 69·70)와 범위의 양 끝(0·100), 범위 밖(−1·101)에서 선택했다. 판정 오류는 대부분 경계에서 발생한다. 예를 들어 <code>bri &lt; 30</code>을 <code>bri &lt;= 30</code>으로 잘못 작성하면 30이 "어두움"으로 판정되는데, 30을 시험하지 않으면 이 오류를 발견할 수 없다.</p>
+<p><code>assert</code> 문은 조건이 거짓이면 오류를 발생시킨다. 기대한 판정 결과를 <code>assert</code>로 작성해 두면 함수를 수정한 뒤에도 같은 시험을 반복할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"어두움"</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"보통"</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"밝음"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"측정 오류"</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"경계값 시험 통과"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>경계값 시험 통과
+</code></pre></div>
+<figure>
+  <img alt="경계값 시험 실행 화면" src="../../assets/img/ch02_colab_test.png" />
+<br />
+<figcaption>그림 2-4 Colab에서 실행한 경계값 시험</figcaption>
+</figure>
+<h2 id="_4">측정 기록 판정<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>다음 목록은 하루 동안 2시간 간격으로 조도를 측정했다고 가정한 예시 값이다. 판정 결과별 개수를 집계한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">day_log</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">dark</span> <span class="o">=</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">bright</span> <span class="o">=</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">day_log</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">judge_light</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">"어두움"</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">dark</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">"보통"</span><span class="p">:</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">normal</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">"밝음"</span><span class="p">:</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">bright</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">error</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"어두움"</span><span class="p">,</span> <span class="n">dark</span><span class="p">,</span> <span class="s2">"보통"</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s2">"밝음"</span><span class="p">,</span> <span class="n">bright</span><span class="p">,</span> <span class="s2">"오류"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>어두움 4 보통 4 밝음 4 오류 0
+</code></pre></div>
+<p><code>dark = normal = bright = error = 0</code>은 네 변수를 한 줄에서 모두 0으로 초기화한다. 판정 결과별 개수를 이렇게 변수 4개로 집계하는 방법은 단계가 늘어나면 코드가 길어진다. 3.1절에서 딕셔너리로 같은 집계를 간결하게 작성한다.</p>
+<h2 id="_5">실습 과제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>소리 크기 <code>cyberpi.get_loudness()</code>도 0~100 범위를 반환한다. 0~39 "조용함", 40~69 "보통", 70~100 "시끄러움", 범위 밖 "측정 오류"로 판정하는 함수 <code>judge_loud(loud)</code>를 작성하시오.</li>
+<li><code>judge_loud</code>의 경계값 시험을 <code>assert</code>로 6개 이상 작성하시오.</li>
+<li><code>day_log</code>에 −5와 120을 추가하고 집계 결과의 「오류」 개수가 2로 변화하는지 확인하시오.</li>
+</ol>
 
 
 

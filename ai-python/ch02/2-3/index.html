@@ -745,7 +745,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        함수 정의
       
     </span>
   </a>
@@ -756,7 +756,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        기본값이 있는 매개변수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3914,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        함수 정의
       
     </span>
   </a>
@@ -3914,7 +3925,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        기본값이 있는 매개변수
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3961,85 @@
 
 
 <h1 id="23">2.3 함수<a class="headerlink" href="#23" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>매개변수와 반환값이 있는 함수 정의</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>def와 return</li>
-<li>기본값 매개변수</li>
-<li>함수 단위 시험</li>
-</ul>
+<h2 id="_1">함수 정의<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>함수(function)는 자주 사용하는 코드에 이름을 붙여 묶은 것이다. <code>def</code> 다음에 함수 이름과 괄호 안의 매개변수(parameter)를 쓰고, 처리 결과는 <code>return</code>으로 반환한다. 함수를 정의한 뒤 이름과 인자(argument)로 호출하면 반환값을 받을 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">judge_light</span><span class="p">(</span><span class="n">bri</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">"""조도값(0~100)을 밝기 단계 문자열로 반환한다."""</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="k">return</span> <span class="s2">"어두움"</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">elif</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">70</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="k">return</span> <span class="s2">"보통"</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">return</span> <span class="s2">"밝음"</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">result</span> <span class="o">=</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">63</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">judge_light</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">88</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>보통
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>어두움 밝음
+</code></pre></div>
+<figure>
+  <img alt="함수 정의와 호출 실행 화면" src="../../assets/img/ch02_colab_func.png" />
+<br />
+<figcaption>그림 2-3 Colab에서 실행한 judge_light 함수</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>용어</th>
+<th>위 코드의 예</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>매개변수</td>
+<td><code>bri</code></td>
+<td>함수 안에서 입력값을 받는 변수</td>
+</tr>
+<tr>
+<td>인자</td>
+<td><code>63</code></td>
+<td>호출할 때 전달하는 값</td>
+</tr>
+<tr>
+<td>반환값</td>
+<td><code>"보통"</code></td>
+<td><code>return</code>으로 돌려주는 결과</td>
+</tr>
+<tr>
+<td>문서 문자열</td>
+<td><code>"""조도값(0~100)을…"""</code></td>
+<td>함수의 용도를 설명하는 첫 줄 문자열</td>
+</tr>
+</tbody>
+</table>
+<p><code>return</code>이 실행되면 함수는 즉시 종료된다. 2.1절의 조건문은 결과를 <code>print</code>로 출력만 했지만, 함수는 결과를 반환하므로 반환값을 다른 계산이나 조건에 사용할 수 있다.</p>
+<h2 id="_2">기본값이 있는 매개변수<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>판정 기준을 매개변수로 분리하면 장소에 따라 기준을 조정할 수 있다. 매개변수에 <code>=</code>로 기본값을 지정하면, 호출할 때 해당 인자를 생략할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">judge_light2</span><span class="p">(</span><span class="n">bri</span><span class="p">,</span> <span class="n">dark</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">bright</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="n">dark</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="k">return</span> <span class="s2">"어두움"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">elif</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="n">bright</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="k">return</span> <span class="s2">"보통"</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">return</span> <span class="s2">"밝음"</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">judge_light2</span><span class="p">(</span><span class="mi">63</span><span class="p">))</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">judge_light2</span><span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="n">dark</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bright</span><span class="o">=</span><span class="mi">90</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>보통
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>어두움
+</code></pre></div>
+<p>같은 조도값 63도 기준을 70·90으로 지정하면 "어두움"으로 판정된다. 판정 기준을 자료 분포에서 결정하는 방법은 7.1절에서 다룬다.</p>
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>섭씨온도를 받아 화씨온도를 반환하는 함수 <code>c_to_f(c)</code>를 정의하고, 0과 100을 입력해 확인하시오.</li>
+<li>신호 세기 목록을 받아 평균을 반환하는 함수 <code>average(values)</code>를 정의하고, 2.2절의 <code>readings</code>로 확인하시오.</li>
+<li><code>judge_light2</code>에 <code>print</code> 대신 <code>return</code>을 사용하는 이유를 반환값의 재사용 관점에서 설명하시오.</li>
+</ol>
 
 
 

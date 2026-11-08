@@ -527,7 +527,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        이 책의 노트북 열기
       
     </span>
   </a>
@@ -538,7 +538,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        셀 실행
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        자료 파일 업로드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        노트북 저장과 제출
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        이 책의 노트북 열기
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        셀 실행
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        자료 파일 업로드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        노트북 저장과 제출
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,23 +4005,79 @@
 
 
 <h1 id="13-colab">1.3 Colab 시작<a class="headerlink" href="#13-colab" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Colab 노트북 생성과 셀 실행</li>
-<li>노트북 저장과 제출 절차 숙지</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>구글 계정과 Colab 접속</li>
-<li>코드 셀과 텍스트 셀</li>
-<li>노트북 사본 저장과 공유 링크</li>
-</ul>
+<p>Colab(Google Colaboratory)은 웹 브라우저에서 파이썬 코드를 작성하고 실행하는 구글의 노트북 서비스다. 프로그램 설치 없이 구글 계정만으로 사용할 수 있고, 이 과목에서 사용하는 pandas·matplotlib·scikit-learn이 미리 설치되어 있다. 온라인 주의 실습은 모두 Colab에서 진행한다.</p>
+<h2 id="_1">이 책의 노트북 열기<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>각 장 첫머리의 「Colab에서 열기」 단추를 누르면 그 장의 코드가 담긴 노트북이 Colab에서 열린다. 1장 노트북을 열어 본다.</p>
+<p><a class="md-button" href="https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch01.ipynb">1장 노트북을 Colab에서 열기</a></p>
+<figure>
+  <img alt="Colab에서 연 1장 노트북" src="../../assets/img/ch01_colab_open.png" />
+<br />
+<figcaption>그림 1-5 Colab에서 연 1장 노트북</figcaption>
+</figure>
+<p>노트북은 셀(cell) 단위로 구성된다. 회색 상자가 코드를 작성하는 코드 셀이고, 제목과 설명이 있는 부분이 텍스트 셀이다.</p>
+<table>
+<thead>
+<tr>
+<th>셀</th>
+<th>용도</th>
+<th>실행 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>코드 셀</td>
+<td>파이썬 코드 작성</td>
+<td>셀 바로 아래에 출력 표시</td>
+</tr>
+<tr>
+<td>텍스트 셀</td>
+<td>제목·설명 작성(Markdown)</td>
+<td>서식이 적용된 문서로 표시</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">셀 실행<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>코드 셀을 선택하면 셀 왼쪽에 원 안의 삼각형 모양 실행 단추가 표시된다. 실행 단추를 누르거나 <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> 를 누르면 셀이 실행된다. 처음 실행할 때는 구글 서버의 실행 환경인 런타임(runtime)에 연결하는 데 몇 초가 걸리고, 연결되면 오른쪽 위에 「연결됨」이 표시된다. 실행이 끝난 셀 왼쪽에는 실행 순서 번호(<code>[1]</code>)가 표시된다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"안녕하세요, piDocs"</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>안녕하세요, piDocs
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>3
+</code></pre></div>
+<figure>
+  <img alt="코드 셀 실행 결과" src="../../assets/img/ch01_colab_run.png" />
+<br />
+<figcaption>그림 1-6 코드 셀 실행 결과</figcaption>
+</figure>
+<p><code>print</code>로 출력한 값과 함께, 셀의 마지막 줄이 식(<code>1 + 2</code>)이면 그 계산 결과도 자동으로 표시된다.</p>
+<p>GitHub에서 연 노트북의 셀을 처음 실행하면 다음 경고 창이 표시된다. 이 책의 노트북은 본문과 같은 코드만 담고 있으므로 「무시하고 계속하기」를 선택한다. 출처를 알 수 없는 노트북에서는 경고 창의 안내대로 실행 전에 코드를 먼저 확인한다.</p>
+<figure>
+  <img alt="노트북 실행 경고 창" src="../../assets/img/ch01_colab_warn.png" width="520" />
+<br />
+<figcaption>그림 1-7 GitHub에서 연 노트북의 실행 경고 창</figcaption>
+</figure>
+<h2 id="_3">자료 파일 업로드<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>3장 이후의 실습은 CSV 자료 파일을 사용한다. 왼쪽 세로 막대의 폴더 모양 아이콘을 누르면 파일 창이 열리고, 업로드 단추로 내 PC의 파일을 올릴 수 있다.</p>
+<figure>
+  <img alt="Colab 파일 창" src="../../assets/img/ch01_colab_files.png" width="560" />
+<br />
+<figcaption>그림 1-8 왼쪽 파일 창과 업로드 단추(위쪽 첫 번째 아이콘)</figcaption>
+</figure>
+<p>업로드한 파일은 런타임이 종료되면 삭제된다. 다음 날 다시 실습할 때는 파일을 다시 업로드한다.</p>
+<h2 id="_4">노트북 저장과 제출<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>GitHub에서 연 노트북은 내 구글 드라이브에 저장되어 있지 않다. 화면 위쪽에도 「변경사항을 유지하려면 GitHub에 저장하세요」라는 안내가 표시된다. 실습한 내용을 보존하려면 도구 모음의 「Drive로 복사」 단추를 누르거나 「파일」 메뉴의 「Drive에 사본 저장」을 선택한다. 사본은 구글 드라이브의 <code>Colab Notebooks</code> 폴더에 저장된다.</p>
+<figure>
+  <img alt="Drive에 사본 저장 메뉴" src="../../assets/img/ch01_colab_save.png" width="360" />
+<br />
+<figcaption>그림 1-9 「파일」 메뉴의 「Drive에 사본 저장」</figcaption>
+</figure>
+<p>실습 결과는 사본의 오른쪽 위 「공유」 단추에서 링크를 복사해 제출한다. 링크 권한은 「링크가 있는 모든 사용자」의 「뷰어」로 설정한다.</p>
+<h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>위 코드 셀의 마지막 줄을 <code>1 + 2 * 3</code>으로 변경해 실행하고, 출력값으로 연산 우선순위를 확인하시오.</li>
+<li>1장 노트북을 내 드라이브에 사본으로 저장하고, 사본의 공유 링크를 복사하시오.</li>
+</ol>
 
 
 

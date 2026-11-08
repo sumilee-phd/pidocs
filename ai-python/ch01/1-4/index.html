@@ -555,7 +555,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        변수와 자료형
       
     </span>
   </a>
@@ -566,7 +566,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        산술 연산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        형식 문자열 출력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력과 형 변환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        변수와 자료형
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        산술 연산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        형식 문자열 출력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력과 형 변환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,23 +4005,139 @@
 
 
 <h1 id="14">1.4 변수·자료형·입출력<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>변수와 기본 자료형 사용</li>
-<li>print·input·형 변환 사용</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>정수·실수·문자열·논리형</li>
-<li>산술·비교 연산</li>
-<li>f-문자열 출력</li>
-</ul>
+<h2 id="_1">변수와 자료형<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>변수(variable)는 값에 이름을 붙여 저장하는 공간이다. <code>=</code> 기호는 오른쪽 값을 왼쪽 이름에 저장하는 대입 연산이다. 파이썬은 저장한 값에 따라 자료형(data type)을 자동으로 결정하며, <code>type</code> 함수로 자료형을 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">node</span> <span class="o">=</span> <span class="s2">"CP-01"</span>        <span class="c1"># 측정 노드 이름(문자열)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">bri</span> <span class="o">=</span> <span class="mi">63</span>              <span class="c1"># 조도 측정값(정수)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">temp</span> <span class="o">=</span> <span class="mf">12.5</span>           <span class="c1"># 기온(실수)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">is_dark</span> <span class="o">=</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">30</span>    <span class="c1"># 판정 결과(논리형)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">bri</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">is_dark</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">bri</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">temp</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">is_dark</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CP-01 63 12.5 False
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&lt;class 'str'&gt; &lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'bool'&gt;
+</code></pre></div>
+<figure>
+  <img alt="변수와 자료형 실행 화면" src="../../assets/img/ch01_colab_types.png" />
+<br />
+<figcaption>그림 1-10 Colab에서 실행한 변수·자료형 예제</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>자료형</th>
+<th>의미</th>
+<th>예</th>
+<th>이 과목에서의 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code></td>
+<td>정수</td>
+<td><code>63</code>, <code>-55</code></td>
+<td>조도값, 신호 세기(dBm), 측정 횟수</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>실수</td>
+<td><code>12.5</code>, <code>-6.1</code></td>
+<td>기온, 평균값</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>문자열</td>
+<td><code>"CP-01"</code>, <code>"밝음"</code></td>
+<td>노드 이름, 판정 결과</td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td>논리형</td>
+<td><code>True</code>, <code>False</code></td>
+<td>조건 판정 결과</td>
+</tr>
+</tbody>
+</table>
+<p><code>is_dark = bri &lt; 30</code>에서 <code>bri &lt; 30</code>은 비교 연산이다. 63은 30보다 작지 않으므로 결과는 <code>False</code>이고, 이 논리값이 <code>is_dark</code>에 저장된다.</p>
+<h2 id="_2">산술 연산<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">total</span> <span class="o">=</span> <span class="mi">63</span> <span class="o">+</span> <span class="mi">58</span> <span class="o">+</span> <span class="mi">71</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">avg</span> <span class="o">=</span> <span class="n">total</span> <span class="o">/</span> <span class="mi">3</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">avg</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="mi">17</span> <span class="o">//</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span> <span class="o">%</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>192 64.0
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>3 2 1024
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>연산자</th>
+<th>의미</th>
+<th>예</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>나눗셈(결과는 항상 실수)</td>
+<td><code>192 / 3</code></td>
+<td><code>64.0</code></td>
+</tr>
+<tr>
+<td><code>//</code></td>
+<td>몫</td>
+<td><code>17 // 5</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>나머지</td>
+<td><code>17 % 5</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>거듭제곱</td>
+<td><code>2 ** 10</code></td>
+<td><code>1024</code></td>
+</tr>
+</tbody>
+</table>
+<p>나눗셈 <code>/</code>의 결과는 나누어떨어지는 경우에도 실수(<code>64.0</code>)다.</p>
+<h2 id="_3">형식 문자열 출력<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>f-문자열(f-string)은 문자열 앞에 <code>f</code>를 붙이고 중괄호 안에 변수나 식을 넣어 값을 문자열에 삽입하는 표기법이다. <code>{avg:.1f}</code>처럼 쌍점 뒤에 형식을 지정하면 소수점 아래 자릿수를 조정할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">의 조도는 </span><span class="si">{</span><span class="n">bri</span><span class="si">}</span><span class="s2">, 세 측정값의 평균은 </span><span class="si">{</span><span class="n">avg</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>CP-01의 조도는 63, 세 측정값의 평균은 64.0
+</code></pre></div>
+<h2 id="_4">입력과 형 변환<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><code>input</code> 함수는 키보드로 입력한 내용을 반환한다. 반환값은 숫자를 입력해도 항상 문자열이므로, 계산에 사용하려면 <code>int</code>나 <code>float</code>로 형 변환(type conversion)한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"조도값을 입력하시오: "</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">value</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong>(45를 입력한 경우)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>조도값을 입력하시오: 45
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>&lt;class 'str'&gt; &lt;class 'int'&gt;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>55
+</code></pre></div>
+<figure>
+  <img alt="input 실행 화면" src="../../assets/img/ch01_colab_input.png" />
+<br />
+<figcaption>그림 1-11 Colab의 입력 칸에 45를 입력한 화면</figcaption>
+</figure>
+<p>Colab에서 <code>input</code>을 실행하면 셀 아래에 입력 칸이 표시된다. 값을 입력하고 <span class="keys"><kbd class="key-enter">Enter</kbd></span> 를 누르면 다음 줄이 실행된다. 형 변환하지 않은 문자열에 숫자를 더하면 오류가 발생하며, 이 오류는 1.5절에서 생성형 AI 활용 예로 다룬다.</p>
+<h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>temp = 12.5</code>를 <code>int(temp)</code>로 변환하면 어떤 값이 되는지 예상한 뒤 실행해 확인하시오.</li>
+<li>기온 3개(4.1, 13.7, -6.1)의 평균을 소수 둘째 자리까지 f-문자열로 출력하시오.</li>
+<li><code>input</code>으로 섭씨온도를 입력받아 화씨온도(섭씨 × 9 / 5 + 32)로 변환해 출력하는 코드를 작성하시오.</li>
+</ol>
 
 
 

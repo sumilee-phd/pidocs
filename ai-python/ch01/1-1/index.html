@@ -471,7 +471,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        피지컬컴퓨팅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16주 진행 구조
       
     </span>
   </a>
@@ -482,7 +493,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        이 과목에서 완성하는 결과물
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이 책의 절 구성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        피지컬컴퓨팅
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16주 진행 구조
       
     </span>
   </a>
@@ -3914,7 +3958,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        이 과목에서 완성하는 결과물
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이 책의 절 구성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,23 +4005,91 @@
 
 
 <h1 id="11">1.1 피지컬컴퓨팅과 이 과목의 구성<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>피지컬컴퓨팅의 정의와 측정-판단-반응 구조 이해</li>
-<li>16주 진행 방식(온라인 3주·오프라인 1주) 확인</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>피지컬컴퓨팅의 3요소(입력·처리·출력)</li>
-<li>이 과목의 최종 산출물 예시</li>
-<li>온라인 주와 오프라인 주의 역할 분담</li>
-</ul>
+<h2 id="_1">피지컬컴퓨팅<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>피지컬컴퓨팅(physical computing)은 센서로 실제 환경을 측정하고, 측정값을 프로그램으로 처리한 뒤, 그 결과를 빛·소리·움직임 같은 물리적 출력으로 변환하는 컴퓨팅이다. 스마트폰 화면 밝기 자동 조절, 공장의 설비 이상 경보, 건물의 조명 자동 점등이 모두 같은 구조로 동작한다.</p>
+<figure>
+  <img alt="입력-처리-출력 구조" src="../../assets/img/ch01_ipo.svg" />
+<br />
+<figcaption>그림 1-1 피지컬컴퓨팅의 입력-처리-출력 구조</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>이 과목에서 사용하는 요소</th>
+<th>처음 다루는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>입력</td>
+<td>사이버파이 내장 센서(조도·소리·가속도), 공개 기상 자료</td>
+<td><a href="../../ch03/3-3/">3.3절</a>, <a href="../../ch04/4-6/">4.6절</a></td>
+</tr>
+<tr>
+<td>처리</td>
+<td>파이썬 판정 규칙, 머신러닝 모델, 생성형 AI</td>
+<td><a href="../../ch07/">7장</a>, <a href="../../ch09/">9장</a>, <a href="../../ch13/">13장</a></td>
+</tr>
+<tr>
+<td>출력</td>
+<td>LED 스트립, 사이버파이 화면, 서버 전송, 점검 보고</td>
+<td><a href="../../ch04/4-7/">4.7절</a>, <a href="../../ch08/">8장</a></td>
+</tr>
+</tbody>
+</table>
+<p>그림 1-1의 아래쪽 화살표는 출력이 다음 측정에 영향을 준다는 의미다. 예를 들어 조명이 켜지면 조도 센서의 측정값도 변화한다. 피지컬컴퓨팅 프로그램은 이처럼 출력이 다시 입력에 반영되는 상황까지 고려해 설계한다.</p>
+<h2 id="16">16주 진행 구조<a class="headerlink" href="#16" title="Permanent link">&para;</a></h2>
+<p>이 과목은 온라인 3주와 오프라인 1주를 4회 반복한다. 오프라인 주에는 실습실에서 사이버파이로 자료를 측정하거나 모델을 기기에 탑재하고, 온라인 주에는 측정한 자료와 공개 자료를 Colab에서 분석한다.</p>
+<figure>
+  <img alt="16주 진행 구조" src="../../assets/img/ch01_16weeks.svg" />
+<br />
+<figcaption>그림 1-2 16주 진행 구조(4·8·12·16주차 오프라인)</figcaption>
+</figure>
+<h2 id="_2">이 과목에서 완성하는 결과물<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>주차</th>
+<th>결과물</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4주</td>
+<td>조도 막대 표시기</td>
+<td>밝기에 따라 LED 스트립 점등 개수 변화(<a href="../../ch04/4-7/">4.7절</a>)</td>
+</tr>
+<tr>
+<td>7주</td>
+<td>소음 단계 신호등</td>
+<td>소리 크기를 정상·주의·경고 색으로 표시</td>
+</tr>
+<tr>
+<td>9~10주</td>
+<td>날씨 예측 모델</td>
+<td>서울 날씨 자료로 다음 날 기온·강수 여부 예측(<a href="../../ch09/">9장</a>, <a href="../../ch10/">10장</a>)</td>
+</tr>
+<tr>
+<td>12주</td>
+<td>날씨 신호등</td>
+<td>예보와 직접 학습한 모델의 판정을 LED 스트립에 비교 표시(<a href="../../ch12/12-1/">12.1절</a>)</td>
+</tr>
+<tr>
+<td>16주</td>
+<td>팀 프로젝트</td>
+<td>측정-판단-보고-반응을 연결한 현장 문제 해결 시스템</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">이 책의 절 구성<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>각 절은 개념 설명, 코드, 실행 결과, 확인 문제 순서로 구성한다. 코드는 장 첫머리의 「Colab에서 열기」 단추로 같은 내용의 노트북을 열어 바로 실행할 수 있다. 본문의 실행 결과는 저자가 같은 코드를 실행해 얻은 값이므로, 직접 실행한 결과와 비교하며 학습한다.</p>
+<h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>주변의 자동화 기기 1가지를 선택해 입력·처리·출력을 각각 쓰시오.</li>
+<li>이 과목의 오프라인 주차 4개와 각 주차에 기기로 수행하는 작업을 그림 1-2와 결과물 표에서 찾아 정리하시오.</li>
+</ol>
 
 
 

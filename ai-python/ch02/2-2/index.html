@@ -714,10 +714,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#for" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        for 반복문
       
     </span>
   </a>
@@ -725,10 +725,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#range" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        continue와 break
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        while 반복문
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3900,10 +3933,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#for" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        for 반복문
       
     </span>
   </a>
@@ -3911,10 +3944,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#range" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        continue와 break
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        while 반복문
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +4005,117 @@
 
 
 <h1 id="22">2.2 반복문<a class="headerlink" href="#22" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>for·while 반복 구조 작성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>range와 반복 횟수</li>
-<li>누적 합계와 평균</li>
-<li>break·continue</li>
-</ul>
+<h2 id="for">for 반복문<a class="headerlink" href="#for" title="Permanent link">&para;</a></h2>
+<p>for 반복문은 목록의 값을 하나씩 꺼내 같은 코드를 반복 실행한다. 다음 목록은 2026-11-04 정보통신학과 수업에서 측정 노드 S02가 D1 지점의 Wi-Fi 신호 세기를 5초 간격으로 5회 측정한 실제 값이다(단위 dBm, 0에 가까울수록 강한 신호). 대괄호로 묶은 목록인 리스트(list)는 3.1절에서 상세히 다룬다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">readings</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">63</span><span class="p">,</span> <span class="o">-</span><span class="mi">53</span><span class="p">,</span> <span class="o">-</span><span class="mi">54</span><span class="p">,</span> <span class="o">-</span><span class="mi">52</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">]</span>   <span class="c1"># 신호 세기(dBm)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">readings</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">value</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"합계"</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"평균"</span><span class="p">,</span> <span class="n">total</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">readings</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>합계 -277
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>평균 -55.4
+</code></pre></div>
+<figure>
+  <img alt="for 반복문 실행 화면" src="../../assets/img/ch02_colab_for.png" />
+<br />
+<figcaption>그림 2-2 Colab에서 실행한 신호 세기 합계·평균 계산</figcaption>
+</figure>
+<p>반복할 때마다 <code>value</code>에 목록의 다음 값이 저장되고, <code>total</code>에 누적된다. <code>len(readings)</code>는 목록의 값 개수(5)를 반환한다. 합계를 저장하는 변수는 반복 전에 0으로 초기화한다.</p>
+<table>
+<thead>
+<tr>
+<th>반복 회차</th>
+<th><code>value</code></th>
+<th>실행 후 <code>total</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>−63</td>
+<td>−63</td>
+</tr>
+<tr>
+<td>2</td>
+<td>−53</td>
+<td>−116</td>
+</tr>
+<tr>
+<td>3</td>
+<td>−54</td>
+<td>−170</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−52</td>
+<td>−222</td>
+</tr>
+<tr>
+<td>5</td>
+<td>−55</td>
+<td>−277</td>
+</tr>
+</tbody>
+</table>
+<h2 id="range">range<a class="headerlink" href="#range" title="Permanent link">&para;</a></h2>
+<p>정해진 횟수만큼 반복할 때는 <code>range</code>를 사용한다. <code>range(1, 4)</code>는 1부터 3까지(4는 제외)의 정수를 생성한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">"회차 측정"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1 회차 측정
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2 회차 측정
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3 회차 측정
+</code></pre></div>
+<h2 id="continue-break">continue와 break<a class="headerlink" href="#continue-break" title="Permanent link">&para;</a></h2>
+<p><code>continue</code>는 이번 반복의 나머지 코드를 생략하고 다음 반복으로 진행한다. 첫 번째 측정값 −63은 나머지 값보다 약 10 dB 낮다. 이런 값을 집계에서 제외하는 경우 <code>continue</code>를 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">readings</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">60</span><span class="p">:</span>          <span class="c1"># 약한 신호는 집계에서 제외</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"제외"</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="k">continue</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">total</span> <span class="o">+=</span> <span class="n">value</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"평균"</span><span class="p">,</span> <span class="n">total</span> <span class="o">/</span> <span class="n">count</span><span class="p">,</span> <span class="s2">"("</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="s2">"건 )"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>제외 -63
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>평균 -53.5 ( 4 건 )
+</code></pre></div>
+<p><code>total += value</code>는 <code>total = total + value</code>의 축약 표기다. <code>break</code>는 반복 자체를 종료한다. 찾는 값을 발견하면 나머지 값은 검사할 필요가 없을 때 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">target</span> <span class="o">=</span> <span class="o">-</span><span class="mi">54</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">readings</span><span class="p">)):</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="k">if</span> <span class="n">readings</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"번째 측정에서 발견"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="k">break</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>3 번째 측정에서 발견
+</code></pre></div>
+<p><code>readings[i]</code>는 목록의 <code>i</code>번째 값이다. 파이썬의 위치 번호(색인)는 0부터 시작하므로 사람이 읽는 순서로 출력하기 위해 <code>i + 1</code>을 사용했다.</p>
+<h2 id="while">while 반복문<a class="headerlink" href="#while" title="Permanent link">&para;</a></h2>
+<p>while 반복문은 조건이 참인 동안 반복한다. 반복 횟수가 미리 정해지지 않은 경우, 예를 들어 단추를 누를 때까지 측정을 계속하는 기기 프로그램(4.7절)에서 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"측정"</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>측정 1
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>측정 2
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>측정 3
+</code></pre></div>
+<p>반복 본문에서 조건이 거짓이 되도록 변수를 변경하지 않으면 반복이 끝나지 않는다. Colab에서 반복이 끝나지 않으면 셀 왼쪽의 정지 단추로 실행을 중단한다.</p>
+<h2 id="_1">확인 문제<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>readings</code>의 최댓값을 <code>max</code> 함수 없이 for 반복문과 조건문으로 산출하시오.</li>
+<li>−55 이하인 측정값의 개수를 산출하시오.</li>
+<li>1부터 100까지의 합을 while 반복문으로 산출하시오.</li>
+</ol>
 
 
 

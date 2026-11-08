@@ -686,10 +686,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ifelifelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if·elif·else
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        비교 연산자와 논리 연산자
       
     </span>
   </a>
@@ -700,7 +711,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        여러 측정값을 함께 판정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3900,10 +3922,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ifelifelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if·elif·else
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        비교 연산자와 논리 연산자
       
     </span>
   </a>
@@ -3914,7 +3947,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        여러 측정값을 함께 판정
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3983,110 @@
 
 
 <h1 id="21">2.1 조건문<a class="headerlink" href="#21" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>if·elif·else로 판정 프로그램 작성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>비교·논리 연산자</li>
-<li>중첩 조건</li>
-<li>판정 기준표와 코드의 대응</li>
-</ul>
+<h2 id="ifelifelse">if·elif·else<a class="headerlink" href="#ifelifelse" title="Permanent link">&para;</a></h2>
+<p>조건문은 조건식의 참·거짓에 따라 실행할 코드를 선택한다. 조건식 뒤에는 쌍점(<code>:</code>)을 쓰고, 조건이 참일 때 실행할 코드는 들여쓰기(공백 4칸)로 작성한다. 1.2절의 「만약 ~(이)라면」 블록 안에 들어간 명령이 들여쓰기한 코드에 해당한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">bri</span> <span class="o">=</span> <span class="mi">63</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"어두움"</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">elif</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">70</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"보통"</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"밝음"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>보통
+</code></pre></div>
+<figure>
+  <img alt="if·elif·else 실행 화면" src="../../assets/img/ch02_colab_if.png" />
+<br />
+<figcaption>그림 2-1 Colab에서 실행한 조도 판정 조건문</figcaption>
+</figure>
+<p>조건은 위에서부터 차례로 검사하고, 처음으로 참이 되는 조건의 코드만 실행한다. <code>bri</code>가 63이면 첫 조건 <code>bri &lt; 30</code>은 거짓, 둘째 조건 <code>bri &lt; 70</code>은 참이므로 "보통"을 출력하고 나머지 조건은 검사하지 않는다. <code>elif</code>의 조건에 <code>bri &gt;= 30</code>을 다시 쓰지 않아도 되는 이유가 이 순차 검사 방식 때문이다.</p>
+<table>
+<thead>
+<tr>
+<th>키워드</th>
+<th>의미</th>
+<th>개수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if</code></td>
+<td>첫 번째 조건</td>
+<td>1개(필수)</td>
+</tr>
+<tr>
+<td><code>elif</code></td>
+<td>앞 조건이 모두 거짓일 때 검사할 조건</td>
+<td>0개 이상</td>
+</tr>
+<tr>
+<td><code>else</code></td>
+<td>모든 조건이 거짓일 때 실행</td>
+<td>0개 또는 1개</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">비교 연산자와 논리 연산자<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>비교 연산자</th>
+<th>의미</th>
+<th>논리 연산자</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>같다</td>
+<td><code>and</code></td>
+<td>두 조건이 모두 참</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>다르다</td>
+<td><code>or</code></td>
+<td>두 조건 중 하나 이상 참</td>
+</tr>
+<tr>
+<td><code>&lt;</code>, <code>&lt;=</code></td>
+<td>작다, 작거나 같다</td>
+<td><code>not</code></td>
+<td>참·거짓 반전</td>
+</tr>
+<tr>
+<td><code>&gt;</code>, <code>&gt;=</code></td>
+<td>크다, 크거나 같다</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>=</code>는 대입, <code>==</code>는 비교다. 조건식에 <code>=</code>를 쓰면 문법 오류가 발생한다.</p>
+<h2 id="_2">여러 측정값을 함께 판정<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>조도와 소리 크기를 함께 사용해 야간 소음을 판정한다. 두 조건을 동시에 만족해야 하므로 <code>and</code>로 연결한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">bri</span> <span class="o">=</span> <span class="mi">18</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">loud</span> <span class="o">=</span> <span class="mi">85</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">if</span> <span class="n">bri</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="ow">and</span> <span class="n">loud</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"야간 소음 경고"</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">elif</span> <span class="n">loud</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"소음 경고"</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"정상"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>야간 소음 경고
+</code></pre></div>
+<p>조건의 순서가 결과를 결정한다. 위 코드에서 <code>elif loud &gt; 80</code>을 맨 앞에 두면, 어두운 상태의 소음도 "소음 경고"로 판정되어 "야간 소음 경고"는 출력되지 않는다. 구체적인 조건을 앞에, 일반적인 조건을 뒤에 배치한다.</p>
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>첫 예제에서 <code>bri</code>를 30, 69, 70으로 변경하며 실행하고, 각 값이 어느 단계로 판정되는지 기록하시오.</li>
+<li>기온 <code>temp</code>가 33 이상이면 "폭염", 25 이상이면 "더위", 그 외는 "보통"을 출력하는 조건문을 작성하시오.</li>
+<li>두 번째 예제의 <code>if</code>와 <code>elif</code> 순서를 바꿔 실행하고, 결과가 달라지는 이유를 설명하시오.</li>
+</ol>
 
 
 
