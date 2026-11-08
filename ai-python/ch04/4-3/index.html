@@ -1101,7 +1101,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        실행 위치의 차이
       
     </span>
   </a>
@@ -1112,7 +1112,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        모드 선택 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -1936,7 +1947,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -3903,7 +3914,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        실행 위치의 차이
       
     </span>
   </a>
@@ -3914,7 +3925,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        모드 선택 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3961,80 @@
 
 
 <h1 id="43-live-upload">4.3 Live 모드와 Upload 모드<a class="headerlink" href="#43-live-upload" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p>mBlock은 사이버파이 프로그램을 두 가지 방식으로 실행한다. Live 모드(라이브 모드)는 PC에서 프로그램을 실행하면서 USB로 연결한 사이버파이를 실시간으로 제어한다. Upload 모드(업로드 모드)는 프로그램을 사이버파이에 저장해 기기가 스스로 실행하도록 한다. mBlock의 모드 스위치 옆 물음표에 마우스를 올리면 두 모드의 설명이 표시된다.</p>
+<div class="grid">
+<figure>
+  <img alt="업로드 모드 설명" src="../../assets/img/ch04_mblock_mode_tip.png" />
+<br />
+<figcaption>그림 4-5 모드 스위치 설명(업로드 모드 선택 상태)</figcaption>
+</figure>
+<figure>
+  <img alt="라이브 모드 선택" src="../../assets/img/ch04_mblock_live.png" />
+<br />
+<figcaption>그림 4-6 라이브 모드 선택 상태</figcaption>
+</figure>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>두 실행 모드의 차이와 선택 기준 이해</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>PC 파이썬과 보드 MicroPython</li>
-<li>외부 라이브러리 사용 가능 여부</li>
-<li>USB 분리 시 동작</li>
-</ul>
+<h2 id="_1">실행 위치의 차이<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>Live 모드</th>
+<th>Upload 모드</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>프로그램 실행 위치</td>
+<td>PC의 파이썬</td>
+<td>사이버파이의 MicroPython</td>
+</tr>
+<tr>
+<td>USB 분리 시</td>
+<td>프로그램 정지</td>
+<td>계속 동작(포켓쉴드 배터리 사용 시)</td>
+</tr>
+<tr>
+<td>사용 가능한 모듈</td>
+<td>PC 파이썬의 표준 라이브러리(<code>csv</code>, <code>time</code>, <code>urllib</code> 등)</td>
+<td>기기 MicroPython이 제공하는 모듈(<code>cyberpi</code>, <code>time</code>, <code>network</code>, <code>socket</code> 등)</td>
+</tr>
+<tr>
+<td>측정값 저장</td>
+<td>PC에 CSV 파일로 직접 저장</td>
+<td>기기 화면 표시, Wi-Fi로 서버 전송</td>
+</tr>
+<tr>
+<td>주요 용도</td>
+<td>측정·기록·디버깅, 집에서 하는 온라인 실습</td>
+<td>USB 없이 동작하는 기기, 무선 전송(8장)</td>
+</tr>
+<tr>
+<td>이 책의 사용 절</td>
+<td>4.6, 7.4, 12.1</td>
+<td>8장, 11.3</td>
+</tr>
+</tbody>
+</table>
+<p>MicroPython은 마이크로컨트롤러에서 동작하도록 만든 경량 파이썬이다. 문법은 PC 파이썬과 같지만 사용할 수 있는 모듈이 제한된다. 예를 들어 pandas는 MicroPython에서 사용할 수 없다. 따라서 5장 이후의 분석은 Live 모드로 PC에 저장한 CSV 파일이나 서버에 전송된 기록으로 진행한다.</p>
+<h2 id="_2">모드 선택 기준<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>다음 질문에 차례로 답하면 실행 모드를 정할 수 있다.</p>
+<ol>
+<li>기기가 USB 없이 혼자 동작해야 하는가? → 예이면 <strong>Upload 모드</strong></li>
+<li>측정값을 PC에 파일로 저장해야 하는가? → 예이면 <strong>Live 모드</strong></li>
+<li>프로그램을 수정하면서 결과를 바로 확인해야 하는가? → 예이면 <strong>Live 모드</strong></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">웹 버전의 파이썬 미리보기</p>
+<p>mBlock 웹 버전에서는 Upload 모드를 선택했을 때 코드 영역 오른쪽에 파이썬 미리보기 단추(<code>&lt;/&gt;</code>)가 표시되었다. Live 모드에서는 이 단추가 표시되지 않았다(2026-11-09 확인). 4.4절의 블록·파이썬 대조는 Upload 모드에서 진행한다.</p>
+</div>
+<!-- PHOTO: ch04_photo_usb_unplug — 같은 프로그램을 Live 모드와 Upload 모드로 실행한 뒤 USB를 분리했을 때의 차이(Live: 정지, Upload+포켓쉴드: LED 계속 깜빡임) 사진 2장 -->
+
+<h2 id="_3">확인 문제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>교실 문 앞에 두고 출입 시 소리 크기를 기록하는 기기를 구성하려고 한다. 어느 모드를 선택해야 하는지, 측정값은 어떻게 모아야 하는지 설명하시오.</li>
+<li>Live 모드로 실행 중인 프로그램에서 USB 케이블을 분리하면 어떤 일이 발생하는지 예상하고 실제로 확인하시오.</li>
+</ol>
 
 
 

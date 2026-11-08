@@ -1867,7 +1867,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -1979,7 +1979,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        과제 조건
       
     </span>
   </a>
@@ -1990,7 +1990,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        프로그램 기본 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시연 점검 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        제출물
       
     </span>
   </a>
@@ -3903,7 +3925,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        과제 조건
       
     </span>
   </a>
@@ -3914,7 +3936,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        프로그램 기본 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        시연 점검 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        제출물
       
     </span>
   </a>
@@ -3939,21 +3983,124 @@
 
 
 <h1 id="84">8.4 실기 과제: 수집·판정·표시 프로그램<a class="headerlink" href="#84" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>4~8장에서 학습한 측정(4.6절), 판정(2.4·7.1절), 표시(4.5·7.4절), 전송(8.2절)을 하나의 프로그램으로 결합한다. 수업 시간 안에 완성하고, 교수자 앞에서 동작을 시연한다.</p>
+<h2 id="_1">과제 조건<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>번호</th>
+<th>조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Upload 모드로 동작하며, USB를 분리하고 포켓쉴드 배터리로 실행한다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>조도 또는 소리 크기 중 하나를 0.5초 간격으로 측정한다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>측정값을 정상·주의·경고 3단계로 판정한다. 임계값은 4주차에 수집한 자료의 분위수를 근거로 정하고, 근거를 주석에 적는다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>본체 LED 5개의 색으로 단계를 표시하고(초록·노랑·빨강), 화면에 측정값과 단계 이름을 표시한다</td>
+</tr>
+<tr>
+<td>5</td>
+<td>경고 단계는 연속 3회 이상일 때만 표시한다(7.4절 연속 판정)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>A 단추를 누르면 측정을 시작하고, B 단추를 누르면 정지한다</td>
+</tr>
+<tr>
+<td>7</td>
+<td>10회 측정할 때마다 최근 10회의 중앙값을 수업 서버로 전송하고, 전송 결과를 화면에 표시한다</td>
+</tr>
+</tbody>
+</table>
+<p>조건 7에서 10개의 중앙값은 정렬한 리스트의 5번째와 6번째 값의 평균이다(7.4절의 정렬 방법). MicroPython에서는 pandas를 사용할 수 없으므로 리스트와 <code>sorted()</code>로 산출한다.</p>
+<h2 id="_2">프로그램 기본 구조<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>다음 기본 구조의 빈 부분을 완성한다. 8.1절의 반복 방식 구조를 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 8.2절의 connect_wifi, make_body, send_udp, send_measure 삽입 위치</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">CAUTION</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># 주의 임계값: 근거 = (4주차 자료의 ○○% 분위수)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">WARN</span> <span class="o">=</span> <span class="mi">0</span>         <span class="c1"># 경고 임계값: 근거 = (4주차 자료의 ○○% 분위수)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">judge</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="sd">"""측정값을 단계 이름과 RGB 색으로 변환한다."""</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">pass</span>         <span class="c1"># 7.4절 judge_loud를 참고해 작성</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">median10</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="sd">"""리스트 10개의 중앙값을 반환한다."""</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">pass</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">wlan</span> <span class="o">=</span> <span class="n">connect_wifi</span><span class="p">()</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">recent</span> <span class="o">=</span> <span class="p">[]</span>          <span class="c1"># 최근 측정값</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">warn_count</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1"># 경고 연속 횟수</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="c1"># A: 시작, B: 정지</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="c1"># running이면 0.5초마다 측정 → 판정 → 표시</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="c1"># recent가 10개가 되면 중앙값 전송 후 비우기</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="_3">시연 점검 기준<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>점검 항목</th>
+<th>확인 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB 없이 동작</td>
+<td>교수자가 USB를 분리한 상태에서 전원을 켜고 시작</td>
+</tr>
+<tr>
+<td>측정 간격</td>
+<td>화면에 표시되는 측정값이 약 0.5초마다 바뀌는지 확인</td>
+</tr>
+<tr>
+<td>임계값 근거</td>
+<td>코드 주석의 분위수 근거와 4주차 자료를 대조</td>
+</tr>
+<tr>
+<td>3단계 표시</td>
+<td>센서를 가리거나 소리를 내어 초록·노랑·빨강이 모두 표시되는지 확인</td>
+</tr>
+<tr>
+<td>연속 판정</td>
+<td>손뼉 한 번에는 경고가 표시되지 않고, 계속 소리를 내면 경고가 표시되는지 확인</td>
+</tr>
+<tr>
+<td>단추 동작</td>
+<td>A로 시작, B로 정지되는지 확인</td>
+</tr>
+<tr>
+<td>서버 전송</td>
+<td>수업 서버 화면에 10회마다 기록이 추가되고 기기 화면에 전송 결과가 표시되는지 확인</td>
+</tr>
+</tbody>
+</table>
+<p>시연 중 동작하지 않는 항목이 있으면, 원인을 화면 출력과 코드로 설명한다. 원인을 정확히 설명하는 것도 점검 항목에 포함한다.</p>
+<!-- PHOTO: ch08_photo_task_demo — 실기 과제 시연 장면 예시(교수 시연용 완성 프로그램, LED 3단계 중 경고 상태 + 화면 표시), 학생 얼굴 제외 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>측정-판정-표시 프로그램을 제한 시간 안에 완성</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>과제 조건</li>
-<li>점검 항목</li>
-</ul>
+<h2 id="_4">제출물<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>프로그램 파일(<code>.py</code>) 1개. 파일 이름은 <code>task8_번호.py</code>(예: <code>task8_07.py</code>)로 한다.</li>
+<li>임계값 근거 메모: 4주차 자료의 분위수 산출 결과(Colab 화면 캡처 1장).</li>
+</ol>
 
 
 

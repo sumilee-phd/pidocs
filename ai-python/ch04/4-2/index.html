@@ -1070,10 +1070,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mBlock 내려받기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        장치 추가와 USB 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        펌웨어 업데이트 창 처리 원칙
       
     </span>
   </a>
@@ -1084,7 +1106,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -1936,7 +1958,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -3900,10 +3922,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mBlock 내려받기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        장치 추가와 USB 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        펌웨어 업데이트 창 처리 원칙
       
     </span>
   </a>
@@ -3914,7 +3958,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3983,90 @@
 
 
 <h1 id="42-mblock">4.2 mBlock 설치와 펌웨어 관리<a class="headerlink" href="#42-mblock" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>mBlock은 Makeblock이 제공하는 블록 코딩·파이썬 개발 환경이다. 웹 브라우저에서 실행하는 웹 버전과 PC에 설치하는 PC 버전이 있다. 이 과목에서는 기기를 연결하는 실습에 PC 버전을 사용하고, 기기 없이 블록 화면을 확인할 때 웹 버전을 사용한다. 이 장의 mBlock 화면 그림은 웹 버전에서 캡처했다. PC 버전도 화면 구성은 같다.</p>
+<h2 id="mblock">mBlock 내려받기<a class="headerlink" href="#mblock" title="Permanent link">&para;</a></h2>
+<p><a href="https://mblock.cc/pages/downloads">mBlock 내려받기 페이지</a>에서 운영체제에 맞는 PC 버전을 내려받는다.</p>
+<figure>
+  <img alt="mBlock 내려받기 페이지" src="../../assets/img/ch04_mblock_download.png" />
+<br />
+<figcaption>그림 4-3 mBlock 내려받기 페이지(2026-11-09 기준 PC 버전 V5.6.0)</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>웹 버전</td>
+<td>「Code with blocks」 단추, Chrome 브라우저 권장</td>
+</tr>
+<tr>
+<td>PC 버전(Windows)</td>
+<td>「Download for Windows」, Windows 7·10 64비트</td>
+</tr>
+<tr>
+<td>PC 버전(macOS)</td>
+<td>「Download for Mac」, macOS 10.12 이상, Apple M1·M2 전용 파일 별도 제공</td>
+</tr>
+<tr>
+<td>실습실 일괄 설치</td>
+<td>「MSI File Download and Bulk Installation Solution」</td>
+</tr>
+</tbody>
+</table>
+<p>내려받은 설치 파일을 실행하고 안내에 따라 설치한다. 설치 중 장치 드라이버 설치를 묻는 창이 표시되면 설치를 허용한다. 드라이버가 없으면 PC가 USB로 연결한 사이버파이를 인식하지 못한다.</p>
+<!-- PHOTO: ch04_cap_install — mBlock PC 버전 설치 마법사 화면 1~2장(드라이버 설치 확인 창 포함), G14에서 캡처 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>개발 환경 설치와 기기 연결</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>mBlock 설치</li>
-<li>USB 연결과 장치 추가</li>
-<li>펌웨어 업데이트 창 처리 원칙</li>
-</ul>
+<h2 id="usb">장치 추가와 USB 연결<a class="headerlink" href="#usb" title="Permanent link">&para;</a></h2>
+<p>mBlock을 실행한 뒤 다음 순서로 사이버파이를 연결한다.</p>
+<ol>
+<li>화면 왼쪽 아래의 <strong>장치</strong> 탭을 선택한다. 사이버파이가 목록에 없으면 <strong>추가</strong>를 눌러 장치 목록에서 CyberPi를 선택한다.</li>
+<li>USB 케이블로 사이버파이와 PC를 연결하고, 사이버파이의 전원을 켠다.</li>
+<li><strong>연결</strong> 영역에서 USB 연결을 선택하고, 표시되는 포트 목록에서 사이버파이의 포트를 선택한 뒤 연결한다.</li>
+<li><strong>모드 스위치</strong>에서 실행 모드(업로드·라이브)를 선택한다. 두 모드의 차이는 4.3절에서 다룬다.</li>
+</ol>
+<figure>
+  <img alt="mBlock 장치 탭" src="../../assets/img/ch04_mblock_device.png" />
+<br />
+<figcaption>그림 4-4 mBlock 장치 탭: CyberPi 장치, 연결 방식(블루투스·직렬 통신), 모드 스위치</figcaption>
+</figure>
+<p>그림의 「직렬 통신」이 USB 연결이다. USB 케이블은 PC와 데이터를 주고받는 통로이면서 사이버파이에 전원을 공급한다.</p>
+<!-- PHOTO: ch04_cap_connect — mBlock PC 버전에서 CyberPi를 USB로 연결할 때의 포트 선택 창과 연결 완료 표시 화면 캡처(기기 연결 필요) -->
+
+<h2 id="_1">펌웨어 업데이트 창 처리 원칙<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>펌웨어(firmware)는 사이버파이 내부에서 동작하는 기본 프로그램이다. mBlock이 새 펌웨어를 감지하면 연결 과정에서 업데이트 창을 표시한다. 수업 중에는 다음 원칙에 따라 처리한다.</p>
+<table>
+<thead>
+<tr>
+<th>원칙</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>업데이트 창이 표시되면 진행하기 전에 교수자에게 알린다</td>
+<td>10대가 서로 다른 펌웨어로 동작하면 같은 코드의 동작이 달라질 수 있다</td>
+</tr>
+<tr>
+<td>업데이트를 진행하는 동안 USB 케이블을 분리하거나 전원을 끄지 않는다</td>
+<td>업데이트 도중 연결이 끊기면 기기가 정상적으로 부팅되지 않을 수 있다</td>
+</tr>
+<tr>
+<td>업데이트 후 4.4절의 LED 깜빡임 프로그램으로 동작을 확인한다</td>
+<td>업데이트 결과를 같은 기준으로 점검한다</td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch04_cap_firmware — mBlock 펌웨어 업데이트 안내 창과 진행 표시 화면 캡처(기기 연결 필요) -->
+
+<h2 id="_2">확인 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>사용하는 노트북의 운영체제와 비트 수(32·64비트)를 확인하고, 내려받을 설치 파일을 고르시오.</li>
+<li>mBlock이 사이버파이를 인식하지 못할 때 확인할 항목 세 가지를 쓰시오(케이블, 전원, 드라이버 등).</li>
+</ol>
 
 
 

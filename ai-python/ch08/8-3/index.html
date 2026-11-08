@@ -1867,7 +1867,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -1951,7 +1951,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        서버 수신 구조
       
     </span>
   </a>
@@ -1962,7 +1962,57 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        실시간 화면 해석
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="실시간 화면 해석">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        지점별 중앙값
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬 순서와 중앙값
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        노드 진행 현황
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3953,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        서버 수신 구조
       
     </span>
   </a>
@@ -3914,7 +3964,57 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        실시간 화면 해석
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="실시간 화면 해석">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        지점별 중앙값
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정렬 순서와 중앙값
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        노드 진행 현황
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +4039,127 @@
 
 
 <h1 id="83">8.3 수업 서버 실시간 화면<a class="headerlink" href="#83" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
+<p>10대의 사이버파이가 동시에 측정값을 전송하면 수업 서버는 수신한 기록을 저장하고, 지점별 통계를 실시간 화면에 표시한다. 이 절의 화면은 2026-11-04 정보통신학과 수업에서 15대의 측정 노드가 4개 지점(D1~D4)에서 전송한 기록 492건을 수업 서버에 다시 전송해 재현한 것이다. 3.2절과 5.2절에서 분석한 <code>class_rssi_20261104.csv</code>가 이 기록이다.</p>
+<h2 id="_1">서버 수신 구조<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>수업 서버는 파이썬 웹 프레임워크 FastAPI로 작성했다. 14장에서 FastAPI로 직접 서버를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>구성</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP <code>POST /api/measure</code></td>
+<td>JSON 측정값 수신(8.2절 형식)</td>
+</tr>
+<tr>
+<td>UDP 수신부</td>
+<td>같은 JSON을 UDP로 수신, <code>200 ok</code> 응답</td>
+</tr>
+<tr>
+<td>SQLite 데이터베이스</td>
+<td>수신 기록 저장(번호·노드·지점·값·시각)</td>
+</tr>
+<tr>
+<td><code>GET /api/class_live</code></td>
+<td>실시간 화면용 통계 제공</td>
+</tr>
+<tr>
+<td><code>/live</code> 페이지</td>
+<td>2초마다 통계를 다시 받아 화면 갱신</td>
+</tr>
+</tbody>
+</table>
+<p>FastAPI는 서버의 수신 형식을 자동으로 문서화한다. 서버 주소 뒤에 <code>/docs</code>를 추가해 접속하면 다음 화면이 표시된다.</p>
+<figure>
+  <img alt="수업 서버 API 문서" src="../../assets/img/ch08_server_docs.png" />
+<br />
+<figcaption>그림 8-2 수업 서버의 자동 문서(/docs): POST /api/measure의 JSON 형식</figcaption>
+</figure>
+<p>「Example Value」의 JSON이 8.2절의 페이로드와 같은 구조다(<code>battery</code>는 선택 항목). 이 화면의 「Try it out」 단추로 PC에서 시험 측정값을 직접 전송할 수 있다.</p>
+<figure>
+  <img alt="시험 전송 결과" src="../../assets/img/ch08_server_test.png" />
+<br />
+<figcaption>그림 8-3 PC에서 시험 측정값을 전송한 결과: 응답 코드 200, {"ok": true}</figcaption>
+</figure>
+<p>응답 코드 200과 <code>{"ok": true}</code>는 서버가 측정값을 정상적으로 저장했다는 의미다. 기기가 전송에 실패할 때 서버 쪽 문제인지 기기 쪽 문제인지 구분하려면, 먼저 이 화면에서 시험 전송이 성공하는지 확인한다.</p>
+<h2 id="_2">실시간 화면 해석<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">지점별 중앙값<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<figure>
+  <img alt="지점별 중앙값 카드" src="../../assets/img/ch08_live_medians.png" />
+<br />
+<figcaption>그림 8-4 실시간 화면의 지점별 중앙값(2026-11-04 수업 기록 재현)</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>지점</th>
+<th>장소</th>
+<th>중앙값</th>
+<th>기록 수</th>
+<th>9/17 같은 자리 값과 차이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>2501호 강의실 안</td>
+<td>−52 dBm</td>
+<td>180건, 노드 14대</td>
+<td>9/17 값 없음</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>2공 5층 엘리베이터 앞</td>
+<td>−66 dBm</td>
+<td>121건, 노드 12대</td>
+<td>J2 −77 dBm, +11 dB</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>2공 5층 복도 중앙</td>
+<td>−62 dBm</td>
+<td>103건, 노드 11대</td>
+<td>J3 −62 dBm, 0 dB</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>2공 5층 계단실 홀</td>
+<td>−66 dBm</td>
+<td>88건, 노드 10대</td>
+<td>J1 −68 dBm, +2 dB</td>
+</tr>
+</tbody>
+</table>
+<p>화면은 평균이 아니라 중앙값을 표시한다. 6.2절에서 확인한 대로 신호 세기 기록에는 이상치가 있으므로, 이상치의 영향을 적게 받는 중앙값을 지점의 대표값으로 사용한다. D3·D4는 9월 17일 측정값과 0~2 dB 차이로 거의 같고, D2는 11 dB 강하게 측정되었다.</p>
+<h3 id="_4">정렬 순서와 중앙값<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<figure>
+  <img alt="정렬 막대와 중앙값" src="../../assets/img/ch08_live_sorted.png" />
+<br />
+<figcaption>그림 8-5 지점별 측정값을 약한 신호부터 정렬한 막대(주황 막대가 가운데 값)</figcaption>
+</figure>
+<p>막대 하나가 측정 1회다. 왼쪽부터 약한 신호 순으로 정렬했고, 주황 막대가 정렬한 자료의 가운데 위치다. D1은 180개이므로 90번째와 91번째의 평균 −52 dBm이 중앙값이다. D2는 121개(홀수)이므로 61번째 값 −66 dBm이 중앙값이다. D4는 88개이므로 44번째와 45번째의 평균 −65.5 dBm이 중앙값이며, 지도에는 정수로 반올림한 −66 dBm을 표시한다. 빨간 점선은 이 장비의 음영 기준인 −75 dBm이다. 6.2절의 중앙값 정의를 측정 기록으로 직접 확인할 수 있는 화면이다.</p>
+<h3 id="_5">노드 진행 현황<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<figure>
+  <img alt="노드 진행 현황" src="../../assets/img/ch08_live_progress.png" />
+<br />
+<figcaption>그림 8-6 노드별·지점별 측정 횟수(목표 5회)</figcaption>
+</figure>
+<p>행은 노드, 열은 D1~D4 지점, 칸의 숫자는 측정 횟수다. 초록 칸은 목표 5회를 채운 지점, 주황 칸은 5회를 넘겨 측정한 지점, 회색 칸은 측정하지 않은 지점이다. 전체 진행률 78%(235/300회)는 노드 15대 × 지점 4곳 × 5회 = 300회 중 지점당 5회까지만 집계한 값이다. N4는 기록이 없어 「미수신」으로 표시되었다. 이 표로 교수자는 수업 중 어느 기기가 전송하지 못하는지, 어느 지점의 측정이 부족한지 확인한다.</p>
 <div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p class="admonition-title">재현 화면의 시각 표시</p>
+<p>그림의 「17초 전」 같은 수신 시각은 기록을 다시 전송한 시각 기준이다. 지점별 중앙값, 정렬 막대, 측정 횟수는 2026-11-04 수업 기록과 같다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>10대 기기의 동시 전송 결과 확인</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>서버 수신 구조</li>
-<li>실시간 화면 해석</li>
-</ul>
+<!-- PHOTO: ch08_cap_live_class — 2027 수업 당일 10대 동시 전송 중인 실시간 화면 캡처(가능하면 교실 빔프로젝터 화면 사진 1장) -->
+
+<h2 id="_6">확인 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>D1의 기록 수가 다른 지점보다 많은 이유를 노드 진행 현황 표에서 찾아 설명하시오.</li>
+<li>노드 진행 현황에서 5회를 크게 넘긴 칸(예: S02의 D1 24회)이 중앙값에 미치는 영향을 6.2절의 내용과 연결해 설명하시오.</li>
+<li><code>class_rssi_20261104.csv</code>를 Colab에서 불러와 지점별 중앙값을 산출하고, 그림 8-4의 값과 일치하는지 확인하시오.</li>
+</ol>
 
 
 
@@ -3991,7 +4197,7 @@
       <nav class="md-footer__inner md-grid" aria-label="하단/푸터" >
         
           
-          <a href="../8-2/" class="md-footer__link md-footer__link--prev" aria-label="이전: 8.2 Wi-Fi 접속과 HTTP 전송">
+          <a href="../8-2/" class="md-footer__link md-footer__link--prev" aria-label="이전: 8.2 Wi-Fi 접속과 측정값 전송">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4001,7 +4207,7 @@
                 이전
               </span>
               <div class="md-ellipsis">
-                8.2 Wi-Fi 접속과 HTTP 전송
+                8.2 Wi-Fi 접속과 측정값 전송
               </div>
             </div>
           </a>

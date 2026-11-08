@@ -1185,7 +1185,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        센서 함수 확인
       
     </span>
   </a>
@@ -1196,7 +1196,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        측정값 출력 시험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV 파일 저장
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        저장한 자료 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -1936,7 +1969,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -3903,7 +3936,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        센서 함수 확인
       
     </span>
   </a>
@@ -3914,7 +3947,40 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        측정값 출력 시험
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV 파일 저장
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        저장한 자료 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3939,22 +4005,159 @@
 
 
 <h1 id="46-csv">4.6 센서값 측정과 CSV 저장<a class="headerlink" href="#46-csv" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>이 절에서는 조도·소리·가속도 센서 3종의 측정값을 일정 간격으로 읽어 PC에 CSV 파일로 저장한다. 저장한 파일은 5장(정리)·6장(시각화)·7장(판정 기준) 실습의 분석 자료가 된다. 측정은 Live 모드에서 실행한다. Live 모드에서는 프로그램이 PC에서 실행되므로 PC의 <code>csv</code> 모듈로 파일을 직접 저장할 수 있다(4.3절).</p>
+<h2 id="_1">센서 함수 확인<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>mBlock에서 A 단추 이벤트 아래에 출력 블록 3개를 놓고, 각 출력 칸에 「주변 조도」, 「음량」, 「motion sensor x acceleration」 블록을 넣은 뒤 파이썬 미리보기를 확인한다.</p>
+<figure>
+  <img alt="센서 블록과 변환된 파이썬 코드" src="../../assets/img/ch04_mblock_sensor_python.png" />
+<br />
+<figcaption>그림 4-12 센서 블록 3종과 변환된 파이썬 코드(17~19행)</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>블록</th>
+<th>변환된 파이썬 코드</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>when button A pressed</td>
+<td><code>@event.is_press('a')</code></td>
+</tr>
+<tr>
+<td>print (값) and move to a new line</td>
+<td><code>cyberpi.console.println(값)</code></td>
+</tr>
+<tr>
+<td>주변 조도</td>
+<td><code>cyberpi.get_bri()</code></td>
+</tr>
+<tr>
+<td>음량</td>
+<td><code>cyberpi.get_loudness("maximum")</code></td>
+</tr>
+<tr>
+<td>motion sensor x acceleration</td>
+<td><code>cyberpi.get_acc('x')</code></td>
+</tr>
+</tbody>
+</table>
+<p>미리보기 창의 18행은 화면 폭을 넘어 잘려 있다. 미리보기 창을 오른쪽으로 이동하면 <code>cyberpi.get_loudness("maximum")</code>을 확인할 수 있다. <code>"maximum"</code>은 짧은 시간 동안 측정한 소리 크기의 최댓값을 반환하도록 지정하는 인자다. 가속도는 <code>'x'</code>, <code>'y'</code>, <code>'z'</code> 중 하나로 축을 지정한다.</p>
+<h2 id="_2">측정값 출력 시험<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>먼저 측정값이 정상적으로 읽히는지 화면과 PC 출력으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">bri</span> <span class="o">=</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_bri</span><span class="p">()</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">loud</span> <span class="o">=</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_loudness</span><span class="p">(</span><span class="s2">"maximum"</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">ax</span> <span class="o">=</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_acc</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bri</span><span class="p">,</span> <span class="n">loud</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>                     <span class="c1"># PC 출력 창</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bri</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loud</span><span class="p">))</span>   <span class="c1"># 기기 화면</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div>
+<p>손으로 조도 센서를 가리거나 손뼉을 치면서 값이 변화하는지 확인한다. 기기를 기울이면 가속도 값이 변화한다.</p>
+<!-- PHOTO: ch04_cap_live_print — mBlock Live 모드에서 위 코드를 실행한 출력 창(10행) 캡처 + 사이버파이 화면 사진 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<h2 id="csv">CSV 파일 저장<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
+<p>다음 프로그램은 0.5초 간격으로 60초 동안(120회) 측정해 바탕 화면에 CSV 파일로 저장한다. 3.2절의 <code>csv.writer</code>를 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">N</span> <span class="o">=</span> <span class="mi">120</span>                                         <span class="c1"># 0.5초 간격 120회 = 60초</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">"~"</span><span class="p">),</span> <span class="s2">"Desktop"</span><span class="p">,</span> <span class="s2">"sensor_week4.csv"</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">"t"</span><span class="p">,</span> <span class="s2">"bri"</span><span class="p">,</span> <span class="s2">"loud"</span><span class="p">,</span> <span class="s2">"ax"</span><span class="p">,</span> <span class="s2">"ay"</span><span class="p">,</span> <span class="s2">"az"</span><span class="p">])</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>               <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_bri</span><span class="p">(),</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>               <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_loudness</span><span class="p">(</span><span class="s2">"maximum"</span><span class="p">),</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>               <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_acc</span><span class="p">(</span><span class="s2">"x"</span><span class="p">),</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_acc</span><span class="p">(</span><span class="s2">"y"</span><span class="p">),</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">get_acc</span><span class="p">(</span><span class="s2">"z"</span><span class="p">)]</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2"> / </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>   <span class="c1"># 진행 상황</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"saved"</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"저장 완료:"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>코드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>os.path.expanduser("~")</code></td>
+<td>사용자 폴더 경로(예: <code>C:\Users\이름</code>)</td>
+</tr>
+<tr>
+<td><code>os.path.join(…)</code></td>
+<td>운영체제에 맞는 구분 문자로 경로 연결</td>
+</tr>
+<tr>
+<td><code>time.time() - t0</code></td>
+<td>측정 시작 후 경과 시간(초)</td>
+</tr>
+<tr>
+<td><code>"%d / %d" % (i + 1, N)</code></td>
+<td>문자열 서식 지정, 진행 횟수 표시</td>
+</tr>
+</tbody>
+</table>
+<p>측정하는 60초 동안 다음 순서로 환경을 변화시키면 6장에서 분석할 변화가 기록된다.</p>
+<table>
+<thead>
+<tr>
+<th>구간</th>
+<th>조작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0~20초</td>
+<td>책상 위에 가만히 둔다</td>
+</tr>
+<tr>
+<td>20~40초</td>
+<td>손으로 조도 센서를 가렸다 떼기를 반복하고, 손뼉을 몇 번 친다</td>
+</tr>
+<tr>
+<td>40~60초</td>
+<td>기기를 손에 들고 천천히 기울이거나 흔든다</td>
+</tr>
+</tbody>
+</table>
+<!-- PHOTO: ch04_cap_csv — 저장된 sensor_week4.csv를 메모장 또는 엑셀로 연 화면 캡처(첫 10행) -->
+<!-- DATA: ch04_data_sensor_week4 — 실측 CSV 1개를 docs/data/에 추가하면 이 절 끝에 Colab 꺾은선 그래프(조도·소리·가속도 3개)와 캡처를 넣는다 -->
+
+<h2 id="_3">저장한 자료 확인<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>저장한 CSV 파일을 Colab에 업로드하고 5장의 방법으로 불러와 확인한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"sensor_week4.csv"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">s</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>행 수가 120, 열이 6개이면 정상이다. <code>describe()</code>의 최솟값·최댓값으로 각 센서의 변동 범위를 확인한다.</p>
+<h2 id="_4">실습 과제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>측정 간격을 0.2초로 바꾸고 같은 시간 동안 측정해 행 수가 어떻게 변화하는지 확인하시오. 실제 간격이 0.2초보다 길어진다면 그 이유를 설명하시오(측정·전송·화면 출력에 걸리는 시간).</li>
+<li>교실의 서로 다른 장소 3곳(창가, 복도 쪽, 교탁)에서 각각 30초씩 측정해 파일 3개로 저장하시오. 파일 이름에 장소를 표기한다.</li>
+<li>저장한 파일 하나를 이용해 6.1절의 방법으로 조도와 소리 크기의 꺾은선 그래프를 작성하시오.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">초안 확인 사항</p>
+<p>센서 함수 이름은 mBlock 블록 변환(그림 4-12)으로 확인했다. mBlock 내장 파이썬에서의 <code>csv</code>·<code>os</code> 모듈 사용, 바탕 화면 경로, 실제 측정 간격, 가속도 값의 단위는 실기기로 확인한 뒤 확정한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>센서 3종 측정값을 CSV로 저장</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>get_bri·get_loudness·get_acc</li>
-<li>Live 모드 측정 반복문</li>
-<li>PC 쪽 CSV 기록</li>
-</ul>
 
 
 

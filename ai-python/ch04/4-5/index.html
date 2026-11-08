@@ -1157,7 +1157,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        화면 출력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED 제어
       
     </span>
   </a>
@@ -1168,7 +1179,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        단추 입력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -1936,7 +1958,7 @@
   <span class="md-ellipsis">
     
   
-    8.2 Wi-Fi 접속과 HTTP 전송
+    8.2 Wi-Fi 접속과 측정값 전송
   
 
     
@@ -3903,7 +3925,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        화면 출력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED 제어
       
     </span>
   </a>
@@ -3914,7 +3947,18 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        단추 입력
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3939,22 +3983,87 @@
 
 
 <h1 id="45-led">4.5 화면·LED·버튼 제어<a class="headerlink" href="#45-led" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<p>이 절에서는 사이버파이의 출력 장치(화면·LED)와 입력 장치(단추·조이스틱)를 함께 사용하는 프로그램을 작성한다. 코드는 Live 모드에서 실행한다.</p>
+<h2 id="_1">화면 출력<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>화면 출력 함수는 두 종류다. <code>console</code> 계열은 문자열을 한 줄씩 차례로 출력하고, <code>display.show_label</code>은 지정한 위치에 문자열을 표시한다.</p>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cyberpi.console.println(값)</code></td>
+<td>값을 출력하고 다음 줄로 이동</td>
+</tr>
+<tr>
+<td><code>cyberpi.console.print(값)</code></td>
+<td>값을 출력하고 줄을 바꾸지 않음</td>
+</tr>
+<tr>
+<td><code>cyberpi.console.clear()</code></td>
+<td>화면 지우기</td>
+</tr>
+<tr>
+<td><code>cyberpi.display.show_label(문자열, 크기, 위치)</code></td>
+<td>지정 위치에 문자열 표시(4.7절에서 사용)</td>
+</tr>
+</tbody>
+</table>
+<figure>
+  <img alt="화면 범주 블록" src="../../assets/img/ch04_mblock_screen_blocks.png" />
+<br />
+<figcaption>그림 4-11 mBlock 「화면」 범주: print, show label, 꺾은선·막대 그래프</figcaption>
+</figure>
+<p>「print … and move to a new line」 블록은 <code>console.println</code>으로 변환된다(4.6절 그림 4-12). 화면에 꺾은선 그래프와 막대 그래프를 그리는 블록도 있다. 측정값의 변화를 기기 화면에서 바로 확인할 때 사용한다.</p>
+<h2 id="led">LED 제어<a class="headerlink" href="#led" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"all"</span><span class="p">)</span>      <span class="c1"># 5개 모두 초록</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>          <span class="c1"># 1번 LED만 파랑</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">(</span><span class="s2">"all"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>led.on</code>의 네 번째 인자는 LED 번호다. <code>"all"</code>은 5개 전체, 1~5는 해당 위치의 LED 하나를 의미한다.</p>
+<h2 id="_2">단추 입력<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>cyberpi.controller.is_press(이름)</code>은 단추가 눌려 있으면 참(<code>True</code>)을 반환한다. 이름은 <code>"a"</code>, <code>"b"</code>, 조이스틱 가운데 누름 <code>"middle"</code> 등이다. 다음 프로그램은 A 단추를 누르면 LED를 초록색으로 켜고 화면에 「ON」을, B 단추를 누르면 LED를 끄고 「OFF」를 출력한다. 조이스틱 가운데를 누르면 종료한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"A: ON / B: OFF"</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">if</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">is_press</span><span class="p">(</span><span class="s2">"a"</span><span class="p">):</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"all"</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"ON"</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>                   <span class="c1"># 한 번 누름이 여러 번 인식되지 않도록 대기</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">if</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">is_press</span><span class="p">(</span><span class="s2">"b"</span><span class="p">):</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">(</span><span class="s2">"all"</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"OFF"</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">if</span> <span class="n">cyberpi</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">is_press</span><span class="p">(</span><span class="s2">"middle"</span><span class="p">):</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">(</span><span class="s2">"all"</span><span class="p">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="n">cyberpi</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"END"</span><span class="p">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">break</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+</code></pre></div>
+<p><code>while True</code>는 조건이 항상 참이므로 계속 반복하는 무한 반복문이다. <code>break</code>를 만나면 반복을 종료한다. 단추를 누른 직후 0.3초 대기하는 이유는 사람이 한 번 누르는 동안 반복문이 여러 번 실행되어 같은 누름이 여러 번 인식되는 것을 방지하기 위해서다. 2026-11-04 정보통신학과 측정 노드 실습의 기기 프로그램에서도 단추 처리 뒤에 같은 방법으로 0.3초 대기를 사용했다.</p>
+<!-- PHOTO: ch04_photo_button_on — A 단추를 눌러 LED 초록 점등 + 화면에 "A: ON / B: OFF", "ON" 출력된 사진 -->
 
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<h2 id="_3">실습 과제<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>단추를 누를 때마다 숫자가 1씩 증가하는 카운터를 작성하고, 누른 횟수를 화면에 출력하시오.</li>
+<li>A 단추를 누를 때마다 LED가 1번부터 5번까지 하나씩 차례로 켜지도록 작성하시오.</li>
+<li>2.4절의 <code>judge_light</code> 함수를 이 절의 코드와 결합해, 조이스틱 가운데를 누르면 현재 조도값과 판정 결과를 화면에 출력하시오.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">초안 확인 사항</p>
+<p><code>console.println</code>, <code>led.on(…, "all")</code>, <code>led.off("all")</code>은 mBlock의 블록 변환으로, <code>controller.is_press("a"·"b"·"middle")</code>과 <code>console.clear()</code>는 2026-11-04 측정 노드 실습의 기기 프로그램으로 확인했다. <code>led.on</code>의 LED 번호 지정(1~5)과 <code>console.print</code>, Live 모드 Python 탭 실행은 실기기로 확인한 뒤 확정한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>출력 장치와 입력 장치 제어</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>console.print와 display</li>
-<li>led.on·led.off</li>
-<li>controller.is_press</li>
-</ul>
 
 
 
