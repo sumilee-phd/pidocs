@@ -2615,7 +2615,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        학습 데이터와 평가 데이터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kNN 거리 기반 분류
       
     </span>
   </a>
@@ -2626,7 +2637,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        결정트리 규칙 기반 분류
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        두 분류기의 비교
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3903,7 +3936,18 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        학습 데이터와 평가 데이터
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kNN 거리 기반 분류
       
     </span>
   </a>
@@ -3914,7 +3958,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        결정트리 규칙 기반 분류
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        두 분류기의 비교
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,21 +4005,102 @@
 
 
 <h1 id="112-knn">11.2 kNN과 결정트리 비교<a class="headerlink" href="#112-knn" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>두 분류기의 정확도와 해석 가능성 비교</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>kNN 거리 기반 분류</li>
-<li>결정트리 규칙 기반 분류</li>
-</ul>
+<p>이 절에서는 11.1절의 창별 특징으로 두 종류의 분류기를 학습하고 비교한다. kNN은 거리를 기준으로 분류하고, 결정트리는 규칙을 기준으로 분류한다. 정확도와 함께 판정 근거의 해석 가능성, 사이버파이 탑재 가능성을 비교한다.</p>
+<h2 id="_1">학습 데이터와 평가 데이터<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>한 회차에서 추출한 창 3개는 측정값의 절반을 서로 공유한다. 같은 회차의 창이 학습 데이터와 평가 데이터에 나뉘어 들어가면, 모델은 평가 창과 거의 같은 자료로 학습한 셈이 되어 정확도가 실제보다 높게 산출된다. 9.3절의 정보 누출과 같은 문제다. 따라서 창 단위가 아니라 회차 단위로 분할한다. 1~20회는 학습 데이터, 21~30회는 평가 데이터로 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">train</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"rep"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">test</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"rep"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>960 480
+</code></pre></div>
+<h2 id="knn">kNN 거리 기반 분류<a class="headerlink" href="#knn" title="Permanent link">&para;</a></h2>
+<p>kNN(k-Nearest Neighbors, k-최근접 이웃)은 새 자료와 가장 가까운 학습 자료 k개를 찾고, 그중 가장 많은 범주로 분류한다. 가깝다는 것은 특징 7개로 구성한 공간에서의 거리가 짧다는 의미다.</p>
+<p>특징마다 값의 범위가 다르다는 점에 주의한다. <code>az_mean</code>은 9.8 부근의 값이고 <code>ax_std</code>는 0.1~8 범위의 값이다. 범위가 넓은 특징이 거리를 좌우하지 않도록, <code>StandardScaler</code>로 특징마다 평균 0, 표준편차 1이 되도록 변환한 뒤 거리를 산출한다. 7.2절의 표준화와 같은 변환이다. <code>make_pipeline</code>은 변환과 분류를 하나의 모델로 묶는다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">knn</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">FEATS</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">])</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"kNN 정확도"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">],</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">FEATS</span><span class="p">])),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>kNN 정확도 0.988
+</code></pre></div>
+<figure>
+  <img alt="kNN 정확도 실행 화면" src="../../assets/img/ch11_colab_knn.png" />
+<br />
+<figcaption>그림 11-6 Colab에서 실행한 kNN(k=5) 학습과 평가</figcaption>
+</figure>
+<h2 id="_2">결정트리 규칙 기반 분류<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>10장과 같은 방법으로 깊이 3의 결정트리를 학습한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">FEATS</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">])</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">p_tree</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">FEATS</span><span class="p">])</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"결정트리 정확도"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">],</span> <span class="n">p_tree</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">],</span> <span class="n">p_tree</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>                                        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"still"</span><span class="p">,</span> <span class="s2">"tilt"</span><span class="p">,</span> <span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"shake"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>결정트리 정확도 0.977
+</code></pre></div>
+<figure>
+  <img alt="결정트리 혼동행렬" src="../../assets/img/ch11_colab_tree_cm.png" />
+<br />
+<figcaption>그림 11-7 Colab에서 출력한 깊이 3 결정트리의 정확도와 혼동행렬</figcaption>
+</figure>
+<p>평가 창 480개 중 오류는 11개다. 대부분 정지와 기울이기 사이(정지 → 기울이기 3개, 기울이기 → 정지 2개)와 원 그리기(원 → 기울이기 2개, 원 → 흔들기 2개, 원 → 정지 1개)에서 발생했고, 흔들기 120개는 모두 맞혔다. 약하게 기울인 회차는 정지와, 작게 그린 원은 정지·기울이기와 특징이 비슷해지기 때문이다.</p>
+<h2 id="_3">두 분류기의 비교<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>kNN(k=5)</th>
+<th>결정트리(깊이 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>평가 정확도</td>
+<td>0.988</td>
+<td>0.977</td>
+</tr>
+<tr>
+<td>판정 근거</td>
+<td>가까운 학습 창 5개의 다수결, 규칙으로 설명하기 어려움</td>
+<td><code>ax_std &lt;= 0.60</code>처럼 사람이 읽을 수 있는 규칙</td>
+</tr>
+<tr>
+<td>판정에 필요한 자료</td>
+<td>학습 창 960개의 특징 전체(960 × 7 = 6,720개 값)</td>
+<td>기준값 몇 개</td>
+</tr>
+<tr>
+<td>판정 1회의 계산</td>
+<td>학습 창 960개와의 거리 계산</td>
+<td>비교 연산 최대 3회</td>
+</tr>
+<tr>
+<td>사이버파이 탑재</td>
+<td>메모리·계산량 부담이 크고 외부 라이브러리 필요</td>
+<td>if 문으로 변환해 그대로 탑재 가능(11.3절)</td>
+</tr>
+</tbody>
+</table>
+<p>이 자료에서는 kNN의 정확도가 약간 높다. 그러나 기기에서 0.5초마다 판정해야 하는 조건에서는 학습 자료 전체를 저장하고 매번 거리를 계산하는 kNN보다, 비교 몇 번으로 판정하는 결정트리가 적합하다. 정확도 차이가 작다면 해석 가능성과 탑재 비용을 함께 고려해 모델을 선택한다.</p>
+<h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>kNN의 <code>n_neighbors</code>를 1, 3, 15로 변경하고 평가 정확도를 비교하시오.</li>
+<li><code>StandardScaler</code>를 제거한 kNN(<code>KNeighborsClassifier(n_neighbors=5)</code>만 사용)의 정확도를 산출하고, 이 자료에서 표준화의 효과가 어떻게 나타나는지 설명하시오.</li>
+<li>회차 단위가 아니라 창 단위로 무작위 분할(<code>train_test_split</code>)하면 정확도가 어떻게 변화하는지 확인하고, 그 이유를 설명하시오.</li>
+</ol>
 
 
 

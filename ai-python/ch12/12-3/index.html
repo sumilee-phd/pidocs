@@ -2833,7 +2833,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        교차 평가 절차
       
     </span>
   </a>
@@ -2844,7 +2844,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        정확도 하락 원인 분석
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방향에 무관한 특징
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3903,7 +3925,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        교차 평가 절차
       
     </span>
   </a>
@@ -3914,7 +3936,29 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        정확도 하락 원인 분석
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        방향에 무관한 특징
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        실습 과제
       
     </span>
   </a>
@@ -3939,21 +3983,184 @@
 
 
 <h1 id="123">12.3 교차 평가<a class="headerlink" href="#123" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
+<p>11장에서는 같은 학생들의 1~20회로 학습하고 21~30회로 평가했다. 평가 데이터에도 학습에 사용한 학생의 동작이 들어 있었다. 그러나 실제로 기기를 사용할 사람은 학습 자료에 없는 사람일 수 있다. 이 절에서는 한 학생을 평가용으로 남기고 나머지 학생으로 학습하는 교차 평가로, 처음 보는 사람의 동작에서도 모델이 동작하는지 확인한다.</p>
+<div class="admonition warning">
+<p class="admonition-title">예시 자료로 산출한 결과</p>
+<p>이 절의 수치는 11장 예시 자료(가상 수강생 4명)로 산출했다. 예시 자료의 학생 S04는 다른 학생과 동작 습관이 다르도록 생성했다. 실측 자료에서는 수강생 10명으로 같은 절차를 실행한다.</p>
 </div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>다른 학생 동작에서의 정확도 측정</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>교차 평가 절차</li>
-<li>정확도 하락 원인 분석</li>
-</ul>
+<h2 id="_1">교차 평가 절차<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>학생 한 명을 평가 학생으로 정한다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>나머지 학생의 모든 창으로 결정트리(깊이 3)를 학습한다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>평가 학생의 모든 창으로 정확도를 산출한다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>모든 학생이 한 번씩 평가 학생이 되도록 1~3단계를 반복한다</td>
+</tr>
+</tbody>
+</table>
+<p>한 명씩 빼고 학습하는 이 방법을 LOSO(Leave-One-Subject-Out) 교차 평가라고 한다. 다음 코드는 11.1절의 특징 추출 코드를 실행해 <code>F</code>를 준비한 뒤 실행한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_text</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"gesture_example.csv"</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">W</span><span class="p">,</span> <span class="n">STEP</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">FEATS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ax_mean"</span><span class="p">,</span> <span class="s2">"ay_mean"</span><span class="p">,</span> <span class="s2">"az_mean"</span><span class="p">,</span> <span class="s2">"ax_std"</span><span class="p">,</span> <span class="s2">"ay_std"</span><span class="p">,</span> <span class="s2">"az_std"</span><span class="p">,</span> <span class="s2">"mag_max"</span><span class="p">]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">window_features</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">"ax"</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="s2">"ay"</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="s2">"az"</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"ax_mean"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"ax"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"ay_mean"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"ay"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"az_mean"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"az"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="s2">"ax_std"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"ax"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s2">"ay_std"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"ay"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s2">"az_std"</span><span class="p">:</span> <span class="n">w</span><span class="p">[</span><span class="s2">"az"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            <span class="s2">"mag_max"</span><span class="p">:</span> <span class="n">mag</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">"mag_mean"</span><span class="p">:</span> <span class="n">mag</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"mag_std"</span><span class="p">:</span> <span class="n">mag</span><span class="o">.</span><span class="n">std</span><span class="p">()}</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">for</span> <span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">gesture</span><span class="p">,</span> <span class="n">rep</span><span class="p">),</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"student"</span><span class="p">,</span> <span class="s2">"gesture"</span><span class="p">,</span> <span class="s2">"rep"</span><span class="p">]):</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">-</span> <span class="n">W</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STEP</span><span class="p">):</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="n">f</span> <span class="o">=</span> <span class="n">window_features</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">W</span><span class="p">])</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">f</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">student</span><span class="o">=</span><span class="n">student</span><span class="p">,</span> <span class="n">gesture</span><span class="o">=</span><span class="n">gesture</span><span class="p">,</span> <span class="n">rep</span><span class="o">=</span><span class="n">rep</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">F</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">def</span><span class="w"> </span><span class="nf">loso</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">F</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()):</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="n">trn</span><span class="p">,</span> <span class="n">tst</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">],</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        <span class="n">m</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trn</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">trn</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">])</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="n">result</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">tst</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tst</span><span class="p">[</span><span class="n">features</span><span class="p">])),</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="n">acc</span> <span class="o">=</span> <span class="n">loso</span><span class="p">(</span><span class="n">FEATS</span><span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"평균"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">acc</span><span class="o">.</span><span class="n">values</span><span class="p">())),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{'S01': 0.983, 'S02': 0.956, 'S03': 0.961, 'S04': 0.506}
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>평균 0.851
+</code></pre></div>
+<figure>
+  <img alt="LOSO 교차 평가 결과" src="../../assets/img/ch12_colab_loso.png" />
+<br />
+<figcaption>그림 12-1 Colab에서 실행한 학생별 LOSO 교차 평가 정확도</figcaption>
+</figure>
+<p>이 장의 특징 계산 함수는 11.1절의 함수에 가속도 크기의 평균(<code>mag_mean</code>)과 표준편차(<code>mag_std</code>)를 추가했다. 아래의 개선 실험에서 사용한다.</p>
+<p>S01·S02·S03의 정확도는 0.956~0.983으로 11.2절의 평가 정확도(0.977)와 비슷하다. 그러나 S04는 0.506으로 절반 수준이고, 평균도 0.851로 11.2절보다 0.126 낮다. 같은 학생의 다른 회차로 평가한 11.2절의 정확도는, 처음 보는 사람이 사용할 때의 성능을 실제보다 높게 나타낼 수 있다는 의미다.</p>
+<h2 id="_2">정확도 하락 원인 분석<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>S04를 평가 학생으로 두고 학습한 트리의 규칙과 S04의 판정 결과를 확인한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">trn</span><span class="p">,</span> <span class="n">tst</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"S04"</span><span class="p">],</span> <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"S04"</span><span class="p">]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">m</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trn</span><span class="p">[</span><span class="n">FEATS</span><span class="p">],</span> <span class="n">trn</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">])</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">export_text</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">FEATS</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">tst</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tst</span><span class="p">[</span><span class="n">FEATS</span><span class="p">]),</span> <span class="n">rownames</span><span class="o">=</span><span class="p">[</span><span class="s2">"actual"</span><span class="p">],</span> <span class="n">colnames</span><span class="o">=</span><span class="p">[</span><span class="s2">"pred"</span><span class="p">])</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>|--- ax_std &lt;= 3.21
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>|   |--- ax_std &lt;= 0.57
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|   |   |--- az_mean &lt;= 9.50
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|   |   |   |--- class: tilt
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>|   |   |--- az_mean &gt;  9.50
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>|   |   |   |--- class: still
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>|   |--- ax_std &gt;  0.57
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>|   |   |--- az_std &lt;= 0.50
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>|   |   |   |--- class: still
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>|   |   |--- az_std &gt;  0.50
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>|   |   |   |--- class: circle
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>|--- ax_std &gt;  3.21
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>|   |--- class: shake
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>pred    circle  still  tilt
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>actual                     
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>circle      90      0     0
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>shake       90      0     0
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>still        0      2    88
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>tilt         0      0    90
+</code></pre></div>
+<figure>
+  <img alt="S04 교차 평가 분석" src="../../assets/img/ch12_colab_s04.png" />
+<br />
+<figcaption>그림 12-2 S04를 제외하고 학습한 트리의 규칙과 S04의 판정 결과</figcaption>
+</figure>
+<p>S04를 제외하고 학습한 트리는 <code>ax_std &gt; 3.21</code>을 흔들기의 조건으로 학습했다. 학습에 사용한 S01~S03이 모두 좌우(x축)로 흔들었기 때문이다. S04의 판정 결과에는 두 종류의 오류가 나타난다. 흔들기 90개가 모두 원 그리기로, 정지 90개 중 88개가 기울이기로 판정되었다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">F</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"gesture"</span><span class="p">,</span> <span class="s2">"student"</span><span class="p">])[[</span><span class="s2">"az_mean"</span><span class="p">,</span> <span class="s2">"ax_std"</span><span class="p">,</span> <span class="s2">"ay_std"</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>        az_mean                   ax_std                   ay_std                  
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>student     S01   S02   S03   S04    S01   S02   S03   S04    S01   S02   S03   S04
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>gesture                                                                            
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>circle     9.75  9.77  9.72  8.76   1.38  1.73  1.12  1.47   0.50  0.48  0.48  0.49
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>shake      9.81  9.76  9.77  8.85   7.45  9.90  5.73  0.98   0.97  0.98  0.98  7.95
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>still      9.79  9.77  9.71  8.86   0.26  0.24  0.29  0.26   0.26  0.24  0.29  0.24
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>tilt       8.03  8.23  8.15  5.27   0.32  0.31  0.32  0.28   1.76  2.28  1.10  1.32
+</code></pre></div>
+<figure>
+  <img alt="학생별 특징 평균" src="../../assets/img/ch12_colab_student_feats.png" />
+<br />
+<figcaption>그림 12-3 동작·학생별 특징 평균</figcaption>
+</figure>
+<p>학생별 평균을 비교하면 두 오류의 원인이 확인된다. 첫째, S04의 흔들기는 <code>ax_std</code>가 0.98로 작고 <code>ay_std</code>가 7.95로 크다. S04는 좌우가 아니라 앞뒤(y축)로 흔들었다. 따라서 <code>ax_std &gt; 3.21</code> 조건을 만족하지 못하고 원 그리기 경로로 판정되었다. 둘째, S04는 모든 동작에서 <code>az_mean</code>이 8.76~8.86으로 다른 학생(9.71~9.81)보다 0.85~1.05 낮다. 기기를 약간 세워 쥐어 중력의 일부가 y축으로 분산되었기 때문이다. 그 결과 정지 자세도 <code>az_mean &lt;= 9.50</code> 조건을 만족해 기울이기로 판정되었다. 예시 자료 생성기에서 S04에 부여한 설정(앞뒤 흔들기, 약 26° 세워 쥐기)이 분석 결과로 그대로 드러난다. 모델의 규칙은 학습 자료에 없던 동작 방식과 쥐는 방향에 대해서는 동작하지 않는다.</p>
+<h2 id="_3">방향에 무관한 특징<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>축별 특징은 기기를 쥐는 방향이 바뀌면 값이 달라진다. 가속도 크기 √(ax² + ay² + az²)는 기기의 방향과 관계없이 같은 값을 가진다. 축별 특징 대신 가속도 크기의 평균·표준편차·최댓값과 세 축 표준편차의 합으로 교차 평가를 다시 실행한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">F</span><span class="p">[</span><span class="s2">"std_sum"</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">[</span><span class="s2">"ax_std"</span><span class="p">]</span> <span class="o">+</span> <span class="n">F</span><span class="p">[</span><span class="s2">"ay_std"</span><span class="p">]</span> <span class="o">+</span> <span class="n">F</span><span class="p">[</span><span class="s2">"az_std"</span><span class="p">]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">ROBUST</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"mag_mean"</span><span class="p">,</span> <span class="s2">"mag_std"</span><span class="p">,</span> <span class="s2">"mag_max"</span><span class="p">,</span> <span class="s2">"std_sum"</span><span class="p">]</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">acc2</span> <span class="o">=</span> <span class="n">loso</span><span class="p">(</span><span class="n">ROBUST</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">acc2</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"평균"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">acc2</span><span class="o">.</span><span class="n">values</span><span class="p">())),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>{'S01': 0.964, 'S02': 0.969, 'S03': 0.858, 'S04': 0.967}
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>평균 0.94
+</code></pre></div>
+<figure>
+  <img alt="방향에 무관한 특징의 교차 평가" src="../../assets/img/ch12_colab_robust.png" />
+<br />
+<figcaption>그림 12-4 방향에 무관한 특징 4개로 실행한 LOSO 교차 평가</figcaption>
+</figure>
+<p>S04의 정확도는 0.506에서 0.967로 증가하고, 평균도 0.851에서 0.940으로 증가했다. 반면 S03은 0.961에서 0.858로 감소했다. S03의 오류는 기울이기 26개가 정지로, 흔들기 20개가 원 그리기로 판정된 것이다. 방향에 무관한 특징은 동작의 「세기」로 동작을 구분하는데, S03은 다른 학생보다 동작을 약하게 수행했기 때문이다(세 축 표준편차의 합: S03의 기울이기 2.10, 다른 학생 3.07~3.68).</p>
+<table>
+<thead>
+<tr>
+<th>특징</th>
+<th>장점</th>
+<th>단점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>축별 특징(11장)</td>
+<td>동작의 방향 정보를 사용</td>
+<td>쥐는 방향·동작 방향이 다른 사람에게 취약</td>
+</tr>
+<tr>
+<td>방향에 무관한 특징</td>
+<td>쥐는 방향이 달라도 같은 값</td>
+<td>동작의 세기 차이에 취약, 방향이 특징인 동작(기울이기) 구분력 감소</td>
+</tr>
+</tbody>
+</table>
+<p>특징 선택에도 상충이 있다. 교차 평가는 이런 차이를 학습 단계에서 미리 발견하는 절차다. 실제 사용자 집단이 다양할수록 학습 자료에도 다양한 사용자를 포함해야 한다.</p>
+<h2 id="_4">실습 과제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>수강생 10명의 실측 자료로 LOSO 교차 평가를 실행하고, 정확도가 가장 낮은 학생의 원인을 이 절의 방법으로 분석하시오.</li>
+<li>축별 특징과 방향에 무관한 특징을 함께 사용하면(<code>FEATS + ["mag_std", "std_sum"]</code>) 학생별 정확도가 어떻게 변화하는지 확인하시오.</li>
+<li>정확도가 낮은 학생의 자료 일부(예: 5회)를 학습 데이터에 추가하면 그 학생의 정확도가 어떻게 변화하는지 확인하시오. 사용자별 보정의 장단점을 설명하시오.</li>
+</ol>
 
 
 

@@ -2640,10 +2640,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#export_text" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        export_text 출력 해석
       
     </span>
   </a>
@@ -2651,10 +2651,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#if" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        if 문 변환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#micropython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroPython 특징 계산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3900,10 +3922,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#export_text" class="md-nav__link">
     <span class="md-ellipsis">
       
-        학습 목표
+        export_text 출력 해석
       
     </span>
   </a>
@@ -3911,10 +3933,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#if" class="md-nav__link">
     <span class="md-ellipsis">
       
-        다룰 내용
+        if 문 변환
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#micropython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroPython 특징 계산
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        확인 문제
       
     </span>
   </a>
@@ -3939,22 +3983,121 @@
 
 
 <h1 id="113">11.3 결정트리의 조건문 변환<a class="headerlink" href="#113" title="Permanent link">&para;</a></h1>
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
-
-<div class="admonition note">
-<p class="admonition-title">집필 예정</p>
-<p>이 절은 목차 초안입니다. 학습 목표와 다룰 내용만 정리되어 있습니다.</p>
-</div>
-<h2 id="_1">학습 목표<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>학습한 트리를 외부 라이브러리 없는 코드로 변환</li>
-</ul>
-<h2 id="_2">다룰 내용<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>export_text 출력 해석</li>
-<li>if 문 변환</li>
-<li>MicroPython 코드 작성</li>
-</ul>
+<p>사이버파이의 MicroPython에서는 scikit-learn을 사용할 수 없다. 학습한 결정트리를 기기에서 실행하려면 분기 규칙을 if 문으로 변환해야 한다. 12.1절에서 날씨 모델을 변환한 방법을 동작 분류 모델에 적용한다.</p>
+<h2 id="export_text">export_text 출력 해석<a class="headerlink" href="#export_text" title="Permanent link">&para;</a></h2>
+<p>조건문에는 정확한 기준값이 필요하므로 <code>decimals=4</code>로 소수 넷째 자리까지 출력한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_text</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">export_text</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">FEATS</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|--- ax_std &lt;= 0.5996
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|   |--- ay_std &lt;= 0.4518
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|   |   |--- az_mean &lt;= 7.4455
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|   |   |   |--- class: tilt
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|   |   |--- az_mean &gt;  7.4455
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>|   |   |   |--- class: still
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>|   |--- ay_std &gt;  0.4518
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>|   |   |--- az_mean &lt;= 9.5005
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>|   |   |   |--- class: tilt
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>|   |   |--- az_mean &gt;  9.5005
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>|   |   |   |--- class: still
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>|--- ax_std &gt;  0.5996
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>|   |--- ay_std &lt;= 0.6770
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>|   |   |--- ax_std &lt;= 5.0755
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>|   |   |   |--- class: circle
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>|   |   |--- ax_std &gt;  5.0755
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>|   |   |   |--- class: shake
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>|   |--- ay_std &gt;  0.6770
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>|   |   |--- class: shake
+</code></pre></div>
+<figure>
+  <img alt="결정트리 규칙 출력" src="../../assets/img/ch11_colab_rules.png" />
+<br />
+<figcaption>그림 11-8 Colab에서 출력한 깊이 3 결정트리의 규칙</figcaption>
+</figure>
+<p>첫 분기 <code>ax_std &lt;= 0.5996</code>은 좌우 방향 변동의 크기로 동작을 둘로 나눈다. 왼쪽 가지(변동이 작음)는 정지와 기울이기, 오른쪽 가지(변동이 큼)는 원 그리기와 흔들기다.</p>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>조건</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>좌우 변동 작음, <code>ay_std</code> ≤ 0.4518</td>
+<td><code>az_mean</code> ≤ 7.4455</td>
+<td>기울이기, 아니면 정지</td>
+</tr>
+<tr>
+<td>좌우 변동 작음, <code>ay_std</code> &gt; 0.4518</td>
+<td><code>az_mean</code> ≤ 9.5005</td>
+<td>기울이기, 아니면 정지</td>
+</tr>
+<tr>
+<td>좌우 변동 큼, <code>ay_std</code> ≤ 0.6770</td>
+<td><code>ax_std</code> ≤ 5.0755</td>
+<td>원 그리기, 아니면 흔들기</td>
+</tr>
+<tr>
+<td>좌우 변동 큼, <code>ay_std</code> &gt; 0.6770</td>
+<td></td>
+<td>흔들기</td>
+</tr>
+</tbody>
+</table>
+<p>왼쪽 가지의 두 경로는 모두 <code>az_mean</code>으로 기울이기와 정지를 구분하지만 기준값이 다르다. 앞뒤 방향 변동(<code>ay_std</code>)이 작으면 <code>az_mean</code>이 7.45 이하로 크게 감소해야 기울이기로 판정하고, 변동이 크면 9.50 이하에서도 기울이기로 판정한다. 기울이는 동작은 <code>ay</code>를 변화시키므로 두 특징을 함께 사용하는 것이다.</p>
+<h2 id="if">if 문 변환<a class="headerlink" href="#if" title="Permanent link">&para;</a></h2>
+<p>규칙을 위에서부터 차례로 if 문으로 옮긴다. 들여쓰기 깊이가 트리의 깊이와 같다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">"""11.2절 결정트리(깊이 3)의 조건문 변환. f는 특징 딕셔너리"""</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"ax_std"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.5996</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"ay_std"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.4518</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            <span class="k">return</span> <span class="s2">"tilt"</span> <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"az_mean"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">7.4455</span> <span class="k">else</span> <span class="s2">"still"</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">return</span> <span class="s2">"tilt"</span> <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"az_mean"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">9.5005</span> <span class="k">else</span> <span class="s2">"still"</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"ay_std"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.6770</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="k">return</span> <span class="s2">"circle"</span> <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">"ax_std"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">5.0755</span> <span class="k">else</span> <span class="s2">"shake"</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">return</span> <span class="s2">"shake"</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">pred_if</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">classify</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">F</span><span class="p">[</span><span class="n">FEATS</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">"records"</span><span class="p">)])</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">pred_tree</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">F</span><span class="p">[</span><span class="n">FEATS</span><span class="p">])</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"일치 창 수"</span><span class="p">,</span> <span class="p">(</span><span class="n">pred_if</span> <span class="o">==</span> <span class="n">pred_tree</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">"/"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">F</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>일치 창 수 1440 / 1440
+</code></pre></div>
+<figure>
+  <img alt="조건문 변환 검증" src="../../assets/img/ch11_colab_if_check.png" />
+<br />
+<figcaption>그림 11-9 조건문 함수와 원래 결정트리의 판정 일치 검증</figcaption>
+</figure>
+<p><code>A if 조건 else B</code>는 조건이 참이면 A, 거짓이면 B를 반환하는 한 줄 조건식이다. <code>to_dict("records")</code>는 DataFrame의 각 행을 딕셔너리로 변환해 리스트로 반환한다. 1,440개 창 전체에서 조건문 함수와 원래 결정트리의 판정이 일치하면 변환이 정확하다는 의미다.</p>
+<h2 id="micropython">MicroPython 특징 계산<a class="headerlink" href="#micropython" title="Permanent link">&para;</a></h2>
+<p>기기에는 pandas도 없으므로 평균과 표준편차를 직접 계산하는 함수를 작성한다. pandas의 <code>std()</code>는 n − 1로 나누는 표본 표준편차이므로 같은 공식을 사용한다.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">std</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">w</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">"student"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"S01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"gesture"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"shake"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"rep"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">std</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">"ax"</span><span class="p">])),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">"ax"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">"az"</span><span class="p">])),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">"az"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>실행 결과</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>9.0837 9.0837
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>10.002 10.002
+</code></pre></div>
+<p>리스트로 계산한 값과 pandas로 계산한 값이 같으면, 기기에서 계산한 특징을 그대로 <code>classify</code> 함수에 입력할 수 있다. 이 두 함수와 <code>classify</code> 함수는 외부 라이브러리를 사용하지 않으므로 MicroPython에서 그대로 실행된다. 12.2절에서 이 코드를 사이버파이에 탑재한다.</p>
+<h2 id="_1">확인 문제<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>classify</code> 함수의 기준값을 소수 첫째 자리로 반올림(0.6, 0.5, 7.4, 9.5, 0.7, 5.1)하고 일치 창 수를 다시 확인하시오. 일치하지 않는 창이 생긴다면 그 이유를 설명하시오.</li>
+<li>깊이 2의 결정트리를 학습하고 if 문으로 변환하시오.</li>
+<li><code>std</code> 함수를 n으로 나누도록 바꾸면 결과가 어떻게 달라지는지 확인하시오.</li>
+</ol>
 
 
 
