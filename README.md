@@ -12,6 +12,9 @@
 | `scripts/capture_ch09_ch10.py` | 9·10장 코드 블록을 실행해 본문 실행 결과의 근거 출력 |
 | `scripts/verify_ch09_ch10.py` | 9장 그림(`ch09_pred_vs_actual.png`) 생성과 수치 검증 |
 | `scripts/verify_ch12_rule.py`, `ch12_weather_signal.py` | 12.1절 조건문 모델과 원래 결정트리의 일치 검증, 가짜 cyberpi로 예보 수신 시험 |
+| `scripts/make_notebooks.py` | 본문 ```python 블록으로 장별 Colab 노트북(`notebooks/chNN.ipynb`) 생성 |
+| `scripts/crop_shots.py` | 브라우저 캡처에서 필요한 영역을 잘라 그림으로 저장 |
+| `scripts/diagrams.py` | 캡처로 대체할 수 없는 구조도만 SVG로 생성 |
 | `docs/` | 페이지 원고(md), 자료, 그림, CSS |
 
 ## 작업 순서
@@ -37,6 +40,8 @@ python scripts/publish.py --push   # _site 조립 후 gh-pages 가지로 공개 
 
 ## 집필 현황(2026-11-08)
 
-집필: 시작하며, 1.2, 4.7, 9장 전체, 10장 전체, 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 4.7, 9장, 10장, 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+
+그림 원칙(사용자 지시): 직접 그리지 않고 실제 실행 화면을 캡처한다. 캡처 원본은 `_raw/`(git 제외), 자르기는 `scripts/crop_shots.py`(계정 사진 자동 가림). 노트북은 `scripts/make_notebooks.py`가 본문 코드로 생성한다.
 
 실기기 확인 전: 4.7·12.1절의 LED 스트립 점등, mBlock 내장 파이썬 3.6.5의 HTTPS 접속, 1.2절 mBlock 웹 편집기 메뉴 이름.
