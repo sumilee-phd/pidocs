@@ -14,7 +14,7 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 from outline import PARTS  # noqa: E402
 
-CAP = re.compile(r'<figcaption>그림 (?:N-\?|\d+-\d+) ')
+CAP = re.compile(r'<figcaption>그림 (?:N-\?|\d+-\?|\d+-\d+) ')
 
 
 def number(cid):
