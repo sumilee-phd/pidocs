@@ -12,6 +12,7 @@
 | `scripts/capture_ch09_ch10.py` | 9·10장 코드 블록을 실행해 본문 실행 결과의 근거 출력 |
 | `scripts/verify_ch09_ch10.py` | 9장 그림(`ch09_pred_vs_actual.png`) 생성과 수치 검증 |
 | `scripts/verify_ch12_rule.py`, `ch12_weather_signal.py` | 12.1절 조건문 모델과 원래 결정트리의 일치 검증, 가짜 cyberpi로 예보 수신 시험 |
+| `scripts/fill_outputs.py` | 장별 python 블록을 순서대로 실행해 내용이 `OUT`인 ```text 블록에 실제 출력 기입(`python scripts/fill_outputs.py ch03 ch05`) |
 | `scripts/make_notebooks.py` | 본문 ```python 블록으로 장별 Colab 노트북(`notebooks/chNN.ipynb`) 생성 |
 | `scripts/crop_shots.py` | 브라우저 캡처에서 필요한 영역을 잘라 그림으로 저장 |
 | `scripts/diagrams.py` | 캡처로 대체할 수 없는 구조도만 SVG로 생성 |
@@ -38,9 +39,9 @@ python scripts/publish.py --push   # _site 조립 후 gh-pages 가지로 공개 
 
 목차를 바꿀 때는 `outline.py`를 수정하고 `make_site.py`를 다시 실행한다. 절을 집필하면 페이지 첫머리의 `<!-- STUB ... -->` 줄을 지운다.
 
-## 집필 현황(2026-11-08)
+## 집필 현황(2026-11-09)
 
-집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 4.7, 9장, 10장, 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
+집필: 시작하며, 1장·2장 전체(11/8, Colab·mBlock 실행 화면 캡처 18장), 3장·5장·6장 전체(11/9, Colab 실행 화면 캡처 12장), 4.7, 9장, 10장, 12.1, 부록 D. 나머지는 학습 목표·다룰 내용만 있는 초안.
 
 그림 원칙(사용자 지시): 직접 그리지 않고 실제 실행 화면을 캡처한다. 캡처 원본은 `_raw/`(git 제외), 자르기는 `scripts/crop_shots.py`(계정 사진 자동 가림). 노트북은 `scripts/make_notebooks.py`가 본문 코드로 생성한다.
 
