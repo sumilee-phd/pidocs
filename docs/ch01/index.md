@@ -1,8 +1,10 @@
 # 1장 블록 코딩에서 파이썬으로
 
-<!-- STUB: make_site.py가 생성한 초안. 집필 후 이 줄을 지운다. -->
+<span class="chip">1주차</span> <span class="chip on">온라인</span> <span class="chip">기기 불필요</span>
 
-<span class="chip">1주차</span> <span class="chip on">온라인</span>
+이 장에서는 과목 전체의 구성을 확인하고, 블록 코딩으로 프로그램의 기본 구조를 실습한 뒤, Colab에서 첫 파이썬 코드를 실행한다. 1주차는 기기 없이 진행하며, 사이버파이는 4주차 오프라인 수업에서 처음 사용한다.
+
+[Colab에서 열기](https://colab.research.google.com/github/sumilee-phd/pidocs/blob/main/notebooks/ch01.ipynb){ .md-button .md-button--primary }
 
 ## 절 구성
 
@@ -14,12 +16,14 @@
 
 ## 학습 목표
 
-- 피지컬컴퓨팅의 정의와 측정-판단-반응 구조 이해
-- 16주 진행 방식(온라인 3주·오프라인 1주) 확인
-- 순차·반복·조건 구조를 블록으로 구성
-- 블록 프로그램과 텍스트 프로그램의 대응 관계 이해
-- Colab 노트북 생성과 셀 실행
-- 노트북 저장과 제출 절차 숙지
-- 변수와 기본 자료형 사용
-- print·input·형 변환 사용
-- 생성형 AI를 학습 보조 도구로 활용하는 절차 숙지
+- 피지컬컴퓨팅의 입력-처리-출력 구조를 설명한다.
+- 순차·반복·조건 구조를 블록으로 구성하고 파이썬 문법과 대응시킨다.
+- Colab 노트북에서 코드를 실행하고 저장한다.
+- 변수와 기본 자료형을 사용하고, 입력값의 자료형을 변환한다.
+- 생성형 AI를 학습 보조 도구로 활용하는 절차를 따른다.
+
+!!! abstract "참고 링크"
+    - [mBlock 웹 편집기](https://ide.mblock.cc)
+    - [Google Colab](https://colab.research.google.com)
+    - [파이썬 자습서(한국어)](https://docs.python.org/ko/3/tutorial/index.html)
+    - [Gemini](https://gemini.google.com)
