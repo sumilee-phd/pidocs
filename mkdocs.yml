@@ -1,0 +1,168 @@
+# make_site.py가 생성하는 파일. 목차는 scripts/outline.py에서 수정한다.
+site_name: AI 파이썬 피지컬컴퓨팅
+site_description: 사이버파이 기반 센서 측정·머신러닝·기기 반응 실습서
+site_author: 이수미
+site_url: https://pidocs.aifusionlab.org/ai-python/
+repo_url: https://github.com/sumilee-phd/pidocs
+repo_name: sumilee-phd/pidocs
+edit_uri: ''
+copyright: '© 2026 이수미 · 날씨 자료 <a href="https://open-meteo.com/">Open-Meteo.com</a> (CC BY 4.0)'
+
+theme:
+  name: material
+  language: ko
+  font: false
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  features:
+    - navigation.indexes
+    - navigation.footer
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    logo: material/book-open-page-variant
+
+extra_css:
+  - https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css
+  - assets/css/book.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+
+extra:
+  homepage: https://pidocs.aifusionlab.org/
+  generator: false
+
+plugins:
+  - search:
+      lang: ko
+
+nav:
+  - 시작하며: index.md
+  - 1부 센서 데이터와 파이썬 기초:
+    - "1장 블록 코딩에서 파이썬으로":
+      - ch01/index.md
+      - "1.1 피지컬컴퓨팅과 이 과목의 구성": ch01/1-1.md
+      - "1.2 블록 코딩 체험": ch01/1-2.md
+      - "1.3 Colab 시작": ch01/1-3.md
+      - "1.4 변수·자료형·입출력": ch01/1-4.md
+      - "1.5 생성형 AI 활용 원칙": ch01/1-5.md
+    - "2장 조건·반복·함수":
+      - ch02/index.md
+      - "2.1 조건문": ch02/2-1.md
+      - "2.2 반복문": ch02/2-2.md
+      - "2.3 함수": ch02/2-3.md
+      - "2.4 실습: 조도값 판정 함수": ch02/2-4.md
+    - "3장 자료구조와 파일":
+      - ch03/index.md
+      - "3.1 리스트와 딕셔너리": ch03/3-1.md
+      - "3.2 파일 입출력과 CSV": ch03/3-2.md
+      - "3.3 실습: 서울 날씨 자료 첫 분석": ch03/3-3.md
+    - "4장 사이버파이 첫 실습":
+      - ch04/index.md
+      - "4.1 사이버파이 구성과 사양": ch04/4-1.md
+      - "4.2 mBlock 설치와 펌웨어 관리": ch04/4-2.md
+      - "4.3 Live 모드와 Upload 모드": ch04/4-3.md
+      - "4.4 블록 코드와 파이썬 코드 대조": ch04/4-4.md
+      - "4.5 화면·LED·버튼 제어": ch04/4-5.md
+      - "4.6 센서값 측정과 CSV 저장": ch04/4-6.md
+      - "4.7 LED 스트립 점등과 소등": ch04/4-7.md
+  - 2부 데이터 분석과 규칙 기반 판정:
+    - "5장 pandas 데이터 정리":
+      - ch05/index.md
+      - "5.1 DataFrame 기초": ch05/5-1.md
+      - "5.2 결측치·이상치 처리": ch05/5-2.md
+      - "5.3 날짜 열과 월별 집계": ch05/5-3.md
+    - "6장 시각화와 기술통계":
+      - ch06/index.md
+      - "6.1 matplotlib 그래프": ch06/6-1.md
+      - "6.2 기술통계와 분포": ch06/6-2.md
+      - "6.3 실습: 계절별 기온 분포와 센서 분포": ch06/6-3.md
+    - "7장 규칙 기반 판정과 LED 신호":
+      - ch07/index.md
+      - "7.1 임계값 설계": ch07/7-1.md
+      - "7.2 z-점수 이상 탐지": ch07/7-2.md
+      - "7.3 오탐과 미탐": ch07/7-3.md
+      - "7.4 실습: 소음 단계 LED 스트립 신호등": ch07/7-4.md
+    - "8장 무선 전송과 실기 과제":
+      - ch08/index.md
+      - "8.1 Upload 모드 프로그램 구조": ch08/8-1.md
+      - "8.2 Wi-Fi 접속과 HTTP 전송": ch08/8-2.md
+      - "8.3 수업 서버 실시간 화면": ch08/8-3.md
+      - "8.4 실기 과제: 수집·판정·표시 프로그램": ch08/8-4.md
+      - "8.5 제스처 데이터 수집": ch08/8-5.md
+  - 3부 머신러닝과 기기 탑재:
+    - "9장 머신러닝 시작: 날씨 회귀":
+      - ch09/index.md
+      - "9.1 지도학습의 구성 요소": ch09/9-1.md
+      - "9.2 날씨 자료의 특징과 레이블": ch09/9-2.md
+      - "9.3 학습 데이터와 평가 데이터의 분할": ch09/9-3.md
+      - "9.4 선형회귀를 이용한 다음 날 기온 예측": ch09/9-4.md
+      - "9.5 회귀 모델 평가": ch09/9-5.md
+    - "10장 분류: 다음 날 강수 여부":
+      - ch10/index.md
+      - "10.1 분류 문제 정의": ch10/10-1.md
+      - "10.2 결정트리 분류기": ch10/10-2.md
+      - "10.3 정확도와 혼동행렬": ch10/10-3.md
+      - "10.4 클래스 불균형과 트리 깊이": ch10/10-4.md
+    - "11장 동작 분류와 엣지 AI":
+      - ch11/index.md
+      - "11.1 가속도 자료의 구간 특징": ch11/11-1.md
+      - "11.2 kNN과 결정트리 비교": ch11/11-2.md
+      - "11.3 결정트리의 조건문 변환": ch11/11-3.md
+      - "11.4 트리 깊이와 정확도의 상충": ch11/11-4.md
+    - "12장 기기 탑재와 날씨 신호등":
+      - ch12/index.md
+      - "12.1 날씨 신호등": ch12/12-1.md
+      - "12.2 제스처 인식기 Upload 탑재": ch12/12-2.md
+      - "12.3 교차 평가": ch12/12-3.md
+      - "12.4 프로젝트 주제 선정": ch12/12-4.md
+  - 4부 생성형 AI 연동과 프로젝트:
+    - "13장 생성형 AI API":
+      - ch13/index.md
+      - "13.1 Gemini API 호출": ch13/13-1.md
+      - "13.2 프롬프트 설계": ch13/13-2.md
+      - "13.3 수치 계산과 문장 생성의 분리": ch13/13-3.md
+      - "13.4 출력 검증": ch13/13-4.md
+    - "14장 FastAPI 수신 서버":
+      - ch14/index.md
+      - "14.1 웹 API의 구조": ch14/14-1.md
+      - "14.2 FastAPI 엔드포인트": ch14/14-2.md
+      - "14.3 판정 모듈 연결": ch14/14-3.md
+      - "14.4 가상 노드로 서버 시험": ch14/14-4.md
+    - "15장 통합과 발표 준비":
+      - ch15/index.md
+      - "15.1 시스템 통합 점검표": ch15/15-1.md
+      - "15.2 예외 처리": ch15/15-2.md
+      - "15.3 시연 시나리오 작성": ch15/15-3.md
+    - "16장 최종 시연":
+      - ch16/index.md
+      - "16.1 시연 절차": ch16/16-1.md
+      - "16.2 시연 점검 기준": ch16/16-2.md
+      - "16.3 회고와 개선 과제": ch16/16-3.md
+  - 부록:
+    - "A. 개발 환경 설치": appendix/a.md
+    - "B. 사이버파이 API 요약": appendix/b.md
+    - "C. 문제 해결": appendix/c.md
+    - "D. 데이터셋 출처와 이용 조건": appendix/d.md
+    - "E. 용어집": appendix/e.md
