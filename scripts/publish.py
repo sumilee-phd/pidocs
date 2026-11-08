@@ -28,6 +28,8 @@ def main():
         shutil.copy2(os.path.join(ROOT, 'hub', name), os.path.join(SITE, name))
     print('조립 완료:', SITE)
     if '--push' in sys.argv:
+        # GitHub 설정 화면·API가 gh-pages에 CNAME 커밋을 남기는 경우가 있어, 원격 가지를 먼저 받아 그 위에 올린다
+        subprocess.run(['git', 'fetch', '-q', 'origin', '+gh-pages:gh-pages'], cwd=ROOT)
         run('ghp-import', '-n', '-c', DOMAIN, '-b', 'gh-pages', '-m', 'piDocs 게시', '-p', '_site')
 
 
