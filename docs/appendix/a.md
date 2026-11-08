@@ -34,12 +34,12 @@ PC 버전은 설치 중 장치 드라이버 설치를 묻는 창에서 설치를
 
 <figure markdown="span">
   ![Python 내려받기 페이지](../assets/img/appA_python_download.png)
-  <figcaption>그림 A-? Python 내려받기 페이지</figcaption>
+  <figcaption>그림 A-1 Python 내려받기 페이지(2026-11-09 기준 Windows 화면)</figcaption>
 </figure>
 
-Windows 설치 프로그램의 첫 화면에서 **Add python.exe to PATH**를 선택한 뒤 설치한다. 이 항목을 선택하지 않으면 명령 창에서 `python` 명령을 찾지 못한다.
+Windows에서는 두 가지 설치 방법을 제공한다. 「Download Python install manager」는 여러 버전의 파이썬을 설치·관리하는 설치 관리자이고, 그 아래 「standalone installer」 링크는 한 버전만 설치하는 기존 방식의 설치 파일이다. 이 책은 standalone installer를 기준으로 설명한다. 설치 프로그램의 첫 화면에서 **Add python.exe to PATH**를 선택한 뒤 설치한다. 이 항목을 선택하지 않으면 명령 창에서 `python` 명령을 찾지 못한다.
 
-<!-- PHOTO: appA_cap_python_installer — Windows Python 설치 프로그램 첫 화면(Add python.exe to PATH 선택 상태), G14에서 캡처 -->
+<!-- PHOTO: appA_cap_python_installer — Windows Python standalone installer 첫 화면(Add python.exe to PATH 선택 상태), G14에서 캡처 -->
 
 설치가 끝나면 명령 창(Windows는 「명령 프롬프트」 또는 「PowerShell」)에서 다음 명령으로 설치를 확인한다.
 
