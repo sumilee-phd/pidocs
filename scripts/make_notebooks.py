@@ -23,7 +23,7 @@ RAW = 'https://raw.githubusercontent.com/sumilee-phd/pidocs/main/docs/'  # 자�
 W, R = 'data/seoul_weather_2021_2025.csv', 'data/class_rssi_20261104.csv'
 GX = 'data/gesture_example.csv'
 DATA = {  # 장 → 내려받을 자료
-    'ch03': [W, R], 'ch05': [W, R], 'ch06': [W, R], 'ch07': [W, R], 'ch09': [W], 'ch10': [W], 'ch11': [GX], 'ch12': [GX], 'ch13': [R], 'ch14': [R],
+    'ch03': [W, R], 'ch05': [W, R], 'ch06': [W, R], 'ch07': [W, R], 'ch09': [W], 'ch10': [W], 'ch11': [GX], 'ch12': [GX], 'ch13': [R], 'ch14': [R], 'ch15': [R],
 }
 CODE = re.compile(r'```python\n(.*?)```', re.S)
 
@@ -52,7 +52,7 @@ def build(cid, ctitle, sections):
         text = open(path, encoding='utf-8').read()
         if 'STUB' in text.split('\n', 3)[2] if text.count('\n') > 2 else False:
             continue
-        blocks = [b for b in CODE.findall(text) if 'import cyberpi' not in b]
+        blocks = [b for b in CODE.findall(text) if 'import cyberpi' not in b and 'PC 전용' not in b.split(chr(10), 1)[0]]
         if not blocks:
             continue
         cells.append(md_cell(f'## {sid.replace("-", ".")} {stitle}\n\n[본문 보기]({SITE}{cid}/{sid}/)'))

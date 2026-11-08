@@ -65,7 +65,7 @@ def fill_chapter(cid):
             for m in BLOCK.finditer(text):
                 kind, content = m.group(1), m.group(2)
                 if kind == 'python':
-                    pending = None if 'import cyberpi' in content else run(content, ns)
+                    pending = None if ('import cyberpi' in content or 'PC 전용' in content.split(chr(10), 1)[0]) else run(content, ns)
                     continue
                 if kind == 'text' and pending is not None and content.strip() == 'OUT':
                     gap = text[pos:m.start()] if False else None
