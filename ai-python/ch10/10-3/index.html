@@ -4007,7 +4007,7 @@
 <br />
 <figcaption>그림 10-4 Colab에서 산출한 정확도·혼동행렬·재현율·정밀도</figcaption>
 </figure>
-<p>결정트리의 정확도는 0.706, 항상 "비 안 옴"으로 예측하는 기준선은 0.703이다. 정확도만 비교하면 결정트리의 개선은 0.003에 불과하다.</p>
+<p>결정트리의 정확도는 0.706, 항상 「비 안 옴」으로 예측하는 기준선은 0.703이다. 정확도만 비교하면 결정트리의 개선은 0.003에 불과하다.</p>
 <h2 id="_2">혼동행렬<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>혼동행렬(confusion matrix)은 실제 범주와 예측 범주의 조합별 건수를 표로 정리한 것이다. scikit-learn의 출력은 행이 실제값, 열이 예측값이다.</p>
 <table>
@@ -4031,7 +4031,7 @@
 </tr>
 </tbody>
 </table>
-<p>2025년의 실제 강수일 108일(77 + 31) 중 모델이 강수로 예측한 날은 31일뿐이다. 나머지 77일은 비가 왔는데도 "비 안 옴"으로 예측한 미검출이다.</p>
+<p>2025년의 실제 강수일 108일(77 + 31) 중 모델이 강수로 예측한 날은 31일뿐이다. 나머지 77일은 비가 왔는데도 「비 안 옴」으로 예측한 미검출이다.</p>
 <p><code>ConfusionMatrixDisplay</code>는 혼동행렬을 색으로 구분한 그림으로 표시한다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>

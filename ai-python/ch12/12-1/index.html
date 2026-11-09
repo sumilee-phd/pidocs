@@ -4028,7 +4028,7 @@
 
 <h1 id="121">12.1 날씨 신호등<a class="headerlink" href="#121" title="Permanent link">&para;</a></h1>
 <p><span class="chip off">오프라인</span> <span class="chip">Live 모드</span> <span class="chip">LED 스트립 12구</span></p>
-<p>이 절에서는 10장에서 학습한 강수 분류 모델과 공개 기상 예보를 LED 스트립에 함께 표시하는 날씨 신호등을 구성한다. LED 1~6번은 예보 서비스의 내일 강수확률을 막대로, LED 7~12번은 직접 학습한 모델의 판정을 색으로 표시한다. 며칠 동안 두 표시를 실제 날씨와 비교하면, 10장에서 수치로 확인한 모델의 한계를 실물로 확인할 수 있다.</p>
+<p>이 절에서는 10장에서 학습한 강수 분류 모델과 공개 기상 예보를 LED 스트립에 함께 표시하는 날씨 신호등을 구성한다. LED 1~6번은 예보 서비스의 다음 날 강수확률을 막대로, LED 7~12번은 직접 학습한 모델의 판정을 색으로 표시한다. 며칠 동안 두 표시를 실제 날씨와 비교하면, 10장에서 수치로 확인한 모델의 한계를 실물로 확인할 수 있다.</p>
 <h2 id="_1">시스템 구성<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4040,7 +4040,7 @@
 <tbody>
 <tr>
 <td>Open-Meteo 예보 API</td>
-<td>서울의 오늘 예상 강수량과 내일 최대 강수확률 제공(인증키 불필요)</td>
+<td>서울의 당일 예상 강수량과 다음 날 최대 강수확률 제공(인증키 불필요)</td>
 </tr>
 <tr>
 <td>조건문 모델 <code>my_model</code></td>
@@ -4102,7 +4102,7 @@
 </tbody>
 </table>
 <p>모든 잎이 같은 범주를 출력하는 분기(일조시간 8.75, <code>doy_sin</code> 0.2154)는 판정 결과에 영향이 없으므로 조건문에서 생략한다. 이렇게 작성한 <code>my_model</code> 함수는 2021~2025년 1,825일 전체에서 원래 결정트리와 판정이 100% 일치했다.</p>
-<p>왼쪽 가지의 조건 <code>doy_cos &lt;= -0.1425 and doy_sin &lt;= 0.4189</code>는 연중 약 158일째(6월 상순)부터 약 266일째(9월 하순)까지에 해당한다. 가중치를 적용한 모델은 이 기간에 오늘 비가 오지 않았더라도 다음 날을 강수로 판정한다. 장마와 여름철 소나기가 집중되는 기간의 강수 빈도를 학습한 결과다.</p>
+<p>왼쪽 가지의 조건 <code>doy_cos &lt;= -0.1425 and doy_sin &lt;= 0.4189</code>는 연중 약 158일째(6월 상순)부터 약 266일째(9월 하순)까지에 해당한다. 가중치를 적용한 모델은 이 기간에 당일 비가 오지 않았더라도 다음 날을 강수로 판정한다. 장마와 여름철 소나기가 집중되는 기간의 강수 빈도를 학습한 결과다.</p>
 <h2 id="_3">날씨 신호등 프로그램<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>mBlock 파이썬 편집기에서 사이버파이를 연결하고 <strong>Live</strong> 모드를 선택한 뒤 다음 코드를 실행한다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cyberpi</span>
@@ -4164,11 +4164,11 @@
 <tbody>
 <tr>
 <td>1) 예보 수신</td>
-<td>예보 API의 JSON 응답에서 <code>daily</code> 항목을 추출한다. 각 목록의 0번이 오늘, 1번이 내일 값이다.</td>
+<td>예보 API의 JSON 응답에서 <code>daily</code> 항목을 추출한다. 각 목록의 0번이 당일, 1번이 다음 날 값이다.</td>
 </tr>
 <tr>
 <td>2) 모델 판정</td>
-<td>오늘 예상 강수량과 오늘 날짜의 계절 위치를 <code>my_model</code>에 입력한다. 학습 때와 같은 방식(9.2절)으로 <code>doy_sin</code>·<code>doy_cos</code>를 산출한다.</td>
+<td>당일 예상 강수량과 실행 당일의 계절 위치를 <code>my_model</code>에 입력한다. 학습 때와 같은 방식(9.2절)으로 <code>doy_sin</code>·<code>doy_cos</code>를 산출한다.</td>
 </tr>
 <tr>
 <td>3) LED 표시</td>
@@ -4177,7 +4177,7 @@
 </tbody>
 </table>
 <h2 id="_4">표시 예<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>다음은 사이버파이 대신 함수 호출 기록 장치를 연결해 2026-11-08에 같은 코드를 실행한 결과다. 내일 강수확률 53%가 6칸 중 3칸(<code>b b b</code>)으로 표시되고, 모델은 오늘 예상 강수량과 11월의 계절 위치로 무강수(<code>y</code>)를 판정했다.</p>
+<p>다음은 사이버파이 대신 함수 호출 기록 장치를 연결해 2026-11-08에 같은 코드를 실행한 결과다. 다음 날 강수확률 53%가 6칸 중 3칸(<code>b b b</code>)으로 표시되고, 모델은 당일 예상 강수량과 11월의 계절 위치로 무강수(<code>y</code>)를 판정했다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>('led_set_bri', 30, 's1')
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>('led_show', 'b b b k k k y y y y y y', 's1')
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>('clear',)
@@ -4186,7 +4186,7 @@
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">학습 자료와 입력 자료의 차이</p>
-<p>모델은 재분석 자료의 일강수량으로 학습했지만, 이 프로그램은 예보 API의 오늘 예상 강수량을 입력한다. 오전에 실행하면 오늘의 강수가 아직 발생하지 않은 상태의 예상값이 입력된다. 학습 자료와 입력 자료의 산출 방식이 다르면 판정 성능이 학습 때와 달라질 수 있다.</p>
+<p>모델은 재분석 자료의 일강수량으로 학습했지만, 이 프로그램은 예보 API의 당일 예상 강수량을 입력한다. 오전에 실행하면 당일의 강수가 아직 발생하지 않은 상태의 예상값이 입력된다. 학습 자료와 입력 자료의 산출 방식이 다르면 판정 성능이 학습 때와 달라질 수 있다.</p>
 </div>
 <!-- PHOTO: ch12_photo_weather_signal — 날씨 신호등 실행 사진(1~6번 예보 강수확률 막대, 7~12번 내 모델 판정 색), 사이버파이 화면 표시 포함. mBlock 출력 창 캡처 1장 추가 -->
 

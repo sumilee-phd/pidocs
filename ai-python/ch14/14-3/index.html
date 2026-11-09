@@ -4064,7 +4064,7 @@
 </tr>
 <tr>
 <td><code>my_model</code></td>
-<td>오늘 강수량, 계절 위치</td>
+<td>당일 강수량, 계절 위치</td>
 <td>다음 날 강수 여부</td>
 <td>12.1절 조건문 변환</td>
 </tr>
@@ -4078,7 +4078,7 @@
 </table>
 <h2 id="_4">확인 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ol>
-<li><code>judge.py</code>에 12.1절의 <code>my_model</code> 함수를 추가하고, 오늘 강수량과 날짜를 받아 다음 날 강수 여부를 반환하는 엔드포인트를 작성하시오.</li>
+<li><code>judge.py</code>에 12.1절의 <code>my_model</code> 함수를 추가하고, 당일 강수량과 날짜를 받아 다음 날 강수 여부를 반환하는 엔드포인트를 작성하시오.</li>
 <li><code>THRESH</code>에 없는 지점(예: <code>D5</code>)으로 판정을 요청하면 어떤 오류가 발생하는지 확인하고, <code>Measure</code> 모델의 <code>pattern</code> 제약이 이 오류를 어떻게 예방하는지 설명하시오.</li>
 <li>응답에 판정 기준값(<code>q10</code>, <code>q25</code>)도 포함하도록 수정하시오.</li>
 </ol>

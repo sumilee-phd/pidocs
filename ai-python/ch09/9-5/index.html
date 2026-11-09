@@ -4052,9 +4052,9 @@
 <br />
 <figcaption>그림 9-10 Colab에서 산출한 MAE·RMSE·R²</figcaption>
 </figure>
-<p>2025년 364일에 대한 예측 오차는 평균 1.43℃다. RMSE가 MAE보다 큰 것은 일부 날짜에서 큰 오차가 발생했음을 의미한다.</p>
+<p>2025년 364일의 예측 오차는 평균 1.43℃다. RMSE가 MAE보다 큰 것은 일부 날짜에서 큰 오차가 발생했음을 의미한다.</p>
 <h2 id="_2">기준선 모델과의 비교<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>결정계수 0.969는 높은 값이지만, 이 값만으로 모델이 유용하다고 판단할 수는 없다. 이 자료의 서울 일평균기온은 계절에 따라 −15.6℃에서 32.8℃까지 변동하므로, 계절 변동만 추종해도 결정계수는 높게 산출된다. 모델의 유효성은 가장 단순한 예측 방법인 기준선(baseline) 모델과 비교해 판정한다. 기온 예측에서 대표적인 기준선은 "내일 평균기온은 오늘 평균기온과 같다"는 예측이다.</p>
+<p>결정계수 0.969는 높은 값이지만, 이 값만으로 모델이 유용하다고 판단할 수는 없다. 이 자료의 서울 일평균기온은 계절에 따라 −15.6℃에서 32.8℃까지 변동하므로, 계절 변동만 추종해도 결정계수는 높게 산출된다. 모델의 유효성은 가장 단순한 예측 방법인 기준선(baseline) 모델과 비교해 판정한다. 기온 예측에서 대표적인 기준선은 「다음 날 평균기온은 당일 평균기온과 같다」는 예측이다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">base</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">"temp_mean"</span><span class="p">]</span>          <span class="c1"># 오늘 평균기온을 그대로 내일 예측값으로 사용</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">base_mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"target_temp"</span><span class="p">],</span> <span class="n">base</span><span class="p">)</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"기준선 MAE </span><span class="si">{</span><span class="n">base_mae</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -4076,7 +4076,7 @@
 </thead>
 <tbody>
 <tr>
-<td>기준선(오늘 기온 유지)</td>
+<td>기준선(당일 기온 유지)</td>
 <td>1.70</td>
 </tr>
 <tr>
@@ -4135,7 +4135,7 @@
 <h2 id="_5">확인 문제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
 <li><code>print(test["target_temp"].std())</code>로 평가 데이터 레이블의 표준편차를 산출하고, MAE 1.43℃와 비교해 결정계수가 높게 산출된 이유를 설명하시오.</li>
-<li>특징에 "어제 평균기온"(<code>df["temp_mean"].shift(1)</code>)을 추가하고 MAE가 감소하는지 확인하시오.</li>
+<li>특징에 「전날 평균기온」(<code>df["temp_mean"].shift(1)</code>)을 추가하고 MAE가 감소하는지 확인하시오.</li>
 <li>오차가 큰 상위 10일을 출력하고, 몇 월에 집중되는지 집계하시오.</li>
 </ol>
 

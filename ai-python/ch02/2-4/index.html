@@ -4059,7 +4059,7 @@
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>101 측정 오류
 </code></pre></div>
 <h2 id="_3">경계값 시험<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>시험값은 구간의 경계(29·30, 69·70)와 범위의 양 끝(0·100), 범위 밖(−1·101)에서 선택했다. 판정 오류는 대부분 경계에서 발생한다. 예를 들어 <code>bri &lt; 30</code>을 <code>bri &lt;= 30</code>으로 잘못 작성하면 30이 "어두움"으로 판정되는데, 30을 시험하지 않으면 이 오류를 발견할 수 없다.</p>
+<p>시험값은 구간의 경계(29·30, 69·70)와 범위의 양 끝(0·100), 범위 밖(−1·101)에서 선택했다. 판정 오류는 대부분 경계에서 발생한다. 예를 들어 <code>bri &lt; 30</code>을 <code>bri &lt;= 30</code>으로 잘못 작성하면 30이 「어두움」으로 판정되는데, 30을 시험하지 않으면 이 오류를 발견할 수 없다.</p>
 <p><code>assert</code> 문은 조건이 거짓이면 오류를 발생시킨다. 기대한 판정 결과를 <code>assert</code>로 작성해 두면 함수를 수정한 뒤에도 같은 시험을 반복할 수 있다.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"어두움"</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">assert</span> <span class="n">judge_light</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"보통"</span>
@@ -4097,7 +4097,7 @@
 <p><code>dark = normal = bright = error = 0</code>은 네 변수를 한 줄에서 모두 0으로 초기화한다. 판정 결과별 개수를 이렇게 변수 4개로 집계하는 방법은 단계가 늘어나면 코드가 길어진다. 3.1절에서 딕셔너리로 같은 집계를 간결하게 작성한다.</p>
 <h2 id="_5">실습 과제<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
-<li>소리 크기 <code>cyberpi.get_loudness()</code>도 0~100 범위를 반환한다. 0~39 "조용함", 40~69 "보통", 70~100 "시끄러움", 범위 밖 "측정 오류"로 판정하는 함수 <code>judge_loud(loud)</code>를 작성하시오.</li>
+<li>소리 크기 <code>cyberpi.get_loudness()</code>도 0~100 범위를 반환한다. 0~39 「조용함」, 40~69 「보통」, 70~100 「시끄러움」, 범위 밖 「측정 오류」로 판정하는 함수 <code>judge_loud(loud)</code>를 작성하시오.</li>
 <li><code>judge_loud</code>의 경계값 시험을 <code>assert</code>로 6개 이상 작성하시오.</li>
 <li><code>day_log</code>에 −5와 120을 추가하고 집계 결과의 「오류」 개수가 2로 변화하는지 확인하시오.</li>
 </ol>
